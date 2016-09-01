@@ -27,7 +27,14 @@ const s = StyleSheet.create({
 
 const CVC_INPUT_WIDTH = 70;
 const EXPIRY_INPUT_WIDTH = CVC_INPUT_WIDTH;
-const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH;
+const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
+const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
+
+const SCROLL_POSITIONS = {
+  number: 0,
+  expiry: CARD_NUMBER_INPUT_WIDTH,
+  cvc: CARD_NUMBER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH,
+};
 
 export default class CreditCardForm extends Component {
   static propTypes = {
@@ -60,14 +67,7 @@ export default class CreditCardForm extends Component {
 
   _onFocus = field => () => {
     this.setState({ focused: field });
-    this._scrollTo(field);
-  };
-
-  _scrollTo = field => {
-    const xPosition = (field === "number") ? 0 :
-                      (field === "expiry") ? CARD_NUMBER_INPUT_WIDTH :
-                      CARD_NUMBER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH;
-    this.refs.Form.scrollTo({ x: xPosition, animated: true });
+    this.refs.Form.scrollTo({ x: SCROLL_POSITIONS[field], animated: true });
   };
 
   _inputProps = field => {
