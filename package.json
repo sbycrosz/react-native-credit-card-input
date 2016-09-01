@@ -1,0 +1,32 @@
+{
+  "name": "react-native-credit-card-form",
+  "version": "0.0.1",
+  "description": "React native credit card form component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbycrosz/react-native-credit-card-form.git"
+  },
+  "keywords": [
+    "react-native",
+    "credit-card",
+    "credit-card form",
+    "form",
+    "flip",
+    "card",
+    "component"
+  ],
+  "author": "sbycrosz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sbycrosz/react-native-credit-card-form/issues"
+  },
+  "homepage": "https://github.com/sbycrosz/react-native-credit-card-form#readme",
+  "dependencies": {
+    "payment": "^2.0.3",
+    "react-native-credit-card": "sbycrosz/react-native-credit-card"
+  }
+}
