@@ -54,7 +54,7 @@ export default class CreditCardForm extends Component {
     this.state = {
       focused: "",
       values: { number: "", expiry: "", cvc: "" },
-      status: { number: null, expiry: null, cvc: null },
+      status: { form: null, number: null, expiry: null, cvc: null },
     };
   }
 
@@ -63,18 +63,18 @@ export default class CreditCardForm extends Component {
     if (field === "cvc") this.refs.expiry.focus();
   };
 
-  _onBecomeValid = field => {
+  _onBecomeValid = field => () => {
     if (field === "number") this.refs.expiry.focus();
     if (field === "expiry") this.refs.cvc.focus();
   };
 
   _onChange = field => value => {
-    const newValues = { ...this.state.values, [field]: value };
-    const newFormattedValues = CCFieldFormatter.formatValues(newValues);
-    this.setState({
-      values: newFormattedValues,
-      status: CCFieldValidator.validateValues(newFormattedValues),
-    });
+    const values = CCFieldFormatter.formatValues({ ...this.state.values, [field]: value });
+    const validation = CCFieldValidator.validateValues(values);
+    const newState = { values, ...validation };
+
+    this.setState(newState);
+    this.props.onChange && this.props.onChange(newState);
   };
 
   _onFocus = field => () => {
@@ -91,6 +91,7 @@ export default class CreditCardForm extends Component {
 
       onChange: this._onChange(field),
       onBecomeEmpty: this._onBecomeEmpty(field),
+      onBecomeValid: this._onBecomeValid(field),
     }
   };
 

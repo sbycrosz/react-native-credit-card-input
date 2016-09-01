@@ -31,14 +31,6 @@ const s = StyleSheet.create({
 export default class Example extends Component {
   _onChange = formData => {
     console.log(formData);
-    // {
-    //   type: "visa",
-    //   valid: true,
-    //   number: "4242424242424242"
-    //   expiryYear: 12,
-    //   expiryMonth: 4,
-    //   cvc: 200
-    // }
   };
 
   render() {
@@ -46,7 +38,6 @@ export default class Example extends Component {
       <View style={s.container}>
         <CreditCardForm
             autoFocus
-            skipName
 
             labelStyle={s.label}
             inputStyle={s.input}

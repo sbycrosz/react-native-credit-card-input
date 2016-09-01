@@ -12,32 +12,33 @@ const addGaps = (string = "", gaps) => {
   }).filter(part => part !== "").join(" ");
 };
 
+const FALLBACK_CARD = { gaps: [4, 8, 12], lengths: [16], code: { size: 3 } };
 const CCFieldFormatter = {
   formatValues: function(values) {
+    const card = valid.number(values.number).card || FALLBACK_CARD;
+
     return {
-      number: this._formatNumber(values),
-      expiry: this._formatExpiry(values),
-      cvc: this._formatCVC(values),
+      number: this._formatNumber(values.number, card),
+      expiry: this._formatExpiry(values.expiry),
+      cvc: this._formatCVC(values.cvc, card),
     };
   },
 
-  _formatNumber: ({ number }) => {
+  _formatNumber: (number, card) => {
     const numberSanitized = removeNonNumber(number);
-    const card = valid.number(numberSanitized).card || { gaps: [4, 8, 12], lengths: [16] };
     const maxLength = card.lengths[card.lengths.length - 1];
     const lengthSanitized = limitLength(numberSanitized, maxLength);
     const formatted = addGaps(lengthSanitized, card.gaps);
     return formatted;
   },
-  _formatExpiry: ({ expiry }) => {
+  _formatExpiry: (expiry) => {
     const sanitized = limitLength(removeNonNumber(expiry), 4);
     if (sanitized.match(/^[2-9]$/)) { return `0${sanitized}`; }
     if (sanitized.length > 2) { return `${sanitized.substr(0, 2)}/${sanitized.substr(2, sanitized.length)}`; }
     return sanitized;
   },
-  _formatCVC: ({ number, cvc }) => {
-    const numberValidation = valid.number(number);
-    const maxCVCLength = (numberValidation.card || { code: { size: 3 } }).code.size;
+  _formatCVC: (cvc, card) => {
+    const maxCVCLength = card.code.size;
     return limitLength(removeNonNumber(cvc), maxCVCLength);
   },
 };

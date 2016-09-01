@@ -6,17 +6,21 @@ const toStatus = validation => {
          "invalid";
 };
 
+const FALLBACK_CARD = { gaps: [4, 8, 12], lengths: [16], code: { size: 3 } };
 const CCFieldValidator = {
   validateValues: function(values) {
     const numberValidation = valid.number(values.number);
     const expiryValidation = valid.expirationDate(values.expiry);
-    const maxCVCLength = (numberValidation.card || { code: { size: 3 } }).code.size;
+    const maxCVCLength = (numberValidation.card || FALLBACK_CARD).code.size;
     const cvcValidation = valid.cvv(values.cvc, maxCVCLength);
 
     return {
-      number: toStatus(numberValidation),
-      expiry: toStatus(expiryValidation),
-      cvc: toStatus(cvcValidation),
+      valid: numberValidation.isValid && expiryValidation.isValid && cvcValidation.isValid,
+      status: {
+        number: toStatus(numberValidation),
+        expiry: toStatus(expiryValidation),
+        cvc: toStatus(cvcValidation),
+      },
     };
   },
 };
