@@ -12,6 +12,7 @@ import CCInput from "./CCInput";
 
 import { removeNonNumber } from "./Utilities";
 import CCFieldFormatter from "./CCFieldFormatter";
+import CCFieldValidator from "./CCFieldValidator";
 
 const s = StyleSheet.create({
   container: {
@@ -52,17 +53,28 @@ export default class CreditCardForm extends Component {
     super();
     this.state = {
       focused: "",
-      values: {
-        number: "",
-        expiry: "",
-        cvc: "",
-      },
+      values: { number: "", expiry: "", cvc: "" },
+      status: { number: null, expiry: null, cvc: null },
     };
   }
 
+  _onBecomeEmpty = field => () => {
+    if (field === "expiry") this.refs.number.focus();
+    if (field === "cvc") this.refs.expiry.focus();
+  };
+
+  _onBecomeValid = field => {
+    if (field === "number") this.refs.expiry.focus();
+    if (field === "expiry") this.refs.cvc.focus();
+  };
+
   _onChange = field => value => {
     const newValues = { ...this.state.values, [field]: value };
-    this.setState({ values: CCFieldFormatter.formatValues(newValues) });
+    const newFormattedValues = CCFieldFormatter.formatValues(newValues);
+    this.setState({
+      values: newFormattedValues,
+      status: CCFieldValidator.validateValues(newFormattedValues),
+    });
   };
 
   _onFocus = field => () => {
@@ -75,19 +87,22 @@ export default class CreditCardForm extends Component {
       ref: field,
       onFocus: this._onFocus(field),
       value: this.state.values[field],
+      status: this.state.status[field],
+
       onChange: this._onChange(field),
+      onBecomeEmpty: this._onBecomeEmpty(field),
     }
   };
 
   render() {
-    const { values: { number, expiration, cvc }, focused } = this.state;
+    const { values: { number, expiry, cvc }, focused } = this.state;
 
     return (
       <View style={s.container}>
         <CreditCard focused={focused}
             name=" "
             number={removeNonNumber(number)}
-            expiration={expiration}
+            expiry={expiry}
             cvc={cvc}
             shiny={false}
             bar />
@@ -105,7 +120,7 @@ export default class CreditCardForm extends Component {
               label="EXPIRY" />
           <CCInput {...this._inputProps("cvc")}
               containerStyle={{ width: CVC_INPUT_WIDTH }}
-              label="CVC" />
+              label="CVC/CCV" />
         </ScrollView>
       </View>
     );
