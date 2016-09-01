@@ -10,7 +10,7 @@ import CreditCardForm from 'react-native-credit-card-form';
 const s = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    marginTop: 100,
+    marginTop: 60,
   },
   label: {
     color: "black",
