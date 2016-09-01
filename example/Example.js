@@ -39,6 +39,8 @@ export default class Example extends Component {
         <CreditCardForm
             autoFocus
 
+            imageFront={require("./images/card.png")}
+            imageBack={require("./images/card.png")}
             labelStyle={s.label}
             inputStyle={s.input}
             placeholderStyle={s.placeholder}

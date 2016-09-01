@@ -43,6 +43,8 @@ export default class CreditCardForm extends Component {
 
     onChange: PropTypes.func.isRequired,
 
+    imageFront: PropTypes.number,
+    imageBack: PropTypes.number,
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
     placeholderStyle: Text.propTypes.style,
@@ -57,6 +59,8 @@ export default class CreditCardForm extends Component {
       status: { form: null, number: null, expiry: null, cvc: null },
     };
   }
+
+  componentDidMount = () => this.props.autoFocus && this.refs.number.focus();
 
   _onBecomeEmpty = field => () => {
     if (field === "expiry") this.refs.number.focus();
@@ -96,11 +100,14 @@ export default class CreditCardForm extends Component {
   };
 
   render() {
+    const { imageFront, imageBack } = this.props;
     const { values: { number, expiry, cvc }, focused } = this.state;
 
     return (
       <View style={s.container}>
         <CreditCard focused={focused}
+            imageFront={imageFront}
+            imageBack={imageBack}
             name=" "
             number={removeNonNumber(number)}
             expiry={expiry}
