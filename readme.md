@@ -15,7 +15,7 @@ Easy (and good looking) credit-card form for your React Native Project 💳 💳
 ## Usage
 
 ```bash
-npm i -s react-native-credit-card-form
+npm i --save react-native-credit-card-form
 ```
 
 then add these lines in your react-native codebase
