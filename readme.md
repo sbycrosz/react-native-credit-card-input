@@ -32,13 +32,15 @@ import CreditCardForm from 'react-native-credit-card-form';
 | --- | --- | --- | --- |
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Will receive a `formData` object every time the form changes |
+|labels | PropTypes.object | Defaults to <br/>`{ number: "CARD NUMBER", expiry: "EXPIRY", cvc: "CVC/CCV" }` |
+|placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
 |imageFront | PropTypes.number | Image for the credit card view `e.g. require("./card.png")` |
 |imageBack | PropTypes.number | Image for the credit card view `e.g. require("./card.png")` |
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
-|validColor | PropTypes.string | Color that's applied for valid text input |
-|invalidColor | PropTypes.string | Color that's applied for invalid text input |
-|placeholderColor | PropTypes.string | Color that's applied for text input placeholder |
+|validColor | PropTypes.string | Color that will be applied for valid text input |
+|invalidColor | PropTypes.string | Color that will be applied for invalid text input |
+|placeholderColor | PropTypes.string | Color that will be applied for text input placeholder |
 
 ### onChange
 will receives a `formData` object every keypress. e.g.
@@ -81,7 +83,6 @@ Submit a pull request :D
 * Add eslint
 * Add some unit tests for the formatter/validator logic
 * Add props to resize credit-card view
-* Expose labels & placeholder as props
 * Accept initialValues
 * Support `Name` and `postal code` field
 * Handles orientation changes

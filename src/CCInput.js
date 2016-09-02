@@ -26,6 +26,8 @@ export default class CCInput extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.string,
+    placeholder: PropTypes.string,
+
     status: PropTypes.oneOf(["valid", "invalid", "incomplete"]),
 
     containerStyle: View.propTypes.style,
@@ -52,7 +54,7 @@ export default class CCInput extends Component {
   focus = () => this.refs.input.focus();
 
   render() {
-    const { label, value, status,
+    const { label, value, placeholder, status,
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor,
             onFocus, onChange  } = this.props;
@@ -73,6 +75,7 @@ export default class CCInput extends Component {
                 ),
               ]}
               placeholderColor={placeholderColor}
+              placeholder={placeholder}
               value={value}
               onFocus={onFocus}
               onChangeText={onChange} />
@@ -89,9 +92,6 @@ CCInput.defaultProps = {
   containerStyle: {},
   inputStyle: {},
   labelStyle: {},
-  validColor: "black",
-  invalidColor: "red",
-  placeholderColor: "gray",
   onFocus: () => {},
   onChange: () => {},
   onBecomeEmpty: () => {},
