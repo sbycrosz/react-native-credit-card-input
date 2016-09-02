@@ -19,7 +19,7 @@ const s = StyleSheet.create({
   input: {
     fontSize: 16,
     color: "black",
-    height: 30,
+    height: 35,
   },
 });
 

@@ -66,12 +66,11 @@ export default class CCInput extends Component {
               style={[
                 ss.input,
                 inputStyle,
-                (
-                  status === "valid" ? { color: validColor } :
+                ( status === "valid" ? { color: validColor } :
                   status === "invalid" ? { color: invalidColor } :
-                  {}
-                ),
+                  {} ),
               ]}
+              underlineColorAndroid={"transparent"}
               placeholderColor={placeholderColor}
               placeholder={placeholder}
               value={value}
