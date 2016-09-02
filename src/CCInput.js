@@ -20,9 +20,6 @@ const ss = StyleSheet.create({
     height: 40,
     flex: 1,
   },
-  invalid: {
-    color: "red",
-  },
 });
 
 export default class CCInput extends Component {
@@ -33,6 +30,10 @@ export default class CCInput extends Component {
 
     containerStyle: View.propTypes.style,
     inputStyle: Text.propTypes.style,
+    labelStyle: Text.propTypes.style,
+    validColor: PropTypes.string,
+    invalidColor: PropTypes.string,
+    placeholderColor: PropTypes.string,
 
     onFocus: PropTypes.func,
     onChange: PropTypes.func,
@@ -44,28 +45,34 @@ export default class CCInput extends Component {
     const { status, value, onBecomeEmpty, onBecomeValid } = this.props;
     const { status: newStatus, value: newValue } = newProps;
 
-    if (value !== "" && newValue === "") onBecomeEmpty && onBecomeEmpty();
-    if (status !== "valid" && newStatus === "valid") onBecomeValid && onBecomeValid();
+    if (value !== "" && newValue === "") onBecomeEmpty();
+    if (status !== "valid" && newStatus === "valid") onBecomeValid();
   };
 
   focus = () => this.refs.input.focus();
 
   render() {
     const { label, value, status,
-            containerStyle, inputStyle,
+            containerStyle, inputStyle, labelStyle,
+            validColor, invalidColor, placeholderColor,
             onFocus, onChange  } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
         <View style={[ss.container, containerStyle]}>
-          <Text style={[ss.label]}>{label}</Text>
+          <Text style={[ss.label, labelStyle]}>{label}</Text>
           <TextInput ref="input"
               keyboardType="numeric"
               style={[
                 ss.input,
                 inputStyle,
-                (status === "invalid") && ss.invalid,
+                (
+                  status === "valid" ? { color: validColor } :
+                  status === "invalid" ? { color: invalidColor } :
+                  {}
+                ),
               ]}
+              placeholderColor={placeholderColor}
               value={value}
               onFocus={onFocus}
               onChangeText={onChange} />
@@ -74,3 +81,19 @@ export default class CCInput extends Component {
     );
   }
 }
+
+CCInput.defaultProps = {
+  label: "",
+  value: "",
+  status: "incomplete",
+  containerStyle: {},
+  inputStyle: {},
+  labelStyle: {},
+  validColor: "black",
+  invalidColor: "red",
+  placeholderColor: "gray",
+  onFocus: () => {},
+  onChange: () => {},
+  onBecomeEmpty: () => {},
+  onBecomeValid: () => {},
+};

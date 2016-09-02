@@ -14,17 +14,12 @@ const s = StyleSheet.create({
   },
   label: {
     color: "black",
-    fontSize: 16,
+    fontSize: 12,
   },
   input: {
-    color: "darkgray",
-    fontSize: 14,
-  },
-  placeholder: {
-    color: "gray",
-  },
-  error: {
-    color: "red",
+    fontSize: 16,
+    color: "black",
+    height: 30,
   },
 });
 
@@ -41,10 +36,12 @@ export default class Example extends Component {
 
             imageFront={require("./images/card.png")}
             imageBack={require("./images/card.png")}
+
             labelStyle={s.label}
             inputStyle={s.input}
-            placeholderStyle={s.placeholder}
-            errorStyle={s.error}
+            validColor={"green"}
+            invalidColor={"pink"}
+            placeholderColor={"darkgray"}
 
             onChange={this._onChange} />
       </View>

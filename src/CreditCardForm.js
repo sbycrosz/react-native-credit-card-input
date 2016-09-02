@@ -47,8 +47,10 @@ export default class CreditCardForm extends Component {
     imageBack: PropTypes.number,
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
-    placeholderStyle: Text.propTypes.style,
-    errorStyle: Text.propTypes.style,
+
+    validColor: PropTypes.strong,
+    invalidColor: PropTypes.string,
+    placeholderColor: PropTypes.string,
   };
 
   constructor() {
@@ -56,7 +58,7 @@ export default class CreditCardForm extends Component {
     this.state = {
       focused: "",
       values: { number: "", expiry: "", cvc: "" },
-      status: { form: null, number: null, expiry: null, cvc: null },
+      status: { number: "incomplete", expiry: "incomplete", cvc: "incomplete" },
     };
   }
 
@@ -87,7 +89,11 @@ export default class CreditCardForm extends Component {
   };
 
   _inputProps = field => {
+    const { inputStyle, labelStyle, validColor, invalidColor, placeholderColor } = this.props;
+
     return {
+      inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
+      
       ref: field,
       onFocus: this._onFocus(field),
       value: this.state.values[field],
