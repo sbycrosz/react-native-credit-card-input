@@ -58,6 +58,7 @@ export default class CreditCardForm extends Component {
     imageBack: PropTypes.number,
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
+    inputContainerStyle: View.propTypes.style,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
@@ -124,7 +125,7 @@ export default class CreditCardForm extends Component {
   };
 
   render() {
-    const { imageFront, imageBack } = this.props;
+    const { imageFront, imageBack, inputContainerStyle } = this.props;
     const { values: { number, expiry, cvc }, focused } = this.state;
 
     return (
@@ -145,11 +146,11 @@ export default class CreditCardForm extends Component {
             showsHorizontalScrollIndicator={false}
             style={s.form}>
           <CCInput {...this._inputProps("number")}
-              containerStyle={{ width: CARD_NUMBER_INPUT_WIDTH }} />
+              containerStyle={[inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
           <CCInput {...this._inputProps("expiry")}
-              containerStyle={{ width: EXPIRY_INPUT_WIDTH }} />
+              containerStyle={[inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
           <CCInput {...this._inputProps("cvc")}
-              containerStyle={{ width: CVC_INPUT_WIDTH }} />
+              containerStyle={[inputContainerStyle, { width: CVC_INPUT_WIDTH }]} />
         </ScrollView>
       </View>
     );
@@ -168,6 +169,10 @@ CreditCardForm.defaultProps = {
     number: "1234 5678 1234 5678",
     expiry: "MM/YY",
     cvc: "CVC",
+  },
+  inputContainerStyle: {
+    borderBottomWidth: 1,
+    borderBottomColor: "black",
   },
   validColor: "black",
   invalidColor: "red",

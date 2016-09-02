@@ -38,6 +38,7 @@ import CreditCardForm from 'react-native-credit-card-form';
 |imageBack | PropTypes.number | Image for the credit card view `e.g. require("./card.png")` |
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
+|inputContainerStyle | View.propTypes.style | Style for textInput's container<br/> Defaults to: `{ borderBottomWidth: 1, borderBottomColor: "black" }` |
 |validColor | PropTypes.string | Color that will be applied for valid text input |
 |invalidColor | PropTypes.string | Color that will be applied for invalid text input |
 |placeholderColor | PropTypes.string | Color that will be applied for text input placeholder |

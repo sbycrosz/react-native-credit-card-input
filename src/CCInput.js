@@ -10,8 +10,6 @@ import ReactNative, {
 const ss = StyleSheet.create({
   container: {
     marginLeft: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
   },
   label: {
     fontWeight: "bold",
