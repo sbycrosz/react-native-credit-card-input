@@ -34,8 +34,9 @@ import CreditCardForm from 'react-native-credit-card-form';
 |onChange | PropTypes.func | Will receive a `formData` object every time the form changes |
 |labels | PropTypes.object | Defaults to <br/>`{ number: "CARD NUMBER", expiry: "EXPIRY", cvc: "CVC/CCV" }` |
 |placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
-|imageFront | PropTypes.number | Image for the credit card view `e.g. require("./card.png")` |
-|imageBack | PropTypes.number | Image for the credit card view `e.g. require("./card.png")` |
+|cardViewSize | PropTypes.object | Size of the credit-card view.<br/>Defaults to `{ width: 300, height: 180 }` (managed by [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))  |
+|imageFront | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
+|imageBack | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
 |inputContainerStyle | View.propTypes.style | Style for textInput's container<br/> Defaults to: `{ borderBottomWidth: 1, borderBottomColor: "black" }` |

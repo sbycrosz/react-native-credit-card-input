@@ -54,6 +54,10 @@ export default class CreditCardForm extends Component {
       cvc: PropTypes.string,
     }),
 
+    cardViewSize: PropTypes.shape({
+      width: PropTypes.number,
+      height: PropTypes.number,
+    }),
     imageFront: PropTypes.number,
     imageBack: PropTypes.number,
     labelStyle: Text.propTypes.style,
@@ -125,12 +129,13 @@ export default class CreditCardForm extends Component {
   };
 
   render() {
-    const { imageFront, imageBack, inputContainerStyle } = this.props;
+    const { imageFront, imageBack, cardViewSize, inputContainerStyle } = this.props;
     const { values: { number, expiry, cvc }, focused } = this.state;
 
     return (
       <View style={s.container}>
         <CreditCard focused={focused}
+            {...cardViewSize}
             imageFront={imageFront}
             imageBack={imageBack}
             name=" "
@@ -160,6 +165,7 @@ export default class CreditCardForm extends Component {
 CreditCardForm.defaultProps = {
   autoFocus: false,
   onChange: () => {},
+  cardViewSize: {},
   labels: {
     number: "CARD NUMBER",
     expiry: "EXPIRY",
