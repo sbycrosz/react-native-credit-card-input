@@ -1,6 +1,6 @@
 {
   "name": "react-native-credit-card-form",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "React native credit card form component",
   "main": "index.js",
   "scripts": {
@@ -14,10 +14,13 @@
     "react-native",
     "credit-card",
     "credit-card form",
+    "skeuomorphic credit-card",
     "form",
     "flip",
     "card",
-    "component"
+    "component",
+    "react-component",
+    "react-native-component"
   ],
   "author": "sbycrosz",
   "license": "MIT",
@@ -27,6 +30,6 @@
   "homepage": "https://github.com/sbycrosz/react-native-credit-card-form#readme",
   "dependencies": {
     "card-validator": "^2.2.0",
-    "react-native-credit-card": "sbycrosz/react-native-credit-card"
+    "react-native-credit-card": "^0.1.9"
   }
 }
