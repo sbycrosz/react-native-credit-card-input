@@ -30,6 +30,6 @@
   "homepage": "https://github.com/sbycrosz/react-native-credit-card-form#readme",
   "dependencies": {
     "card-validator": "^2.2.0",
-    "react-native-credit-card": "^0.1.9"
+    "react-native-credit-card": "sbycrosz/react-native-credit-card#disable-clickable"
   }
 }
