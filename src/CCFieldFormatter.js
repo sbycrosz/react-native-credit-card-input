@@ -18,6 +18,7 @@ const CCFieldFormatter = {
     const card = valid.number(values.number).card || FALLBACK_CARD;
 
     return {
+      type: card.type,
       number: this._formatNumber(values.number, card),
       expiry: this._formatExpiry(values.expiry),
       cvc: this._formatCVC(values.cvc, card),

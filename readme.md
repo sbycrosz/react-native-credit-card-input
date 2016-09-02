@@ -53,7 +53,7 @@ will receives a `formData` object every keypress. e.g.
   	number: "4242 4242",
   	expiry: "06/19",
   	cvc: "300",
-
+  	type: "visa", // will be one of null, "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro"
   },
   status: {  // will be one of "incomplete", "invalid", and "valid"
 	number: "incomplete",
