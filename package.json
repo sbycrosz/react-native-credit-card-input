@@ -1,6 +1,6 @@
 {
   "name": "react-native-credit-card-form",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React native credit card form component",
   "main": "index.js",
   "scripts": {
