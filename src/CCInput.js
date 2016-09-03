@@ -22,6 +22,7 @@ const ss = StyleSheet.create({
 
 export default class CCInput extends Component {
   static propTypes = {
+    field: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     value: PropTypes.string,
     placeholder: PropTypes.string,
@@ -42,14 +43,17 @@ export default class CCInput extends Component {
   };
 
   componentWillReceiveProps = newProps => {
-    const { status, value, onBecomeEmpty, onBecomeValid } = this.props;
+    const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
     const { status: newStatus, value: newValue } = newProps;
 
-    if (value !== "" && newValue === "") onBecomeEmpty();
-    if (status !== "valid" && newStatus === "valid") onBecomeValid();
+    if (value !== "" && newValue === "") onBecomeEmpty(field);
+    if (status !== "valid" && newStatus === "valid") onBecomeValid(field);
   };
 
   focus = () => this.refs.input.focus();
+
+  _onFocus = () => this.props.onFocus(this.props.field);
+  _onChange = value => this.props.onChange(this.props.field, value);
 
   render() {
     const { label, value, placeholder, status,
@@ -74,8 +78,8 @@ export default class CCInput extends Component {
               placeholderColor={placeholderColor}
               placeholder={placeholder}
               value={value}
-              onFocus={onFocus}
-              onChangeText={onChange} />
+              onFocus={this._onFocus}
+              onChangeText={this._onChange} />
         </View>
       </TouchableOpacity>
     );

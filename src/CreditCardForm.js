@@ -80,17 +80,17 @@ export default class CreditCardForm extends Component {
 
   componentDidMount = () => this.props.autoFocus && this.refs.number.focus();
 
-  _onBecomeEmpty = field => () => {
+  _onBecomeEmpty = field => {
     if (field === "expiry") this.refs.number.focus();
     if (field === "cvc") this.refs.expiry.focus();
   };
 
-  _onBecomeValid = field => () => {
+  _onBecomeValid = field => {
     if (field === "number") this.refs.expiry.focus();
     if (field === "expiry") this.refs.cvc.focus();
   };
 
-  _onChange = field => value => {
+  _onChange = (field, value) => {
     const values = CCFieldFormatter.formatValues({ ...this.state.values, [field]: value });
     const validation = CCFieldValidator.validateValues(values);
     const newState = { values, ...validation };
@@ -99,7 +99,7 @@ export default class CreditCardForm extends Component {
     this.props.onChange(newState);
   };
 
-  _onFocus = field => () => {
+  _onFocus = field => {
     this.setState({ focused: field });
     this.refs.Form.scrollTo({ x: SCROLL_POSITIONS[field], animated: true });
   };
@@ -115,16 +115,17 @@ export default class CreditCardForm extends Component {
 
       ref: field,
 
+      field,
       label: labels[field],
       placeholder: placeholders[field],
 
-      onFocus: this._onFocus(field),
       value: this.state.values[field],
       status: this.state.status[field],
 
-      onChange: this._onChange(field),
-      onBecomeEmpty: this._onBecomeEmpty(field),
-      onBecomeValid: this._onBecomeValid(field),
+      onFocus: this._onFocus,
+      onChange: this._onChange,
+      onBecomeEmpty: this._onBecomeEmpty,
+      onBecomeValid: this._onBecomeValid,
     }
   };
 
