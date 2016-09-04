@@ -23,7 +23,7 @@ const ss = StyleSheet.create({
 export default class CCInput extends Component {
   static propTypes = {
     field: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     value: PropTypes.string,
     placeholder: PropTypes.string,
 
@@ -64,7 +64,7 @@ export default class CCInput extends Component {
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
         <View style={[ss.container, containerStyle]}>
-          <Text style={[ss.label, labelStyle]}>{label}</Text>
+          { !!label && <Text style={[ss.label, labelStyle]}>{label}</Text>}
           <TextInput ref="input"
               keyboardType="numeric"
               style={[
