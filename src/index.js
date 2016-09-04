@@ -1,6 +1,6 @@
 import connectToState from "./connectToState";
-import CCF from "./CreditCardForm";
-import LiteCCF from "./LiteCreditCardForm";
+import CCF from "./CreditCardInput";
+import LiteCCF from "./LiteCreditCardInput";
 
-export const CreditCardForm = connectToState(CCF);
-export const LiteCreditCardForm = connectToState(LiteCCF);
+export const CreditCardInput = connectToState(CCF);
+export const LiteCreditCardInput = connectToState(LiteCCF);

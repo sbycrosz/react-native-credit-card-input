@@ -13,7 +13,7 @@ export const InjectedProps = {
   onBecomeValid: PropTypes.func.isRequired,
 };
 
-export default function connectToState(CreditCardForm) {
+export default function connectToState(CreditCardInput) {
   class StateConnection extends Component {
     static propTypes = {
       autoFocus: PropTypes.bool,
@@ -54,7 +54,7 @@ export default function connectToState(CreditCardForm) {
 
     render() {
       return (
-        <CreditCardForm
+        <CreditCardInput
             {...this.props}
             {...this.state}
             onFocus={this._focus}

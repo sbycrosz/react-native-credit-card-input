@@ -1,23 +1,26 @@
 {
-  "name": "react-native-credit-card-form",
+  "name": "react-native-credit-card-input",
   "version": "0.1.1",
-  "description": "React native credit card form component",
+  "description": "React native credit card input component",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sbycrosz/react-native-credit-card-form.git"
+    "url": "git+https://github.com/sbycrosz/react-native-credit-card-input.git"
   },
   "keywords": [
     "react-native",
+    "ios",
+    "android",
     "credit-card",
-    "credit-card form",
+    "credit-card input",
     "skeuomorphic credit-card",
     "form",
     "flip",
     "card",
+    "input",
     "component",
     "react-component",
     "react-native-component"
@@ -25,9 +28,9 @@
   "author": "sbycrosz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sbycrosz/react-native-credit-card-form/issues"
+    "url": "https://github.com/sbycrosz/react-native-credit-card-input/issues"
   },
-  "homepage": "https://github.com/sbycrosz/react-native-credit-card-form#readme",
+  "homepage": "https://github.com/sbycrosz/react-native-credit-card-input#readme",
   "dependencies": {
     "card-validator": "^2.2.0",
     "react-native-credit-card": "sbycrosz/react-native-credit-card#disable-clickable"

@@ -5,7 +5,7 @@ import {
   View
 } from 'react-native';
 
-import { CreditCardForm, LiteCreditCardForm } from 'react-native-credit-card-form';
+import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
 const s = StyleSheet.create({
   container: {
@@ -33,7 +33,7 @@ export default class Example extends Component {
     return (
       <View style={s.container}>
         { SCREEN_IS_TOO_SMALL ?
-          (<LiteCreditCardForm
+          (<LiteCreditCardInput
               autoFocus
               inputStyle={s.input}
 
@@ -42,7 +42,7 @@ export default class Example extends Component {
               placeholderColor={"darkgray"}
 
               onChange={this._onChange} />) :
-            (<CreditCardForm
+            (<CreditCardInput
                 autoFocus
 
                 imageFront={require("./images/card.png")}

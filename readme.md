@@ -2,8 +2,8 @@
 # React Native Credit Card Form
 Easy (and good looking) credit-card form for your React Native Project 💳 💳
 
-<img src="https://github.com/sbycrosz/react-native-credit-card-form/blob/master/ios.gif?raw=true" width=200/>
-<img src="https://github.com/sbycrosz/react-native-credit-card-form/blob/master/android.gif?raw=true" width=200/>
+<img src="https://github.com/sbycrosz/react-native-credit-card-input/blob/master/ios.gif?raw=true" width=200/>
+<img src="https://github.com/sbycrosz/react-native-credit-card-input/blob/master/android.gif?raw=true" width=200/>
 
 ## Features
 * Skeuomorphic credit-card 💳 (credits to: [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))
@@ -15,15 +15,15 @@ Easy (and good looking) credit-card form for your React Native Project 💳 💳
 ## Usage
 
 ```bash
-npm i --save react-native-credit-card-form
+npm i --save react-native-credit-card-input
 ```
 
 then add these lines in your react-native codebase
 
 ```js
-import CreditCardForm from 'react-native-credit-card-form';
+import CreditCardInput from "react-native-credit-card-input";
 
-<CreditCardForm onChange={this._onChange} />
+<CreditCardInput onChange={this._onChange} />
 ```
 
 ## API

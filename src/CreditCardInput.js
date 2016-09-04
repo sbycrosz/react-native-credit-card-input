@@ -32,7 +32,7 @@ const SCROLL_POSITIONS = {
   cvc: CARD_NUMBER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH,
 };
 
-export default class CreditCardForm extends Component {
+export default class CreditCardInput extends Component {
   static propTypes = {
     ...InjectedProps,
 
@@ -119,7 +119,7 @@ export default class CreditCardForm extends Component {
   }
 }
 
-CreditCardForm.defaultProps = {
+CreditCardInput.defaultProps = {
   cardViewSize: {},
   labels: {
     number: "CARD NUMBER",

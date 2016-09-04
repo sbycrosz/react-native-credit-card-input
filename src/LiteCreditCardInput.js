@@ -45,7 +45,7 @@ const s = StyleSheet.create({
 });
 
 
-export default class LiteCreditCardForm extends Component {
+export default class LiteCreditCardInput extends Component {
   static propTypes = {
     ...InjectedProps,
 
@@ -134,7 +134,7 @@ export default class LiteCreditCardForm extends Component {
   }
 }
 
-LiteCreditCardForm.defaultProps = {
+LiteCreditCardInput.defaultProps = {
   placeholders: {
     number: "1234 5678 1234 5678",
     expiry: "MM/YY",
