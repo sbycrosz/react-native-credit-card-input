@@ -10,7 +10,7 @@ import ReactNative, {
 import CreditCard from 'react-native-credit-card';
 import CCInput from "./CCInput";
 import { removeNonNumber } from "./Utilities";
-import connectToState, { InjectedProps } from "./connectToState";
+import { InjectedProps } from "./connectToState";
 
 const s = StyleSheet.create({
   container: {
@@ -18,9 +18,6 @@ const s = StyleSheet.create({
   },
   form: {
     marginTop: 20,
-  },
-  error: {
-    color: "red",
   },
 });
 
@@ -35,7 +32,7 @@ const SCROLL_POSITIONS = {
   cvc: CARD_NUMBER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH,
 };
 
-class CreditCardForm extends Component {
+export default class CreditCardForm extends Component {
   static propTypes = {
     ...InjectedProps,
 
@@ -142,5 +139,3 @@ CreditCardForm.defaultProps = {
   invalidColor: "red",
   placeholderColor: "gray",
 };
-
-export default connectToState(CreditCardForm);

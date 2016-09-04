@@ -5,11 +5,11 @@ import {
   View
 } from 'react-native';
 
-import CreditCardForm from 'react-native-credit-card-form';
+import { CreditCardForm, LiteCreditCardForm } from 'react-native-credit-card-form';
 
 const s = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: "#F5F5F5",
     marginTop: 60,
   },
   label: {
@@ -19,9 +19,10 @@ const s = StyleSheet.create({
   input: {
     fontSize: 16,
     color: "black",
-    height: 35,
   },
 });
+
+const SCREEN_IS_TOO_SMALL = true;
 
 export default class Example extends Component {
   _onChange = formData => {
@@ -31,19 +32,30 @@ export default class Example extends Component {
   render() {
     return (
       <View style={s.container}>
-        <CreditCardForm
-            autoFocus
+        { SCREEN_IS_TOO_SMALL ?
+          (<LiteCreditCardForm
+              autoFocus
+              inputStyle={s.input}
 
-            imageFront={require("./images/card.png")}
-            imageBack={require("./images/card.png")}
+              validColor={"green"}
+              invalidColor={"pink"}
+              placeholderColor={"darkgray"}
 
-            labelStyle={s.label}
-            inputStyle={s.input}
-            validColor={"green"}
-            invalidColor={"pink"}
-            placeholderColor={"darkgray"}
+              onChange={this._onChange} />) :
+            (<CreditCardForm
+                autoFocus
 
-            onChange={this._onChange} />
+                imageFront={require("./images/card.png")}
+                imageBack={require("./images/card.png")}
+
+                labelStyle={s.label}
+                inputStyle={s.input}
+                validColor={"green"}
+                invalidColor={"pink"}
+                placeholderColor={"darkgray"}
+
+                onChange={this._onChange} />)
+        }
       </View>
     );
   }

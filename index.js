@@ -1,2 +1,1 @@
-import CreditCardForm from "./src/CreditCardForm";
-export default CreditCardForm;
+export * from "./src/";
