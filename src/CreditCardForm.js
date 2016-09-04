@@ -9,10 +9,8 @@ import ReactNative, {
 
 import CreditCard from 'react-native-credit-card';
 import CCInput from "./CCInput";
-
 import { removeNonNumber } from "./Utilities";
-import CCFieldFormatter from "./CCFieldFormatter";
-import CCFieldValidator from "./CCFieldValidator";
+import connectToState, { InjectedProps } from "./connectToState";
 
 const s = StyleSheet.create({
   container: {
@@ -37,27 +35,14 @@ const SCROLL_POSITIONS = {
   cvc: CARD_NUMBER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH,
 };
 
-export default class CreditCardForm extends Component {
+class CreditCardForm extends Component {
   static propTypes = {
-    autoFocus: PropTypes.bool,
+    ...InjectedProps,
 
-    onChange: PropTypes.func.isRequired,
+    labels: PropTypes.object,
+    placeholders: PropTypes.object,
 
-    labels: PropTypes.shape({
-      number: PropTypes.string,
-      expiry: PropTypes.string,
-      cvc: PropTypes.string,
-    }),
-    placeholders: PropTypes.shape({
-      number: PropTypes.string,
-      expiry: PropTypes.string,
-      cvc: PropTypes.string,
-    }),
-
-    cardViewSize: PropTypes.shape({
-      width: PropTypes.number,
-      height: PropTypes.number,
-    }),
+    cardViewSize: PropTypes.object,
     imageFront: PropTypes.number,
     imageBack: PropTypes.number,
     labelStyle: Text.propTypes.style,
@@ -69,69 +54,43 @@ export default class CreditCardForm extends Component {
     placeholderColor: PropTypes.string,
   };
 
-  constructor() {
-    super();
-    this.state = {
-      focused: "",
-      values: { number: "", expiry: "", cvc: "" },
-      status: { number: "incomplete", expiry: "incomplete", cvc: "incomplete" },
-    };
-  }
+  componentDidMount = () => this._focus(this.props.focused);
 
-  componentDidMount = () => this.props.autoFocus && this.refs.number.focus();
-
-  _onBecomeEmpty = field => {
-    if (field === "expiry") this.refs.number.focus();
-    if (field === "cvc") this.refs.expiry.focus();
+  componentWillReceiveProps = newProps => {
+    if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
   };
 
-  _onBecomeValid = field => {
-    if (field === "number") this.refs.expiry.focus();
-    if (field === "expiry") this.refs.cvc.focus();
-  };
-
-  _onChange = (field, value) => {
-    const values = CCFieldFormatter.formatValues({ ...this.state.values, [field]: value });
-    const validation = CCFieldValidator.validateValues(values);
-    const newState = { values, ...validation };
-
-    this.setState(newState);
-    this.props.onChange(newState);
-  };
-
-  _onFocus = field => {
-    this.setState({ focused: field });
+  _focus = field => {
+    if (!field) return;
     this.refs.Form.scrollTo({ x: SCROLL_POSITIONS[field], animated: true });
-  };
+    this.refs[field].focus();
+  }
 
   _inputProps = field => {
     const {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
-      placeholders, labels,
+      placeholders, labels, values, status,
+      onFocus, onChange, onBecomeEmpty, onBecomeValid
     } = this.props;
 
     return {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
+      ref: field, field: field,
 
-      ref: field,
-
-      field,
       label: labels[field],
       placeholder: placeholders[field],
+      value: values[field],
+      status: status[field],
 
-      value: this.state.values[field],
-      status: this.state.status[field],
-
-      onFocus: this._onFocus,
-      onChange: this._onChange,
-      onBecomeEmpty: this._onBecomeEmpty,
-      onBecomeValid: this._onBecomeValid,
+      onFocus, onChange, onBecomeEmpty, onBecomeValid,
     }
   };
 
   render() {
-    const { imageFront, imageBack, cardViewSize, inputContainerStyle } = this.props;
-    const { values: { number, expiry, cvc }, focused } = this.state;
+    const {
+      imageFront, imageBack, cardViewSize, inputContainerStyle,
+      values: { number, expiry, cvc }, focused
+    } = this.props;
 
     return (
       <View style={s.container}>
@@ -164,8 +123,6 @@ export default class CreditCardForm extends Component {
 }
 
 CreditCardForm.defaultProps = {
-  autoFocus: false,
-  onChange: () => {},
   cardViewSize: {},
   labels: {
     number: "CARD NUMBER",
@@ -185,3 +142,5 @@ CreditCardForm.defaultProps = {
   invalidColor: "red",
   placeholderColor: "gray",
 };
+
+export default connectToState(CreditCardForm);
