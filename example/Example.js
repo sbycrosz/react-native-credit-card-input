@@ -37,8 +37,8 @@ export default class Example extends Component {
               autoFocus
               inputStyle={s.input}
 
-              validColor={"green"}
-              invalidColor={"pink"}
+              validColor={"black"}
+              invalidColor={"red"}
               placeholderColor={"darkgray"}
 
               onChange={this._onChange} />) :
@@ -50,8 +50,8 @@ export default class Example extends Component {
 
                 labelStyle={s.label}
                 inputStyle={s.input}
-                validColor={"green"}
-                invalidColor={"pink"}
+                validColor={"black"}
+                invalidColor={"red"}
                 placeholderColor={"darkgray"}
 
                 onChange={this._onChange} />)
