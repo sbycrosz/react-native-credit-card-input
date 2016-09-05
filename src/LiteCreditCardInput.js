@@ -13,21 +13,32 @@ import CCInput from "./CCInput";
 import { removeNonNumber } from "./Utilities";
 import { InjectedProps } from "./connectToState";
 
+const INFINITE_WIDTH = 1000;
+
 const s = StyleSheet.create({
   container: {
     paddingLeft: 10,
     paddingRight: 10,
     flexDirection: "row",
     alignItems: "center",
+    overflow: "hidden",
   },
   icon: {
     width: 48,
     height: 40,
     resizeMode: "contain",
   },
-  number: {
+  expanded: {
+    flex: 1,
+  },
+  hidden: {
+    width: 0,
+  },
+  leftPart: {
+    overflow: "hidden",
   },
   rightPart: {
+    overflow: "hidden",
     flexDirection: "row",
     marginLeft: 10,
   },
@@ -35,10 +46,13 @@ const s = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  expiry: {
+  numberInput: {
+    width: INFINITE_WIDTH,
+  },
+  expiryInput: {
     width: 90,
   },
-  cvc: {
+  cvcInput: {
     width: 90,
   },
 });
@@ -74,7 +88,7 @@ export default class LiteCreditCardInput extends Component {
   _inputProps = field => {
     const {
       inputStyle, validColor, invalidColor, placeholderColor,
-      placeholders,  values, status,
+      placeholders, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid
     } = this.props;
 
@@ -105,15 +119,18 @@ export default class LiteCreditCardInput extends Component {
 
     return (
       <View style={s.container}>
-        <View style={[s.number,
-          showRightPart ? { width: 1 } : { flex: 1 } ]}>
-          <CCInput {...this._inputProps("number")} />
+        <View style={[
+          s.number,
+          showRightPart ? s.hidden : s.expanded,
+        ]}>
+          <CCInput {...this._inputProps("number")}
+              containerStyle={s.numberInput} />
         </View>
         <Image style={s.icon}
             source={{ uri: Icons[this._iconToShow()] }} />
         <View style={[
           s.rightPart,
-          showRightPart ? { flex: 1 } : { width: 1 }
+          showRightPart ? s.expanded : s.hidden,
         ]}>
           <TouchableOpacity onPress={this._focusNumber}
               style={s.last4}>
@@ -121,12 +138,10 @@ export default class LiteCreditCardInput extends Component {
               { number.substr(number.length - 4, 4) }
             </Text>
           </TouchableOpacity>
-          <View style={s.expiry}>
-            <CCInput {...this._inputProps("expiry")} />
-          </View>
-          <View style={s.cvc}>
-            <CCInput {...this._inputProps("cvc")} />
-          </View>
+          <CCInput {...this._inputProps("expiry")}
+              containerStyle={s.expiryInput} />
+          <CCInput {...this._inputProps("cvc")}
+              containerStyle={s.cvcInput} />
         </View>
       </View>
     );
