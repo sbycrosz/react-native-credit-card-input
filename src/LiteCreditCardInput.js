@@ -15,13 +15,12 @@ import { InjectedProps } from "./connectToState";
 
 const s = StyleSheet.create({
   container: {
-    height: 40,
     paddingLeft: 10,
     paddingRight: 10,
     flexDirection: "row",
+    alignItems: "center",
   },
   icon: {
-    alignSelf: "center",
     width: 48,
     height: 40,
     resizeMode: "contain",
@@ -37,10 +36,10 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   expiry: {
-    width: 80,
+    width: 90,
   },
   cvc: {
-    width: 80,
+    width: 90,
   },
 });
 
@@ -118,7 +117,7 @@ export default class LiteCreditCardInput extends Component {
         ]}>
           <TouchableOpacity onPress={this._focusNumber}
               style={s.last4}>
-            <Text style={inputStyle}>
+            <Text style={[inputStyle, { height: null }]}>
               { number.substr(number.length - 4, 4) }
             </Text>
           </TouchableOpacity>
@@ -140,7 +139,7 @@ LiteCreditCardInput.defaultProps = {
     expiry: "MM/YY",
     cvc: "CVC",
   },
-  validColor: "black",
+  validColor: "",
   invalidColor: "red",
   placeholderColor: "gray",
 };

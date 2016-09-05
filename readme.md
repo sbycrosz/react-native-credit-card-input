@@ -9,12 +9,12 @@ Easy (and good looking) credit-card input for your React Native Project ðŸ’³ ðŸ’
 <img src="https://github.com/sbycrosz/react-native-credit-card-input/blob/master/preview-android-lite.gif?raw=true" width=200/>
 </p>
 
-Code: 
+Code:
 
 ```js
 <CreditCardInput onChange={this._onChange} />
-// or 
-<LiteCreditCardInput onChange={this._onChange} /> 
+// or
+<LiteCreditCardInput onChange={this._onChange} />
 ```
 
 
@@ -38,8 +38,8 @@ then add these lines in your react-native codebase
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
 <CreditCardInput onChange={this._onChange} />
-// or 
-<LiteCreditCardInput onChange={this._onChange} /> 
+// or
+<LiteCreditCardInput onChange={this._onChange} />
 
 // Note: You'll need to enable LayoutAnimation on android to see LiteCreditCardInput's animations
 // UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -78,9 +78,9 @@ _onChange => form => console.log(form);
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
-|validColor | PropTypes.string | Color that will be applied for valid text input |
-|invalidColor | PropTypes.string | Color that will be applied for invalid text input |
-|placeholderColor | PropTypes.string | Color that will be applied for text input placeholder |
+|validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
+|invalidColor | PropTypes.string | Color that will be applied for invalid text input. Defaults to: "red" |
+|placeholderColor | PropTypes.string | Color that will be applied for text input placeholder. Defaults to: "gray" |
 
 ## CreditCardInput
 | Property | Type | Description |
@@ -95,9 +95,9 @@ _onChange => form => console.log(form);
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
 |inputContainerStyle | View.propTypes.style | Style for textInput's container<br/> Defaults to: `{ borderBottomWidth: 1, borderBottomColor: "black" }` |
-|validColor | PropTypes.string | Color that will be applied for valid text input |
-|invalidColor | PropTypes.string | Color that will be applied for invalid text input |
-|placeholderColor | PropTypes.string | Color that will be applied for text input placeholder |
+|validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
+|invalidColor | PropTypes.string | Color that will be applied for invalid text input. Defaults to: "red" |
+|placeholderColor | PropTypes.string | Color that will be applied for text input placeholder. Defaults to: "gray" |
 
 
 # Example

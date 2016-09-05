@@ -70,8 +70,8 @@ export default class CCInput extends Component {
               style={[
                 ss.input,
                 inputStyle,
-                ( status === "valid" ? { color: validColor } :
-                  status === "invalid" ? { color: invalidColor } :
+                ( (validColor && status === "valid") ? { color: validColor } :
+                  (invalidColor && status === "invalid") ? { color: invalidColor } :
                   {} ),
               ]}
               underlineColorAndroid={"transparent"}

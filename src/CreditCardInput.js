@@ -135,7 +135,7 @@ CreditCardInput.defaultProps = {
     borderBottomWidth: 1,
     borderBottomColor: "black",
   },
-  validColor: "black",
+  validColor: "",
   invalidColor: "red",
   placeholderColor: "gray",
 };
