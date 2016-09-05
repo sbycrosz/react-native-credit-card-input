@@ -122,3 +122,6 @@ react-native run-android
 * Add unit tests
 * Accept initialValues
 * Accept name / postalCode fields
+
+# Production App using react-native-credit-card-input
+* Grain.com.sg ([iOS](https://itunes.apple.com/us/app/grain-never-worry-about-food/id1088932420)) – Gourmet food delivery in Singapore
