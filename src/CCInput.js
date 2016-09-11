@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import ReactNative, {
+import React, { Component, PropTypes } from "react";
+import {
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
 
 const ss = StyleSheet.create({
   container: {
@@ -58,8 +58,7 @@ export default class CCInput extends Component {
   render() {
     const { label, value, placeholder, status,
             containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor,
-            onFocus, onChange  } = this.props;
+            validColor, invalidColor, placeholderColor } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
@@ -70,9 +69,9 @@ export default class CCInput extends Component {
               style={[
                 ss.input,
                 inputStyle,
-                ( (validColor && status === "valid") ? { color: validColor } :
-                  (invalidColor && status === "invalid") ? { color: invalidColor } :
-                  {} ),
+                ((validColor && status === "valid") ? { color: validColor } :
+                 (invalidColor && status === "invalid") ? { color: invalidColor } :
+                 {}),
               ]}
               underlineColorAndroid={"transparent"}
               placeholderColor={placeholderColor}

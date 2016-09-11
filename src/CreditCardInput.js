@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import ReactNative, {
+import React, { Component, PropTypes } from "react";
+import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   Dimensions,
-} from 'react-native';
+} from "react-native";
 
-import CreditCard from 'react-native-credit-card';
+import CreditCard from "react-native-credit-card";
 import CCInput from "./CCInput";
 import { removeNonNumber } from "./Utilities";
 import { InjectedProps } from "./connectToState";
@@ -32,10 +32,10 @@ const SCROLL_POSITIONS = {
   cvc: CARD_NUMBER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH,
 };
 
+/* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
 export default class CreditCardInput extends Component {
   static propTypes = {
     ...InjectedProps,
-
     labels: PropTypes.object,
     placeholders: PropTypes.object,
 
@@ -67,12 +67,12 @@ export default class CreditCardInput extends Component {
     const {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
-      onFocus, onChange, onBecomeEmpty, onBecomeValid
+      onFocus, onChange, onBecomeEmpty, onBecomeValid,
     } = this.props;
 
     return {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
-      ref: field, field: field,
+      ref: field, field,
 
       label: labels[field],
       placeholder: placeholders[field],
@@ -80,13 +80,13 @@ export default class CreditCardInput extends Component {
       status: status[field],
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-    }
+    };
   };
 
   render() {
     const {
       imageFront, imageBack, cardViewSize, inputContainerStyle,
-      values: { number, expiry, cvc }, focused
+      values: { number, expiry, cvc }, focused,
     } = this.props;
 
     return (

@@ -115,10 +115,9 @@ react-native run-android
 # Missing Something? Something is not working?
 * Open a GitHub issue, or
 * Send a pull request :D
-
+* Make sure `npm run lint` passed
 
 # Future Improvement
-* Add eslint
 * Add unit tests
 * Accept initialValues
 * Accept name / postalCode fields

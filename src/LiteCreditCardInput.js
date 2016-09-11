@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import ReactNative, {
+import React, { Component, PropTypes } from "react";
+import {
   View,
   Text,
   TextInput,
@@ -7,11 +7,10 @@ import ReactNative, {
   Image,
   LayoutAnimation,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
 
 import Icons from "./Icons";
 import CCInput from "./CCInput";
-import { removeNonNumber } from "./Utilities";
 import { InjectedProps } from "./connectToState";
 
 const INFINITE_WIDTH = 1000;
@@ -58,7 +57,7 @@ const s = StyleSheet.create({
   },
 });
 
-
+/* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
 export default class LiteCreditCardInput extends Component {
   static propTypes = {
     ...InjectedProps,
@@ -90,19 +89,19 @@ export default class LiteCreditCardInput extends Component {
     const {
       inputStyle, validColor, invalidColor, placeholderColor,
       placeholders, values, status,
-      onFocus, onChange, onBecomeEmpty, onBecomeValid
+      onFocus, onChange, onBecomeEmpty, onBecomeValid,
     } = this.props;
 
     return {
       inputStyle, validColor, invalidColor, placeholderColor,
-      ref: field, field: field,
+      ref: field, field,
 
       placeholder: placeholders[field],
       value: values[field],
       status: status[field],
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-    }
+    };
   };
 
   _iconToShow = () => {

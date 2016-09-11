@@ -3,7 +3,7 @@ import { removeNonNumber } from "./Utilities";
 
 const limitLength = (string = "", maxLength) => string.substr(0, maxLength);
 const addGaps = (string = "", gaps) => {
-  var offsets = [0].concat(gaps).concat([string.length]);
+  const offsets = [0].concat(gaps).concat([string.length]);
 
   return offsets.map((end, index) => {
     if (index === 0) return "";
@@ -14,7 +14,7 @@ const addGaps = (string = "", gaps) => {
 
 const FALLBACK_CARD = { gaps: [4, 8, 12], lengths: [16], code: { size: 3 } };
 const CCFieldFormatter = {
-  formatValues: function(values) {
+  formatValues: (values) => {
     const card = valid.number(values.number).card || FALLBACK_CARD;
 
     return {

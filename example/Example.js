@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   StyleSheet,
-  Text,
-  View
-} from 'react-native';
+  View,
+} from "react-native";
 
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
@@ -26,6 +25,7 @@ const SCREEN_IS_TOO_SMALL = true;
 
 export default class Example extends Component {
   _onChange = formData => {
+    /* eslint no-console: 0 */
     console.log(formData);
   };
 

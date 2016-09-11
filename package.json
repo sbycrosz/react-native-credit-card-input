@@ -4,7 +4,8 @@
   "description": "React native credit card input component",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .js ."
   },
   "repository": {
     "type": "git",
@@ -34,5 +35,13 @@
   "dependencies": {
     "card-validator": "^2.2.0",
     "react-native-credit-card": "sbycrosz/react-native-credit-card#disable-clickable"
+  },
+  "devDependencies": {
+    "babel-eslint": "^5.0.0",
+    "babel-polyfill": "^6.6.1",
+    "babel-preset-react-native": "^1.8.0",
+    "eslint": "~2.2.0",
+    "eslint-config-airbnb": "6.0.2",
+    "eslint-plugin-react": "^4.2.0"
   }
 }

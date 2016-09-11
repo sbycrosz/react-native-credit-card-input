@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from "react";
 
 import CCFieldFormatter from "./CCFieldFormatter";
 import CCFieldValidator from "./CCFieldValidator";
@@ -32,13 +32,13 @@ export default function connectToState(CreditCardInput) {
     componentDidMount = () => this.props.autoFocus && this._focus("number")
 
     _focusPreviousField = field => {
-      if (field === "expiry") this._focus("number")
-      if (field === "cvc") this._focus("expiry")
+      if (field === "expiry") this._focus("number");
+      if (field === "cvc") this._focus("expiry");
     };
 
     _focusNextField = field => {
-      if (field === "number") this._focus("expiry")
-      if (field === "expiry") this._focus("cvc")
+      if (field === "number") this._focus("expiry");
+      if (field === "expiry") this._focus("cvc");
     };
 
     _change = (field, value) => {
