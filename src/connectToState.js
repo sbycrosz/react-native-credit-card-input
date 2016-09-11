@@ -42,9 +42,10 @@ export default function connectToState(CreditCardInput) {
     };
 
     _change = (field, value) => {
-      const values = CCFieldFormatter.formatValues({ ...this.state.values, [field]: value });
-      const validation = CCFieldValidator.validateValues(values);
-      const newState = { values, ...validation };
+      const newValues = { ...this.state.values, [field]: value };
+      const formattedValues = (new CCFieldFormatter()).formatValues(newValues);
+      const validation = (new CCFieldValidator()).validateValues(formattedValues);
+      const newState = { values: formattedValues, ...validation };
 
       this.setState(newState);
       this.props.onChange(newState);
