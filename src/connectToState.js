@@ -24,20 +24,32 @@ export default function connectToState(CreditCardInput) {
       super();
       this.state = {
         focused: "",
-        values: { number: "", expiry: "", cvc: "" },
-        status: { number: "incomplete", expiry: "incomplete", cvc: "incomplete" },
+        values: {
+          number: "",
+          expiry: "",
+          cvc: "",
+          name: ""
+        },
+        status: {
+          number: "incomplete",
+          expiry: "incomplete",
+          cvc: "incomplete",
+          name: "incomplete"
+        },
       };
     }
 
     componentDidMount = () => this.props.autoFocus && this._focus("number")
 
     _focusPreviousField = field => {
-      if (field === "expiry") this._focus("number");
+      if (field === "name") this._focus("number");
+      if (field === "expiry") this._focus("name");
       if (field === "cvc") this._focus("expiry");
     };
 
     _focusNextField = field => {
-      if (field === "number") this._focus("expiry");
+      if (field === "number") this._focus("name");
+      if (field === "name")   this._focus("expiry");
       if (field === "expiry") this._focus("cvc");
     };
 

@@ -56,15 +56,27 @@ export default class CCInput extends Component {
   _onChange = value => this.props.onChange(this.props.field, value);
 
   render() {
-    const { label, value, placeholder, status,
-            containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor } = this.props;
+    const {
+      label,
+      value,
+      placeholder,
+      status,
+      containerStyle,
+      inputStyle,
+      labelStyle,
+      validColor,
+      invalidColor,
+      placeholderColor
+    } = this.props;
+
     return (
-      <TouchableOpacity onPress={this.focus}
+      <TouchableOpacity
+          onPress={this.focus}
           activeOpacity={0.99}>
         <View style={[ss.container, containerStyle]}>
           { !!label && <Text style={[ss.label, labelStyle]}>{label}</Text>}
-          <TextInput ref="input"
+          <TextInput
+              ref="input"
               keyboardType="numeric"
               style={[
                 ss.input,
