@@ -21,12 +21,12 @@ const s = StyleSheet.create({
   },
 });
 
-const SCREEN_IS_TOO_SMALL = true;
+const SCREEN_IS_TOO_SMALL = false;
 
 export default class Example extends Component {
   _onChange = formData => {
     /* eslint no-console: 0 */
-    console.log(formData);
+    console.log(JSON.stringify(formData, null, " "));
   };
 
   render() {
@@ -45,6 +45,7 @@ export default class Example extends Component {
             (<CreditCardInput
                 autoFocus
 
+                requiresName
                 imageFront={require("./images/card.png")}
                 imageBack={require("./images/card.png")}
 

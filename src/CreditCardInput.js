@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from "react";
-import {
+import ReactNative, {
+  NativeModules,
   View,
   Text,
   StyleSheet,
@@ -25,12 +26,8 @@ const CVC_INPUT_WIDTH = 70;
 const EXPIRY_INPUT_WIDTH = CVC_INPUT_WIDTH;
 const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
 const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
-
-const SCROLL_POSITIONS = {
-  number: 0,
-  expiry: CARD_NUMBER_INPUT_WIDTH,
-  cvc: CARD_NUMBER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH,
-};
+const NAME_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
+const PREVIOUS_FIELD_OFFSET = 40;
 
 /* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
 export default class CreditCardInput extends Component {
@@ -59,8 +56,16 @@ export default class CreditCardInput extends Component {
 
   _focus = field => {
     if (!field) return;
-    this.refs.Form.scrollTo({ x: SCROLL_POSITIONS[field], animated: true });
-    this.refs[field].focus();
+
+    const scrollResponder = this.refs.Form.getScrollResponder();
+    const nodeHandle = ReactNative.findNodeHandle(this.refs[field]);
+
+    NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
+      e => { throw e; },
+      x => {
+        scrollResponder.scrollTo({ x: Math.max(x - PREVIOUS_FIELD_OFFSET, 0), animated: true });
+        this.refs[field].focus();
+      });
   }
 
   _inputProps = field => {
@@ -86,7 +91,8 @@ export default class CreditCardInput extends Component {
   render() {
     const {
       imageFront, imageBack, cardViewSize, inputContainerStyle,
-      values: { number, expiry, cvc }, focused,
+      values: { number, expiry, cvc, name }, focused,
+      requiresName,
     } = this.props;
 
     return (
@@ -95,7 +101,7 @@ export default class CreditCardInput extends Component {
             {...cardViewSize}
             imageFront={imageFront}
             imageBack={imageBack}
-            name=" "
+            name={requiresName ? name : " " }
             number={removeNonNumber(number)}
             expiry={expiry}
             cvc={cvc}
@@ -113,6 +119,9 @@ export default class CreditCardInput extends Component {
               containerStyle={[inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
           <CCInput {...this._inputProps("cvc")}
               containerStyle={[inputContainerStyle, { width: CVC_INPUT_WIDTH }]} />
+          { requiresName &&
+            <CCInput {...this._inputProps("name")}
+                containerStyle={[inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
         </ScrollView>
       </View>
     );
@@ -122,11 +131,13 @@ export default class CreditCardInput extends Component {
 CreditCardInput.defaultProps = {
   cardViewSize: {},
   labels: {
+    name: "CARDHOLDER'S NAME",
     number: "CARD NUMBER",
     expiry: "EXPIRY",
     cvc: "CVC/CCV",
   },
   placeholders: {
+    name: "Full Name",
     number: "1234 5678 1234 5678",
     expiry: "MM/YY",
     cvc: "CVC",
