@@ -66,8 +66,12 @@ export default class CCInput extends Component {
       labelStyle,
       validColor,
       invalidColor,
-      placeholderColor
+      placeholderColor,
+      field,
     } = this.props;
+
+    //Show proper keyboard tipe for `name` filed, numeric of all others
+    const keyboardType = (field === 'name') ? "default" : "numeric";
 
     return (
       <TouchableOpacity
@@ -77,7 +81,7 @@ export default class CCInput extends Component {
           { !!label && <Text style={[ss.label, labelStyle]}>{label}</Text>}
           <TextInput
               ref="input"
-              keyboardType="numeric"
+              keyboardType={keyboardType}
               style={[
                 ss.input,
                 inputStyle,
