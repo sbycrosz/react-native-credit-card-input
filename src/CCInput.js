@@ -82,6 +82,7 @@ export default class CCInput extends Component {
           <TextInput
               ref="input"
               keyboardType={keyboardType}
+              autoCorrect={false}
               style={[
                 ss.input,
                 inputStyle,
