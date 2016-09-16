@@ -25,11 +25,13 @@ const CVC_INPUT_WIDTH = 70;
 const EXPIRY_INPUT_WIDTH = CVC_INPUT_WIDTH;
 const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
 const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
+const CARD_HOLDER_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
 
 const SCROLL_POSITIONS = {
   number: 0,
-  expiry: CARD_NUMBER_INPUT_WIDTH,
-  cvc: CARD_NUMBER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH,
+  name:   CARD_NUMBER_INPUT_WIDTH,
+  expiry: CARD_NUMBER_INPUT_WIDTH + CARD_HOLDER_INPUT_WIDTH,
+  cvc:    CARD_NUMBER_INPUT_WIDTH + CARD_HOLDER_INPUT_WIDTH + EXPIRY_INPUT_WIDTH,
 };
 
 /* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
@@ -65,49 +67,75 @@ export default class CreditCardInput extends Component {
 
   _inputProps = field => {
     const {
-      inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
-      placeholders, labels, values, status,
-      onFocus, onChange, onBecomeEmpty, onBecomeValid,
+      inputStyle,
+      labelStyle,
+      validColor,
+      invalidColor,
+      placeholderColor,
+      placeholders,
+      labels,
+      values,
+      status,
+      onFocus,
+      onChange,
+      onBecomeEmpty,
+      onBecomeValid,
     } = this.props;
 
     return {
-      inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
-      ref: field, field,
+      inputStyle,
+      labelStyle,
+      validColor,
+      invalidColor,
+      placeholderColor,
+      ref: field,
+      field,
 
       label: labels[field],
       placeholder: placeholders[field],
       value: values[field],
       status: status[field],
 
-      onFocus, onChange, onBecomeEmpty, onBecomeValid,
+      onFocus,
+      onChange,
+      onBecomeEmpty,
+      onBecomeValid,
     };
   };
 
   render() {
     const {
-      imageFront, imageBack, cardViewSize, inputContainerStyle,
-      values: { number, expiry, cvc }, focused,
+      imageFront,
+      imageBack,
+      cardViewSize,
+      inputContainerStyle,
+      values: { number, name, expiry, cvc },
+      focused,
     } = this.props;
 
     return (
       <View style={s.container}>
-        <CreditCard focused={focused}
+        <CreditCard
+            focused={focused}
             {...cardViewSize}
             imageFront={imageFront}
             imageBack={imageBack}
-            name=" "
+            name={name}
             number={removeNonNumber(number)}
             expiry={expiry}
             cvc={cvc}
             shiny={false}
             bar />
-        <ScrollView ref="Form"
+        <ScrollView
+            ref="Form"
             horizontal
             keyboardShouldPersistTaps
             scrollEnabled={false}
             showsHorizontalScrollIndicator={false}
             style={s.form}>
           <CCInput {...this._inputProps("number")}
+              containerStyle={[inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
+          <CCInput {...this._inputProps("name")}
               containerStyle={[inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
           <CCInput {...this._inputProps("expiry")}
               containerStyle={[inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
@@ -123,11 +151,13 @@ CreditCardInput.defaultProps = {
   cardViewSize: {},
   labels: {
     number: "CARD NUMBER",
+    name: "NAME",
     expiry: "EXPIRY",
     cvc: "CVC/CCV",
   },
   placeholders: {
     number: "1234 5678 1234 5678",
+    name: "MY NAME",
     expiry: "MM/YY",
     cvc: "CVC",
   },

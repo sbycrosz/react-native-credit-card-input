@@ -13,6 +13,7 @@ const addGaps = (string = "", gaps) => {
 };
 
 const FALLBACK_CARD = { gaps: [4, 8, 12], lengths: [16], code: { size: 3 } };
+
 export default class CCFieldFormatter {
   formatValues = (values) => {
     const card = valid.number(values.number).card || FALLBACK_CARD;
@@ -22,6 +23,7 @@ export default class CCFieldFormatter {
       number: this._formatNumber(values.number, card),
       expiry: this._formatExpiry(values.expiry),
       cvc: this._formatCVC(values.cvc, card),
+      name: this._formatName(values.name),
     };
   };
 
@@ -44,4 +46,9 @@ export default class CCFieldFormatter {
     const maxCVCLength = card.code.size;
     return limitLength(removeNonNumber(cvc), maxCVCLength);
   };
+
+  _formatName = (name) => {
+    //TODO limit max card holder name length
+    return name.toUpperCase();
+  }
 }
