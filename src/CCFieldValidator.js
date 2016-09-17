@@ -11,8 +11,9 @@ const toStatus = validation => {
 
 const FALLBACK_CARD = { gaps: [4, 8, 12], lengths: [16], code: { size: 3 } };
 export default class CCFieldValidator {
-  constructor(displayedFields) {
+  constructor(displayedFields, validatePostalCode) {
     this._displayedFields = displayedFields;
+    this._validatePostalCode = validatePostalCode;
   }
 
   validateValues = (formValues) => {
@@ -26,6 +27,7 @@ export default class CCFieldValidator {
       expiry: toStatus(expiryValidation),
       cvc: toStatus(cvcValidation),
       name: !!formValues.name ? "valid" : "incomplete",
+      postalCode: this._validatePostalCode(formValues.postalCode),
     }, this._displayedFields);
 
     return {

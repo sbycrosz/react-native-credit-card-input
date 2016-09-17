@@ -13,6 +13,7 @@ export const InjectedProps = {
   onBecomeValid: PropTypes.func.isRequired,
   requiresName: PropTypes.bool,
   requiresCVC: PropTypes.bool,
+  requiresPostalCode: PropTypes.bool,
 };
 
 export default function connectToState(CreditCardInput) {
@@ -22,6 +23,8 @@ export default function connectToState(CreditCardInput) {
       onChange: PropTypes.func.isRequired,
       requiresName: PropTypes.bool,
       requiresCVC: PropTypes.bool,
+      requiresPostalCode: PropTypes.bool,
+      validatePostalCode: PropTypes.func,
     };
 
     static defaultProps = {
@@ -29,6 +32,12 @@ export default function connectToState(CreditCardInput) {
       onChange: () => {},
       requiresName: false,
       requiresCVC: true,
+      requiresPostalCode: false,
+      validatePostalCode: (postalCode = "") => {
+        return postalCode.match(/^\d{6}$/) ? "valid" :
+               postalCode.length > 6 ? "invalid" :
+               "incomplete";
+      },
     };
 
     constructor() {
@@ -45,12 +54,13 @@ export default function connectToState(CreditCardInput) {
     });
 
     _displayedFields = () => {
-      const { requiresName, requiresCVC } = this.props;
+      const { requiresName, requiresCVC, requiresPostalCode } = this.props;
       return compact([
         "number",
         "expiry",
         requiresCVC ? "cvc" : null,
         requiresName ? "name" : null,
+        requiresPostalCode ? "postalCode" : null,
       ]);
     };
 
@@ -62,6 +72,10 @@ export default function connectToState(CreditCardInput) {
     };
 
     _focusNextField = field => {
+      if (field === "name") return;
+      // Should not focus to the next field after name (e.g. when requiresName & requiresPostalCode are true
+      // because we can't determine if the user has completed their name or not)
+
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const nextField = displayedFields[fieldIndex + 1];
@@ -72,7 +86,7 @@ export default function connectToState(CreditCardInput) {
       const displayedFields = this._displayedFields();
       const newValues = { ...this.state.values, [field]: value };
       const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
-      const validation = (new CCFieldValidator(displayedFields)).validateValues(formattedValues);
+      const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
       const newState = { values: formattedValues, ...validation };
 
       this.setState(newState);
