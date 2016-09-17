@@ -121,6 +121,7 @@ export default class CreditCardInput extends Component {
               containerStyle={[inputContainerStyle, { width: CVC_INPUT_WIDTH }]} />
           { requiresName &&
             <CCInput {...this._inputProps("name")}
+                keyboardType="default"
                 containerStyle={[inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
         </ScrollView>
       </View>

@@ -26,6 +26,7 @@ export default class CCInput extends Component {
     label: PropTypes.string,
     value: PropTypes.string,
     placeholder: PropTypes.string,
+    keyboardType: PropTypes.string,
 
     status: PropTypes.oneOf(["valid", "invalid", "incomplete"]),
 
@@ -42,6 +43,20 @@ export default class CCInput extends Component {
     onBecomeValid: PropTypes.func,
   };
 
+  static defaultProps = {
+    label: "",
+    value: "",
+    status: "incomplete",
+    keyboardType: "numeric",
+    containerStyle: {},
+    inputStyle: {},
+    labelStyle: {},
+    onFocus: () => {},
+    onChange: () => {},
+    onBecomeEmpty: () => {},
+    onBecomeValid: () => {},
+  };
+
   componentWillReceiveProps = newProps => {
     const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
     const { status: newStatus, value: newValue } = newProps;
@@ -56,7 +71,7 @@ export default class CCInput extends Component {
   _onChange = value => this.props.onChange(this.props.field, value);
 
   render() {
-    const { label, value, placeholder, status,
+    const { label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor } = this.props;
     return (
@@ -65,7 +80,9 @@ export default class CCInput extends Component {
         <View style={[ss.container, containerStyle]}>
           { !!label && <Text style={[ss.label, labelStyle]}>{label}</Text>}
           <TextInput ref="input"
-              keyboardType="numeric"
+              keyboardType={keyboardType}
+              autoCapitalise="words"
+              autoCorrect={false}
               style={[
                 ss.input,
                 inputStyle,
@@ -84,16 +101,3 @@ export default class CCInput extends Component {
     );
   }
 }
-
-CCInput.defaultProps = {
-  label: "",
-  value: "",
-  status: "incomplete",
-  containerStyle: {},
-  inputStyle: {},
-  labelStyle: {},
-  onFocus: () => {},
-  onChange: () => {},
-  onBecomeEmpty: () => {},
-  onBecomeValid: () => {},
-};
