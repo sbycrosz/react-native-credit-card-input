@@ -21,7 +21,7 @@ const s = StyleSheet.create({
   },
 });
 
-const SCREEN_IS_TOO_SMALL = false;
+const USE_LITE_CREDIT_CARD_INPUT = false;
 
 export default class Example extends Component {
   _onChange = formData => {
@@ -37,7 +37,7 @@ export default class Example extends Component {
   render() {
     return (
       <View style={s.container}>
-        { SCREEN_IS_TOO_SMALL ?
+        { USE_LITE_CREDIT_CARD_INPUT ?
           (<LiteCreditCardInput
               autoFocus
               inputStyle={s.input}
@@ -52,6 +52,8 @@ export default class Example extends Component {
                 autoFocus
 
                 requiresName
+                requiresCVC
+                requiresPostalCode
                 imageFront={require("./images/card.png")}
                 imageBack={require("./images/card.png")}
 
