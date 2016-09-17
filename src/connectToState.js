@@ -12,6 +12,7 @@ export const InjectedProps = {
   onBecomeEmpty: PropTypes.func.isRequired,
   onBecomeValid: PropTypes.func.isRequired,
   requiresName: PropTypes.bool,
+  requiresCVC: PropTypes.bool,
 };
 
 export default function connectToState(CreditCardInput) {
@@ -20,12 +21,14 @@ export default function connectToState(CreditCardInput) {
       autoFocus: PropTypes.bool,
       onChange: PropTypes.func.isRequired,
       requiresName: PropTypes.bool,
+      requiresCVC: PropTypes.bool,
     };
 
     static defaultProps = {
       autoFocus: false,
       onChange: () => {},
       requiresName: false,
+      requiresCVC: true,
     };
 
     constructor() {
@@ -42,11 +45,11 @@ export default function connectToState(CreditCardInput) {
     });
 
     _displayedFields = () => {
-      const { requiresName } = this.props;
+      const { requiresName, requiresCVC } = this.props;
       return compact([
         "number",
         "expiry",
-        "cvc",
+        requiresCVC ? "cvc" : null,
         requiresName ? "name" : null,
       ]);
     };

@@ -92,7 +92,7 @@ export default class CreditCardInput extends Component {
     const {
       imageFront, imageBack, cardViewSize, inputContainerStyle,
       values: { number, expiry, cvc, name }, focused,
-      requiresName,
+      requiresName, requiresCVC,
     } = this.props;
 
     return (
@@ -117,8 +117,9 @@ export default class CreditCardInput extends Component {
               containerStyle={[inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
           <CCInput {...this._inputProps("expiry")}
               containerStyle={[inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
-          <CCInput {...this._inputProps("cvc")}
-              containerStyle={[inputContainerStyle, { width: CVC_INPUT_WIDTH }]} />
+          { requiresCVC &&
+            <CCInput {...this._inputProps("cvc")}
+                containerStyle={[inputContainerStyle, { width: CVC_INPUT_WIDTH }]} /> }
           { requiresName &&
             <CCInput {...this._inputProps("name")}
                 keyboardType="default"
