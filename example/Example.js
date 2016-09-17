@@ -29,6 +29,11 @@ export default class Example extends Component {
     console.log(JSON.stringify(formData, null, " "));
   };
 
+  _onFocus = field => {
+    /* eslint no-console: 0 */
+    console.log(field);
+  };
+
   render() {
     return (
       <View style={s.container}>
@@ -41,6 +46,7 @@ export default class Example extends Component {
               invalidColor={"red"}
               placeholderColor={"darkgray"}
 
+              onFocus={this._onFocus}
               onChange={this._onChange} />) :
             (<CreditCardInput
                 autoFocus
@@ -55,6 +61,7 @@ export default class Example extends Component {
                 invalidColor={"red"}
                 placeholderColor={"darkgray"}
 
+                onFocus={this._onFocus}
                 onChange={this._onChange} />)
         }
       </View>

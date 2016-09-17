@@ -21,6 +21,7 @@ export default function connectToState(CreditCardInput) {
     static propTypes = {
       autoFocus: PropTypes.bool,
       onChange: PropTypes.func.isRequired,
+      onFocus: PropTypes.func,
       requiresName: PropTypes.bool,
       requiresCVC: PropTypes.bool,
       requiresPostalCode: PropTypes.bool,
@@ -30,6 +31,7 @@ export default function connectToState(CreditCardInput) {
     static defaultProps = {
       autoFocus: false,
       onChange: () => {},
+      onFocus: () => {},
       requiresName: false,
       requiresCVC: true,
       requiresPostalCode: false,
@@ -50,7 +52,7 @@ export default function connectToState(CreditCardInput) {
     }
 
     componentDidMount = () => setTimeout(() => { // Hacks because componentDidMount happens before component is rendered
-      this.props.autoFocus && this._focus("number");
+      this.props.autoFocus && this.setState({ focused: "number" });
     });
 
     _displayedFields = () => {
@@ -68,7 +70,7 @@ export default function connectToState(CreditCardInput) {
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const previousField = displayedFields[fieldIndex - 1];
-      if (previousField) this._focus(previousField);
+      if (previousField) this.setState({ focused: previousField });
     };
 
     _focusNextField = field => {
@@ -79,7 +81,7 @@ export default function connectToState(CreditCardInput) {
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const nextField = displayedFields[fieldIndex + 1];
-      if (nextField) this._focus(nextField);
+      if (nextField) this.setState({ focused: nextField });
     };
 
     _change = (field, value) => {
@@ -93,14 +95,17 @@ export default function connectToState(CreditCardInput) {
       this.props.onChange(newState);
     };
 
-    _focus = field => this.setState({ focused: field });
+    _onFocus = (field) => {
+      this.setState({ focused: field });
+      this.props.onFocus(field);
+    };
 
     render() {
       return (
         <CreditCardInput
             {...this.props}
             {...this.state}
-            onFocus={this._focus}
+            onFocus={this._onFocus}
             onChange={this._change}
             onBecomeEmpty={this._focusPreviousField}
             onBecomeValid={this._focusNextField} />
