@@ -52,8 +52,23 @@ export default function connectToState(CreditCardInput) {
     }
 
     componentDidMount = () => setTimeout(() => { // Hacks because componentDidMount happens before component is rendered
-      this.props.autoFocus && this.setState({ focused: "number" });
+      this.props.autoFocus && this.focus("number");
     });
+
+    setValues = values => {
+      const newValues = { ...this.state.values, ...values };
+      const displayedFields = this._displayedFields();
+      const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
+      const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
+      const newState = { values: formattedValues, ...validation };
+
+      this.setState(newState);
+      this.props.onChange(newState);
+    };
+
+    focus = (field = "number") => {
+      this.setState({ focused: field });
+    };
 
     _displayedFields = () => {
       const { requiresName, requiresCVC, requiresPostalCode } = this.props;
@@ -70,7 +85,7 @@ export default function connectToState(CreditCardInput) {
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const previousField = displayedFields[fieldIndex - 1];
-      if (previousField) this.setState({ focused: previousField });
+      if (previousField) this.focus(previousField);
     };
 
     _focusNextField = field => {
@@ -81,22 +96,15 @@ export default function connectToState(CreditCardInput) {
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const nextField = displayedFields[fieldIndex + 1];
-      if (nextField) this.setState({ focused: nextField });
+      if (nextField) this.focus(nextField);
     };
 
     _change = (field, value) => {
-      const displayedFields = this._displayedFields();
-      const newValues = { ...this.state.values, [field]: value };
-      const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
-      const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
-      const newState = { values: formattedValues, ...validation };
-
-      this.setState(newState);
-      this.props.onChange(newState);
+      this.setValues({ [field]: value });
     };
 
     _onFocus = (field) => {
-      this.setState({ focused: field });
+      this.focus(field);
       this.props.onFocus(field);
     };
 
