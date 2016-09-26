@@ -114,7 +114,7 @@ export default class LiteCreditCardInput extends Component {
   }
 
   render() {
-    const { focused, values: { number }, inputStyle } = this.props;
+    const { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
     const showRightPart = focused && focused !== "number";
 
     return (
@@ -140,7 +140,7 @@ export default class LiteCreditCardInput extends Component {
               <TextInput editable={false}
                   underlineColorAndroid={"transparent"}
                   style={[inputStyle]}
-                  value={ number ? number.substr(number.length - 4, 4) : "" } />
+                  value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" } />
             </View>
           </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
