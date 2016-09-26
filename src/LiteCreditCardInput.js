@@ -78,6 +78,7 @@ export default class LiteCreditCardInput extends Component {
   };
 
   _focusNumber = () => this._focus("number");
+  _focusExpiry = () => this._focus("expiry");
 
   _focus = field => {
     if (!field) return;
@@ -125,8 +126,10 @@ export default class LiteCreditCardInput extends Component {
           <CCInput {...this._inputProps("number")}
               containerStyle={s.numberInput} />
         </View>
-        <Image style={s.icon}
-            source={{ uri: Icons[this._iconToShow()] }} />
+        <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
+          <Image style={s.icon}
+              source={{ uri: Icons[this._iconToShow()] }} />
+        </TouchableOpacity>
         <View style={[
           s.rightPart,
           showRightPart ? s.expanded : s.hidden,
