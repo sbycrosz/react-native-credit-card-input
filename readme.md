@@ -115,6 +115,27 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |requiresPostalCode | PropTypes.bool | Shows postalCode field<br/> Default to `false` |
 |validatePostalCode | PropTypes.func | Function to validate postalCode, expects `incomplete`, `valid`, or `invalid` as return values|
 
+# Methods
+## setValues
+Set values into credit card form 
+
+
+```js
+	// sets 4242 on credit card number field 
+	// other fields will stay unchanged
+	this.refs.CCInput.setValues({ number: "4242" });
+```
+
+**Known issues:** clearing a field e.g. `setValues({ expiry: "" })` will trigger the logic to `move to previous field` and trigger other kind of weird side effects. **PR plz**
+
+
+## focus
+focus on to specified field
+
+```js
+	// focus to expiry field
+	this.refs.CCInput.focus("expiry");
+```
 
 # Example
 
@@ -135,7 +156,6 @@ react-native run-android
 
 # Future Improvement
 * Add unit tests
-* Accept initialValues
 * Accept name / postalCode fields for LiteCreditCardInput
 * Create example with [react-native-awesome-card-io](https://github.com/Kerumen/react-native-awesome-card-io)
 
