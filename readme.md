@@ -104,6 +104,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |cardViewSize | PropTypes.object | Size of the credit-card view.<br/>Defaults to `{ width: 300, height: 180 }` (managed by [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))  |
 |imageFront | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
 |imageBack | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
+|bgColor | PropTypes.string | Color that will be the credit-cards background. |
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
 |inputContainerStyle | View.propTypes.style | Style for textInput's container<br/> Defaults to: `{ borderBottomWidth: 1, borderBottomColor: "black" }` |
@@ -117,11 +118,11 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 
 # Methods
 ## setValues
-Set values into credit card form 
+Set values into credit card form
 
 
 ```js
-	// sets 4242 on credit card number field 
+	// sets 4242 on credit card number field
 	// other fields will stay unchanged
 	this.refs.CCInput.setValues({ number: "4242" });
 ```

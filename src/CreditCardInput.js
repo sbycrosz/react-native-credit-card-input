@@ -47,6 +47,7 @@ export default class CreditCardInput extends Component {
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
     placeholderColor: PropTypes.string,
+    bgColor: PropTypes.string,
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -91,7 +92,7 @@ export default class CreditCardInput extends Component {
 
   render() {
     const {
-      imageFront, imageBack, cardViewSize, inputContainerStyle,
+      imageFront, imageBack, cardViewSize, inputContainerStyle, bgColor,
       values: { number, expiry, cvc, name }, focused,
       requiresName, requiresCVC, requiresPostalCode,
     } = this.props;
@@ -100,6 +101,7 @@ export default class CreditCardInput extends Component {
       <View style={s.container}>
         <CreditCard focused={focused}
             {...cardViewSize}
+            bgColor={bgColor}
             imageFront={imageFront}
             imageBack={imageBack}
             name={requiresName ? name : " " }
