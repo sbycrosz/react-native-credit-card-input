@@ -99,6 +99,8 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
+|onBecomeEmpty | PropTypes.func | Receives the name of the field that became empty |
+|onBecomeValid | PropTypes.func | Receives the name of the field that just became valid |
 |labels | PropTypes.object | Defaults to <br/>`{ number: "CARD NUMBER", expiry: "EXPIRY", cvc: "CVC/CCV" }` |
 |placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
 |cardViewSize | PropTypes.object | Size of the credit-card view.<br/>Defaults to `{ width: 300, height: 180 }` (managed by [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))  |
