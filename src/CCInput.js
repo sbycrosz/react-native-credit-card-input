@@ -17,6 +17,7 @@ const ss = StyleSheet.create({
   input: {
     height: 40,
     flex: 1,
+    color: "black",
   },
 });
 
