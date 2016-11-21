@@ -109,6 +109,7 @@ export default class CreditCardInput extends Component {
             expiry={expiry}
             cvc={cvc}
             shiny={false}
+            clickable={false}
             bar />
         <ScrollView ref="Form"
             horizontal
