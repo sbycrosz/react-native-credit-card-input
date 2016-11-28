@@ -136,10 +136,10 @@ export default class LiteCreditCardInput extends Component {
         ]}>
           <TouchableOpacity onPress={this._focusNumber}
               style={s.last4}>
-            <View pointerEvents={"none"}>
+            <View pointerEvents={"none"} style={{ flex: 1 }}>
               <TextInput editable={false}
                   underlineColorAndroid={"transparent"}
-                  style={[inputStyle]}
+                  style={[inputStyle, { flex: 1 }]}
                   value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" } />
             </View>
           </TouchableOpacity>
