@@ -2,24 +2,9 @@ import React, { Component, PropTypes } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
 } from "react-native";
-
-const ss = StyleSheet.create({
-  container: {
-    marginLeft: 20,
-  },
-  label: {
-    fontWeight: "bold",
-  },
-  input: {
-    height: 40,
-    flex: 1,
-    color: "black",
-  },
-});
 
 export default class CCInput extends Component {
   static propTypes = {
@@ -78,14 +63,13 @@ export default class CCInput extends Component {
     return (
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
-        <View style={[ss.container, containerStyle]}>
-          { !!label && <Text style={[ss.label, labelStyle]}>{label}</Text>}
+        <View style={[containerStyle]}>
+          { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
               keyboardType={keyboardType}
               autoCapitalise="words"
               autoCorrect={false}
               style={[
-                ss.input,
                 inputStyle,
                 ((validColor && status === "valid") ? { color: validColor } :
                  (invalidColor && status === "invalid") ? { color: invalidColor } :
