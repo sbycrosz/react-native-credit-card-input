@@ -8,7 +8,7 @@ import ReactNative, {
   Dimensions,
 } from "react-native";
 
-import CreditCard from "react-native-credit-card";
+import CreditCard from "./CardView";
 import CCInput from "./CCInput";
 import { removeNonNumber } from "./Utilities";
 import { InjectedProps } from "./connectToState";
@@ -104,24 +104,20 @@ export default class CreditCardInput extends Component {
   render() {
     const {
       imageFront, imageBack, cardViewSize, inputContainerStyle, bgColor,
-      values: { number, expiry, cvc, name }, focused,
+      values: { number, expiry, cvc, name, type }, focused,
       requiresName, requiresCVC, requiresPostalCode,
     } = this.props;
 
     return (
       <View style={s.container}>
         <CreditCard focused={focused}
-            {...cardViewSize}
-            bgColor={bgColor}
+            brand={type}
             imageFront={imageFront}
             imageBack={imageBack}
-            name={requiresName ? name : " " }
-            number={removeNonNumber(number)}
+            name={name}
+            number={number}
             expiry={expiry}
-            cvc={cvc}
-            shiny={false}
-            clickable={false}
-            bar />
+            cvc={cvc} />
         <ScrollView ref="Form"
             horizontal
             keyboardShouldPersistTaps

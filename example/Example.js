@@ -54,8 +54,6 @@ export default class Example extends Component {
                 requiresName
                 requiresCVC
                 requiresPostalCode
-                imageFront={require("./images/card.png")}
-                imageBack={require("./images/card.png")}
 
                 labelStyle={s.label}
                 inputStyle={s.input}
