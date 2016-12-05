@@ -10,7 +10,6 @@ import ReactNative, {
 
 import CreditCard from "./CardView";
 import CCInput from "./CCInput";
-import { removeNonNumber } from "./Utilities";
 import { InjectedProps } from "./connectToState";
 
 const s = StyleSheet.create({
@@ -27,7 +26,7 @@ const s = StyleSheet.create({
     fontWeight: "bold",
   },
   input: {
-    height: 40
+    height: 40,
   },
 });
 
@@ -46,7 +45,6 @@ export default class CreditCardInput extends Component {
     labels: PropTypes.object,
     placeholders: PropTypes.object,
 
-    cardViewSize: PropTypes.object,
     imageFront: PropTypes.number,
     imageBack: PropTypes.number,
     labelStyle: Text.propTypes.style,
@@ -56,7 +54,6 @@ export default class CreditCardInput extends Component {
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
     placeholderColor: PropTypes.string,
-    bgColor: PropTypes.string,
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -103,7 +100,7 @@ export default class CreditCardInput extends Component {
 
   render() {
     const {
-      imageFront, imageBack, cardViewSize, inputContainerStyle, bgColor,
+      imageFront, imageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       requiresName, requiresCVC, requiresPostalCode,
     } = this.props;

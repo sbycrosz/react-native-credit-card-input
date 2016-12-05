@@ -70,7 +70,7 @@ const s = StyleSheet.create({
     fontSize: 16,
     position: "absolute",
     bottom: 20,
-    left: 220
+    left: 220,
   },
   amexCVC: {
     fontFamily: BASE_FONT,
@@ -90,7 +90,7 @@ const s = StyleSheet.create({
     top: 80,
     right: 30,
   },
-})
+});
 
 /* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
 export default class CardView extends Component {
@@ -114,7 +114,7 @@ export default class CardView extends Component {
       number: "•••• •••• •••• ••••",
       name: "FULL NAME",
       expiry: "••/••",
-      cvc: "•••"
+      cvc: "•••",
     },
 
     imageFront: require("../images/card-front.png"),
@@ -129,7 +129,7 @@ export default class CardView extends Component {
     const isAmex = brand === "american-express";
     const shouldFlip = !isAmex && focused === "cvc";
 
-    return(
+    return (
       <View style={[s.cardContainer]}>
         <FlipCard style={{ borderWidth: 0 }}
             flipHorizontal

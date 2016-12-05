@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from "react";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   Image,
   LayoutAnimation,
