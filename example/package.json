@@ -6,8 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "react": "15.3.1",
-    "react-native": "^0.38.0",
+    "react": "^15.4.1",
+    "react-native": "^0.39.0",
     "react-native-credit-card-input": "../"
   }
 }
