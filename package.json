@@ -1,6 +1,6 @@
 {
   "name": "react-native-credit-card-input",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "React native credit card input component",
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,7 @@
   "homepage": "https://github.com/sbycrosz/react-native-credit-card-input#readme",
   "dependencies": {
     "card-validator": "^2.2.0",
-    "react-native-flip-card": "^3.3.0",  
+    "react-native-flip-card": "^3.3.0",
     "lodash.compact": "^3.0.1",
     "lodash.every": "^4.6.0",
     "lodash.pick": "^4.4.0",
