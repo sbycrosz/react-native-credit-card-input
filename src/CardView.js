@@ -10,15 +10,11 @@ import {
 import Icons from "./Icons";
 import FlipCard from "react-native-flip-card";
 
+const BASE_SIZE = { width: 300, height: 190 };
+
 const s = StyleSheet.create({
-  cardContainer: {
-    width: 300,
-    height: 190,
-  },
-  cardFace: {
-    width: 300,
-    height: 190,
-  },
+  cardContainer: {},
+  cardFace: {},
   placeholder: {
     color: "rgba(255, 255, 255, 0.5)",
   },
@@ -86,6 +82,7 @@ export default class CardView extends Component {
     cvc: PropTypes.string,
     placeholder: PropTypes.object,
 
+    scale: PropTypes.number,
     imageFront: PropTypes.number,
     imageBack: PropTypes.number,
   };
@@ -99,6 +96,7 @@ export default class CardView extends Component {
       cvc: "•••",
     },
 
+    scale: 1,
     imageFront: require("../images/card-front.png"),
     imageBack: require("../images/card-back.png"),
   };
@@ -106,13 +104,19 @@ export default class CardView extends Component {
   render() {
     const { focused,
       brand, name, number, expiry, cvc,
-      placeholder, imageFront, imageBack } = this.props;
+      placeholder, imageFront, imageBack, scale } = this.props;
 
     const isAmex = brand === "american-express";
     const shouldFlip = !isAmex && focused === "cvc";
 
+    const containerSize = { ...BASE_SIZE,  height: BASE_SIZE.height * scale };
+    const transform = {  transform: [
+      { scale }, 
+      { translateY: ((BASE_SIZE.height * (scale - 1) / 2)) },
+    ] }
+
     return (
-      <View style={[s.cardContainer]}>
+      <View style={[s.cardContainer, containerSize]}>
         <FlipCard style={{ borderWidth: 0 }}
             flipHorizontal
             flipVertical={false}
@@ -120,7 +124,7 @@ export default class CardView extends Component {
             perspective={2000}
             clickable={false}
             flip={shouldFlip}>
-          <Image style={[s.cardFace]}
+          <Image style={[BASE_SIZE, s.cardFace, transform]}
               source={imageFront}>
               <Image style={[s.icon]}
                   source={{ uri: Icons[brand] }} />
@@ -142,7 +146,7 @@ export default class CardView extends Component {
                     { !cvc ? placeholder.cvc : cvc }
                   </Text> }
           </Image>
-          <Image style={[s.cardFace]}
+          <Image style={[BASE_SIZE, s.cardFace, transform]}
               source={imageBack}>
               <Text style={[s.baseText, s.cvc, !cvc && s.placeholder]}>
                 { !cvc ? placeholder.cvc : cvc }
