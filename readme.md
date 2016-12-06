@@ -19,7 +19,8 @@ Code:
 
 
 # Features
-* Skeuomorphic credit-card 💳 (credits to: [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))
+* Skeuomorphic credit-card 💳 (inspired by: [card](https://jessepollak.github.io/card/), [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))
+* **!!NEW!!** Now you could scale the Credit Card for smaller screens
 * Lite version for smaller screens (or if skeuomorphic is not really your thing)
 * Credit-card input validations & formatting while you're typing
 * Form is fully navigatable using keypad
@@ -101,10 +102,10 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |onFocus | PropTypes.func | Receives the name of currently focused field |
 |labels | PropTypes.object | Defaults to <br/>`{ number: "CARD NUMBER", expiry: "EXPIRY", cvc: "CVC/CCV" }` |
 |placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
-|cardViewSize | PropTypes.object | Size of the credit-card view.<br/>Defaults to `{ width: 300, height: 180 }` (managed by [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))  |
-|imageFront | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
-|imageBack | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
-|bgColor | PropTypes.string | Color that will be the credit-cards background. |
+|cardScale | PropTypes.number | Scales the credit-card view.<br/>Defaults to `1`, which translates to `{ width: 300, height: 190 }` |
+|cardFontFamily | PropTypes.string | Font family for the CreditCardView, works best with monospace fonts. Defaults to Courier (iOS) or monospace (android) |
+|cardImageFront | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
+|cardImageFront | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
 |inputContainerStyle | View.propTypes.style | Style for textInput's container<br/> Defaults to: `{ borderBottomWidth: 1, borderBottomColor: "black" }` |
@@ -157,8 +158,13 @@ react-native run-android
 
 # Future Improvement
 * Add unit tests
-* Accept name / postalCode fields for LiteCreditCardInput
 * Create example with [react-native-awesome-card-io](https://github.com/Kerumen/react-native-awesome-card-io)
 
+# Breaking Changes from 0.2.*
+* `cardViewSize` prop are removed from `CreditCardInput`, use `cardScale` instead (because changing the size will break most of the texts)
+* `bgColor` prop are removed from `CreditCardInput`, ask your designer friend to make a credit card image instead (or use the prebundled image)
+* `imageFront` and `imageBack` props are renamed to `cardImageFront` and `cardImageBack` respectively,
+* Android `monospace` fonts doesn't looks as nice as iOS `Courier`, bundle custom fonts into your app and override the default using `cardFontFamily` instead
+
 # Production App using react-native-credit-card-input
-* Grain.com.sg ([iOS](https://itunes.apple.com/us/app/grain-never-worry-about-food/id1088932420)) – Gourmet food delivery in Singapore
+* Grain.com.sg ([iOS](https://grain.com.sg/mobile/ios/download), [Android](https://grain.com.sg/mobile/android/download)) – Gourmet food delivery in Singapore
