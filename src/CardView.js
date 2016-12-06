@@ -61,13 +61,13 @@ const s = StyleSheet.create({
     left: 220,
   },
   amexCVC: {
-    fontSize: 14,
+    fontSize: 16,
     position: "absolute",
-    top: 75,
+    top: 73,
     right: 30,
   },
   cvc: {
-    fontSize: 14,
+    fontSize: 16,
     position: "absolute",
     top: 80,
     right: 30,
