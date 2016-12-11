@@ -4,7 +4,14 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  StyleSheet,
 } from "react-native";
+
+const s = StyleSheet.create({
+  baseInputStyle: {
+    color: "black",
+  },
+});
 
 export default class CCInput extends Component {
   static propTypes = {
@@ -70,6 +77,7 @@ export default class CCInput extends Component {
               autoCapitalise="words"
               autoCorrect={false}
               style={[
+                s.baseInputStyle,
                 inputStyle,
                 ((validColor && status === "valid") ? { color: validColor } :
                  (invalidColor && status === "invalid") ? { color: invalidColor } :
