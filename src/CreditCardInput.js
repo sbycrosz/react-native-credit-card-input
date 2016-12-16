@@ -57,6 +57,7 @@ export default class CreditCardInput extends Component {
     cardImageBack: PropTypes.number,
     cardScale: PropTypes.number,
     cardFontFamily: PropTypes.string,
+    cardBrandIcons: PropTypes.object,
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -106,7 +107,7 @@ export default class CreditCardInput extends Component {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily,
+      cardScale, cardFontFamily, cardBrandIcons
     } = this.props;
 
     return (
@@ -117,6 +118,7 @@ export default class CreditCardInput extends Component {
             fontFamily={cardFontFamily}
             imageFront={cardImageFront}
             imageBack={cardImageBack}
+            customIcons={cardBrandIcons}
             name={requiresName ? name : " "}
             number={number}
             expiry={expiry}
