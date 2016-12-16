@@ -7,7 +7,7 @@ import {
   Platform,
 } from "react-native";
 
-import Icons from "./Icons";
+import defaultIcons from "./Icons";
 import FlipCard from "react-native-flip-card";
 
 const BASE_SIZE = { width: 300, height: 190 };
@@ -89,6 +89,7 @@ export default class CardView extends Component {
     fontFamily: PropTypes.string,
     imageFront: PropTypes.number,
     imageBack: PropTypes.number,
+    customIcons: PropTypes.object,
   };
 
   static defaultProps = {
@@ -108,9 +109,10 @@ export default class CardView extends Component {
 
   render() {
     const { focused,
-      brand, name, number, expiry, cvc,
+      brand, name, number, expiry, cvc, customIcons,
       placeholder, imageFront, imageBack, scale, fontFamily } = this.props;
 
+    const Icons = { ...defaultIcons, ...customIcons };
     const isAmex = brand === "american-express";
     const shouldFlip = !isAmex && focused === "cvc";
 
