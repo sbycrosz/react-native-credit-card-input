@@ -106,7 +106,7 @@ export default class CreditCardInput extends Component {
     const {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
-      requiresName, requiresCVC, requiresPostalCode,
+      allowScroll, requiresName, requiresCVC, requiresPostalCode,
       cardScale, cardFontFamily, cardBrandIcons
     } = this.props;
 
@@ -126,7 +126,7 @@ export default class CreditCardInput extends Component {
         <ScrollView ref="Form"
             horizontal
             keyboardShouldPersistTaps
-            scrollEnabled={false}
+            scrollEnabled={allowScroll}
             showsHorizontalScrollIndicator={false}
             style={s.form}>
           <CCInput {...this._inputProps("number")}
