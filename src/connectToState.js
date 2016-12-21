@@ -19,6 +19,7 @@ export const InjectedProps = {
 export default function connectToState(CreditCardInput) {
   class StateConnection extends Component {
     static propTypes = {
+      allowScroll: PropTypes.bool,
       autoFocus: PropTypes.bool,
       onChange: PropTypes.func.isRequired,
       onFocus: PropTypes.func,
@@ -29,6 +30,7 @@ export default function connectToState(CreditCardInput) {
     };
 
     static defaultProps = {
+      allowScroll: false,
       autoFocus: false,
       onChange: () => {},
       onFocus: () => {},
