@@ -21,11 +21,11 @@ Code:
 # Features
 * Skeuomorphic credit-card 💳 (inspired by: [card](https://jessepollak.github.io/card/), [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))
 * **!!NEW!!** Now you could scale the Credit Card for smaller screens
+* **!!NEW!!** Now you could use CardView as a Component. example use case: showing saved payment details, etc.
 * Lite version for smaller screens (or if skeuomorphic is not really your thing)
 * Credit-card input validations & formatting while you're typing
 * Form is fully navigatable using keypad
 * Works on both Android and iOS
-
 
 # Usage
 
@@ -116,6 +116,25 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |requiresCVC | PropTypes.bool | Shows CVC field<br/> Default to `true` |
 |requiresPostalCode | PropTypes.bool | Shows postalCode field<br/> Default to `false` |
 |validatePostalCode | PropTypes.func | Function to validate postalCode, expects `incomplete`, `valid`, or `invalid` as return values|
+|allowScroll | PropTypes.bool | enables horizontal scrolling on CreditCardInput <br/> Defaults to `false` |
+|cardBrandIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
+
+##CardView
+
+| Property | Type | Description |
+| --- | --- | --- | --- |
+|focused | PropTypes.string | Determines the front face of the card|
+|brand | PropTypes.string | Brand of the credit card|
+|name | PropTypes.string | Cardholder's name (Use empty string if you need to hide the placeholder) |
+|number | PropTypes.string | Credit card number (you'll need to the formatting yourself) |
+|expiry | PropTypes.string | Credit card expiry (should be in MM/YY format)|
+|cvc | PropTypes.string | Credit card CVC |
+|placeholder | PropTypes.object | Placeholder texts|
+|scale | PropTypes.number | Scales the card|
+|fontFamily | PropTypes.string | Defaults to `Courier` and `monospace` in iOS and Android respectively|
+|imageFront | PropTypes.number | Image for the credit-card |
+|imageBack | PropTypes.number | Image for the credit-card |
+|customIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
 
 # Methods
 ## setValues
