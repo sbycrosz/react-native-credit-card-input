@@ -62,6 +62,32 @@ export default class CreditCardInput extends Component {
     allowScroll: PropTypes.bool,
   };
 
+  static defaultProps = {
+    cardViewSize: {},
+    labels: {
+      name: "CARDHOLDER'S NAME",
+      number: "CARD NUMBER",
+      expiry: "EXPIRY",
+      cvc: "CVC/CCV",
+      postalCode: "POSTAL CODE",
+    },
+    placeholders: {
+      name: "Full Name",
+      number: "1234 5678 1234 5678",
+      expiry: "MM/YY",
+      cvc: "CVC",
+      postalCode: "34567",
+    },
+    inputContainerStyle: {
+      borderBottomWidth: 1,
+      borderBottomColor: "black",
+    },
+    validColor: "",
+    invalidColor: "red",
+    placeholderColor: "gray",
+    allowScroll: false,
+  };
+
   componentDidMount = () => this._focus(this.props.focused);
 
   componentWillReceiveProps = newProps => {
@@ -150,29 +176,3 @@ export default class CreditCardInput extends Component {
     );
   }
 }
-
-CreditCardInput.defaultProps = {
-  cardViewSize: {},
-  labels: {
-    name: "CARDHOLDER'S NAME",
-    number: "CARD NUMBER",
-    expiry: "EXPIRY",
-    cvc: "CVC/CCV",
-    postalCode: "POSTAL CODE",
-  },
-  placeholders: {
-    name: "Full Name",
-    number: "1234 5678 1234 5678",
-    expiry: "MM/YY",
-    cvc: "CVC",
-    postalCode: "34567",
-  },
-  inputContainerStyle: {
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
-  },
-  validColor: "",
-  invalidColor: "red",
-  placeholderColor: "gray",
-  allowScroll: false,
-};

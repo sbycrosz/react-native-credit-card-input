@@ -78,6 +78,17 @@ export default class LiteCreditCardInput extends Component {
     placeholderColor: PropTypes.string,
   };
 
+  static defaultProps = {
+    placeholders: {
+      number: "1234 5678 1234 5678",
+      expiry: "MM/YY",
+      cvc: "CVC",
+    },
+    validColor: "",
+    invalidColor: "red",
+    placeholderColor: "gray",
+  };
+
   componentDidMount = () => this._focus(this.props.focused);
 
   componentWillReceiveProps = newProps => {
@@ -160,14 +171,3 @@ export default class LiteCreditCardInput extends Component {
     );
   }
 }
-
-LiteCreditCardInput.defaultProps = {
-  placeholders: {
-    number: "1234 5678 1234 5678",
-    expiry: "MM/YY",
-    cvc: "CVC",
-  },
-  validColor: "",
-  invalidColor: "red",
-  placeholderColor: "gray",
-};
