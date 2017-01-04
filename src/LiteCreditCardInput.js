@@ -76,6 +76,8 @@ export default class LiteCreditCardInput extends Component {
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
     placeholderColor: PropTypes.string,
+
+    disableAutoFocus: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -87,13 +89,16 @@ export default class LiteCreditCardInput extends Component {
     validColor: "",
     invalidColor: "red",
     placeholderColor: "gray",
+    disableAutoFocus: false,
   };
 
-  componentDidMount = () => this._focus(this.props.focused);
+  componentDidMount = () => {
+    if (!this.props.disableAutoFocus) this._focus(this.props.focused);
+  }
 
   componentWillReceiveProps = newProps => {
-    if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
-  };
+    if (!this.props.disableAutoFocus && this.props.focused !== newProps.focused) this._focus(newProps.focused);
+  }
 
   _focusNumber = () => this._focus("number");
   _focusExpiry = () => this._focus("expiry");
