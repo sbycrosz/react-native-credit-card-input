@@ -60,6 +60,7 @@ export default class CreditCardInput extends Component {
     cardBrandIcons: PropTypes.object,
 
     allowScroll: PropTypes.bool,
+    disableAutoFocus: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -86,12 +87,15 @@ export default class CreditCardInput extends Component {
     invalidColor: "red",
     placeholderColor: "gray",
     allowScroll: false,
+    disableAutoFocus: false,
   };
 
-  componentDidMount = () => this._focus(this.props.focused);
+  componentDidMount = () => {
+    if (!this.props.disableAutoFocus) this._focus(this.props.focused);
+  }
 
   componentWillReceiveProps = newProps => {
-    if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
+    if (!this.props.disableAutoFocus && this.props.focused !== newProps.focused) this._focus(newProps.focused);
   };
 
   _focus = field => {
