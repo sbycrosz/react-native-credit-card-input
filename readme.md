@@ -89,6 +89,7 @@ _onChange => form => console.log(form);
 |validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
 |invalidColor | PropTypes.string | Color that will be applied for invalid text input. Defaults to: "red" |
 |placeholderColor | PropTypes.string | Color that will be applied for text input placeholder. Defaults to: "gray" |
+| additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
 
 #### NOTES
 LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `requiresPostalCode` at the moment, PRs are welcome :party:
@@ -118,6 +119,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |validatePostalCode | PropTypes.func | Function to validate postalCode, expects `incomplete`, `valid`, or `invalid` as return values|
 |allowScroll | PropTypes.bool | enables horizontal scrolling on CreditCardInput <br/> Defaults to `false` |
 |cardBrandIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
+| additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
 
 ##CardView
 
@@ -135,6 +137,23 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |imageFront | PropTypes.number | Image for the credit-card |
 |imageBack | PropTypes.number | Image for the credit-card |
 |customIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
+
+#### Note on additionalInputsProps
+
+additionalInputsProps gives you more control over the inputs in LiteCreditCardInput and CreditCardInput. An example object is as follows:
+```javascript
+addtionalInputProps = {
+  name: {
+    defaultValue: 'my name',
+    maxLength: 40,
+  },
+  postalCode: {
+    returnKeyType: 'go',
+  },
+};
+```
+
+The above would set the default value of the name field to `my name` and limit the input to a maximum of 40 character. In addition, it would set the returnKeyType of the postalcode field to `go`.
 
 # Methods
 ## setValues
