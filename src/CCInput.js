@@ -20,6 +20,7 @@ export default class CCInput extends Component {
     value: PropTypes.string,
     placeholder: PropTypes.string,
     keyboardType: PropTypes.string,
+    keyboardAppearance: PropTypes.string,
 
     status: PropTypes.oneOf(["valid", "invalid", "incomplete"]),
 
@@ -41,6 +42,7 @@ export default class CCInput extends Component {
     value: "",
     status: "incomplete",
     keyboardType: "numeric",
+    keyboardAppearance: 'default',
     containerStyle: {},
     inputStyle: {},
     labelStyle: {},
@@ -64,7 +66,7 @@ export default class CCInput extends Component {
   _onChange = value => this.props.onChange(this.props.field, value);
 
   render() {
-    const { label, value, placeholder, status, keyboardType,
+    const { label, value, placeholder, status, keyboardType, keyboardAppearance,
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor } = this.props;
     return (
@@ -74,6 +76,7 @@ export default class CCInput extends Component {
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
               keyboardType={keyboardType}
+              keyboardAppearance={keyboardAppearance}
               autoCapitalise="words"
               autoCorrect={false}
               style={[
@@ -84,7 +87,7 @@ export default class CCInput extends Component {
                  {}),
               ]}
               underlineColorAndroid={"transparent"}
-              placeholderTextColor={placeholderColor}
+              placeholderColor={placeholderColor}
               placeholder={placeholder}
               value={value}
               onFocus={this._onFocus}
