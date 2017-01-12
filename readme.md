@@ -67,12 +67,12 @@ _onChange => form => console.log(form);
 	number: "incomplete",
 	expiry: "incomplete",
 	cvc: "incomplete",
-	name: "incomplete", 
+	name: "incomplete",
 	postalCode: "incomplete",
   },
 };
 
-// Notes: 
+// Notes:
 // cvc, name, & postalCode will only be available when the respective props is enabled (e.g. requiresName, requiresCVC)
 ```
 
@@ -85,7 +85,12 @@ _onChange => form => console.log(form);
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
 |placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
+|containerStyle | View.propTypes.style | Style for wrapping view<br/> Defaults to: `{ paddingHorizontal: 10, flexDirection: "row", alignItems: "center", overflow: "hidden" }` |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
+|numberInputContainerStyle | View.propTypes.style | Style for card number's textInput container<br/> Defaults to: `{ width: 1000 }` |
+|expiryInputContainerStyle | View.propTypes.style | Style for expiry's textInput container<br/> Defaults to: `{ width: 80 }` |
+|cvcInputContainerStyle | View.propTypes.style | Style for cvc's textInput container<br/> Defaults to: `{ width: 80 }` |
+|lastFourInputContainerStyle | View.propTypes.style | Style for last 4 digits textInput container<br/> Defaults to: `{ width: 60, marginLeft: 20 }` |
 |validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
 |invalidColor | PropTypes.string | Color that will be applied for invalid text input. Defaults to: "red" |
 |placeholderColor | PropTypes.string | Color that will be applied for text input placeholder. Defaults to: "gray" |
@@ -110,6 +115,11 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
 |inputContainerStyle | View.propTypes.style | Style for textInput's container<br/> Defaults to: `{ borderBottomWidth: 1, borderBottomColor: "black" }` |
+|numberInputContainerStyle | View.propTypes.style | Style for card number's textInput container<br/> Defaults to: `{ width: Dimensions.get("window").width - 110 }` |
+|expiryInputContainerStyle | View.propTypes.style | Style for expiry's textInput container<br/> Defaults to: `{ width: 40 }` |
+|cvcInputContainerStyle | View.propTypes.style | Style for cvc's textInput container<br/> Defaults to: `{ width: 70 }` |
+|nameInputContainerStyle | View.propTypes.style | Style for name's textInput container<br/> Defaults to: `{ width: Dimensions.get("window").width - 110 }` |
+|postalCodeInputContainerStyle | View.propTypes.style | Style for postal code's textInput container<br/> Defaults to: `{ width: 120 }` |
 |validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
 |invalidColor | PropTypes.string | Color that will be applied for invalid text input. Defaults to: "red" |
 |placeholderColor | PropTypes.string | Color that will be applied for text input placeholder. Defaults to: "gray" |
