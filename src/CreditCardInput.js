@@ -6,6 +6,7 @@ import ReactNative, {
   StyleSheet,
   ScrollView,
   Dimensions,
+  TextInput,
 } from "react-native";
 
 import CreditCard from "./CardView";
@@ -57,6 +58,38 @@ export default class CreditCardInput extends Component {
     cardImageBack: PropTypes.number,
     cardScale: PropTypes.number,
     cardFontFamily: PropTypes.string,
+    cardBrandIcons: PropTypes.object,
+
+    allowScroll: PropTypes.bool,
+
+    additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
+  };
+
+  static defaultProps = {
+    cardViewSize: {},
+    labels: {
+      name: "CARDHOLDER'S NAME",
+      number: "CARD NUMBER",
+      expiry: "EXPIRY",
+      cvc: "CVC/CCV",
+      postalCode: "POSTAL CODE",
+    },
+    placeholders: {
+      name: "Full Name",
+      number: "1234 5678 1234 5678",
+      expiry: "MM/YY",
+      cvc: "CVC",
+      postalCode: "34567",
+    },
+    inputContainerStyle: {
+      borderBottomWidth: 1,
+      borderBottomColor: "black",
+    },
+    validColor: "",
+    invalidColor: "red",
+    placeholderColor: "gray",
+    allowScroll: false,
+    additionalInputsProps: {},
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -84,6 +117,7 @@ export default class CreditCardInput extends Component {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
+      additionalInputsProps,
     } = this.props;
 
     return {
@@ -98,6 +132,8 @@ export default class CreditCardInput extends Component {
       status: status[field],
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
+
+      additionalInputProps: additionalInputsProps[field],
     };
   };
 
@@ -105,8 +141,8 @@ export default class CreditCardInput extends Component {
     const {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
-      requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily,
+      allowScroll, requiresName, requiresCVC, requiresPostalCode,
+      cardScale, cardFontFamily, cardBrandIcons,
     } = this.props;
 
     return (
@@ -117,6 +153,7 @@ export default class CreditCardInput extends Component {
             fontFamily={cardFontFamily}
             imageFront={cardImageFront}
             imageBack={cardImageBack}
+            customIcons={cardBrandIcons}
             name={requiresName ? name : " "}
             number={number}
             expiry={expiry}
@@ -124,7 +161,7 @@ export default class CreditCardInput extends Component {
         <ScrollView ref="Form"
             horizontal
             keyboardShouldPersistTaps
-            scrollEnabled={false}
+            scrollEnabled={allowScroll}
             showsHorizontalScrollIndicator={false}
             style={s.form}>
           <CCInput {...this._inputProps("number")}
@@ -146,28 +183,3 @@ export default class CreditCardInput extends Component {
     );
   }
 }
-
-CreditCardInput.defaultProps = {
-  cardViewSize: {},
-  labels: {
-    name: "CARDHOLDER'S NAME",
-    number: "CARD NUMBER",
-    expiry: "EXPIRY",
-    cvc: "CVC/CCV",
-    postalCode: "POSTAL CODE",
-  },
-  placeholders: {
-    name: "Full Name",
-    number: "1234 5678 1234 5678",
-    expiry: "MM/YY",
-    cvc: "CVC",
-    postalCode: "34567",
-  },
-  inputContainerStyle: {
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
-  },
-  validColor: "",
-  invalidColor: "red",
-  placeholderColor: "gray",
-};

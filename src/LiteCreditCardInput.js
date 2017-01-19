@@ -6,6 +6,7 @@ import {
   Image,
   LayoutAnimation,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 
 import Icons from "./Icons";
@@ -46,7 +47,6 @@ const s = StyleSheet.create({
   },
   numberInput: {
     width: INFINITE_WIDTH,
-    marginLeft: 20,
   },
   expiryInput: {
     width: 80,
@@ -76,6 +76,20 @@ export default class LiteCreditCardInput extends Component {
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
     placeholderColor: PropTypes.string,
+
+    additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
+  };
+
+  static defaultProps = {
+    placeholders: {
+      number: "1234 5678 1234 5678",
+      expiry: "MM/YY",
+      cvc: "CVC",
+    },
+    validColor: "",
+    invalidColor: "red",
+    placeholderColor: "gray",
+    additionalInputsProps: {},
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -98,6 +112,7 @@ export default class LiteCreditCardInput extends Component {
       inputStyle, validColor, invalidColor, placeholderColor,
       placeholders, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
+      additionalInputsProps,
     } = this.props;
 
     return {
@@ -110,6 +125,7 @@ export default class LiteCreditCardInput extends Component {
       status: status[field],
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
+      additionalInputProps: additionalInputsProps[field],
     };
   };
 
@@ -160,14 +176,3 @@ export default class LiteCreditCardInput extends Component {
     );
   }
 }
-
-LiteCreditCardInput.defaultProps = {
-  placeholders: {
-    number: "1234 5678 1234 5678",
-    expiry: "MM/YY",
-    cvc: "CVC",
-  },
-  validColor: "",
-  invalidColor: "red",
-  placeholderColor: "gray",
-};

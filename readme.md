@@ -21,11 +21,11 @@ Code:
 # Features
 * Skeuomorphic credit-card 💳 (inspired by: [card](https://jessepollak.github.io/card/), [react-native-credit-card](https://github.com/sonnylazuardi/react-native-credit-card))
 * **!!NEW!!** Now you could scale the Credit Card for smaller screens
+* **!!NEW!!** Now you could use CardView as a Component. example use case: showing saved payment details, etc.
 * Lite version for smaller screens (or if skeuomorphic is not really your thing)
 * Credit-card input validations & formatting while you're typing
 * Form is fully navigatable using keypad
 * Works on both Android and iOS
-
 
 # Usage
 
@@ -89,6 +89,7 @@ _onChange => form => console.log(form);
 |validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
 |invalidColor | PropTypes.string | Color that will be applied for invalid text input. Defaults to: "red" |
 |placeholderColor | PropTypes.string | Color that will be applied for text input placeholder. Defaults to: "gray" |
+| additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
 
 #### NOTES
 LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `requiresPostalCode` at the moment, PRs are welcome :party:
@@ -116,6 +117,43 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |requiresCVC | PropTypes.bool | Shows CVC field<br/> Default to `true` |
 |requiresPostalCode | PropTypes.bool | Shows postalCode field<br/> Default to `false` |
 |validatePostalCode | PropTypes.func | Function to validate postalCode, expects `incomplete`, `valid`, or `invalid` as return values|
+|allowScroll | PropTypes.bool | enables horizontal scrolling on CreditCardInput <br/> Defaults to `false` |
+|cardBrandIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
+| additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
+
+##CardView
+
+| Property | Type | Description |
+| --- | --- | --- | --- |
+|focused | PropTypes.string | Determines the front face of the card|
+|brand | PropTypes.string | Brand of the credit card|
+|name | PropTypes.string | Cardholder's name (Use empty string if you need to hide the placeholder) |
+|number | PropTypes.string | Credit card number (you'll need to the formatting yourself) |
+|expiry | PropTypes.string | Credit card expiry (should be in MM/YY format)|
+|cvc | PropTypes.string | Credit card CVC |
+|placeholder | PropTypes.object | Placeholder texts|
+|scale | PropTypes.number | Scales the card|
+|fontFamily | PropTypes.string | Defaults to `Courier` and `monospace` in iOS and Android respectively|
+|imageFront | PropTypes.number | Image for the credit-card |
+|imageBack | PropTypes.number | Image for the credit-card |
+|customIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
+
+#### Note on additionalInputsProps
+
+additionalInputsProps gives you more control over the inputs in LiteCreditCardInput and CreditCardInput. An example object is as follows:
+```javascript
+addtionalInputProps = {
+  name: {
+    defaultValue: 'my name',
+    maxLength: 40,
+  },
+  postalCode: {
+    returnKeyType: 'go',
+  },
+};
+```
+
+The above would set the default value of the name field to `my name` and limit the input to a maximum of 40 character. In addition, it would set the returnKeyType of the postalcode field to `go`.
 
 # Methods
 ## setValues
