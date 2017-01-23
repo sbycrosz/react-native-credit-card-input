@@ -106,7 +106,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |cardScale | PropTypes.number | Scales the credit-card view.<br/>Defaults to `1`, which translates to `{ width: 300, height: 190 }` |
 |cardFontFamily | PropTypes.string | Font family for the CreditCardView, works best with monospace fonts. Defaults to Courier (iOS) or monospace (android) |
 |cardImageFront | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
-|cardImageFront | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
+|cardImageBack | PropTypes.number | Image for the credit-card view `e.g. require("./card.png")` |
 |labelStyle | Text.propTypes.style | Style for credit-card form's labels |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
 |inputContainerStyle | View.propTypes.style | Style for textInput's container<br/> Defaults to: `{ borderBottomWidth: 1, borderBottomColor: "black" }` |
