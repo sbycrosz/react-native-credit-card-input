@@ -17,8 +17,7 @@ const INFINITE_WIDTH = 1000;
 
 const s = StyleSheet.create({
   container: {
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
     overflow: "hidden",
@@ -72,6 +71,11 @@ export default class LiteCreditCardInput extends Component {
     placeholders: PropTypes.object,
 
     inputStyle: Text.propTypes.style,
+    containerStyle: View.propTypes.style,
+    numberInputContainerStyle: View.propTypes.style,
+    expiryInputContainerStyle: View.propTypes.style,
+    cvcInputContainerStyle: View.propTypes.style,
+    lastFourInputContainerStyle: View.propTypes.style,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
@@ -142,13 +146,13 @@ export default class LiteCreditCardInput extends Component {
     const showRightPart = focused && focused !== "number";
 
     return (
-      <View style={s.container}>
+      <View style={[s.container, this.props.containerStyle]}>
         <View style={[
           s.leftPart,
           showRightPart ? s.hidden : s.expanded,
         ]}>
           <CCInput {...this._inputProps("number")}
-              containerStyle={s.numberInput} />
+              containerStyle={[s.numberInput, this.props.numberInputContainerStyle]} />
         </View>
         <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
           <Image style={s.icon}
@@ -164,13 +168,13 @@ export default class LiteCreditCardInput extends Component {
               <CCInput field="last4"
                   value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
                   inputStyle={[s.input, inputStyle]}
-                  containerStyle={[s.last4Input]} />
+                  containerStyle={[s.last4Input, this.props.lastFourInputContainerStyle]} />
             </View>
           </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
-              containerStyle={s.expiryInput} />
+              containerStyle={[s.expiryInput, this.props.expiryInputContainerStyle]} />
           <CCInput {...this._inputProps("cvc")}
-              containerStyle={s.cvcInput} />
+              containerStyle={[s.cvcInput, this.props.cvcInputContainerStyle]} />
         </View>
       </View>
     );
