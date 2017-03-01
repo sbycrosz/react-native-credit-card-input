@@ -2,14 +2,27 @@ import React, { Component, PropTypes } from "react";
 import {
   View,
   Text,
+  StyleSheet,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
 } from "react-native";
 
-const s = StyleSheet.create({
-  baseInputStyle: {
+const ss = StyleSheet.create({
+  container: {
+    marginLeft: 0,
+  },
+  label: {
+    fontWeight: "bold",
+  },
+  input: {
+    height: 36,
+    flex: 1,
     color: "black",
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f3f3f3'
   },
 });
 
@@ -34,7 +47,6 @@ export default class CCInput extends Component {
     onChange: PropTypes.func,
     onBecomeEmpty: PropTypes.func,
     onBecomeValid: PropTypes.func,
-    additionalInputProps: PropTypes.shape(TextInput.propTypes),
   };
 
   static defaultProps = {
@@ -49,7 +61,6 @@ export default class CCInput extends Component {
     onChange: () => {},
     onBecomeEmpty: () => {},
     onBecomeValid: () => {},
-    additionalInputProps: {},
   };
 
   componentWillReceiveProps = newProps => {
@@ -68,27 +79,25 @@ export default class CCInput extends Component {
   render() {
     const { label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+            validColor, invalidColor, placeholderColor } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
-        <View style={[containerStyle]}>
-          { !!label && <Text style={[labelStyle]}>{label}</Text>}
+        <View style={[ss.container, containerStyle]}>
+          { !!label && <Text style={[ss.label, labelStyle]}>{label}</Text>}
           <TextInput ref="input"
-              {...additionalInputProps}
               keyboardType={keyboardType}
               autoCapitalise="words"
               autoCorrect={false}
               style={[
-                s.baseInputStyle,
+                ss.input,
                 inputStyle,
                 ((validColor && status === "valid") ? { color: validColor } :
                  (invalidColor && status === "invalid") ? { color: invalidColor } :
                  {}),
               ]}
               underlineColorAndroid={"transparent"}
-              placeholderTextColor={placeholderColor}
+              placeholderColor={placeholderColor}
               placeholder={placeholder}
               value={value}
               onFocus={this._onFocus}
