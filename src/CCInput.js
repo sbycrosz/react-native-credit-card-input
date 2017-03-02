@@ -17,13 +17,13 @@ const ss = StyleSheet.create({
   input: {
     height: 36,
     flex: 1,
-    color: "black",
+    color: 'black',
     paddingBottom: 0,
     paddingLeft: 0,
     paddingRight: 0,
     borderBottomWidth: 1,
     borderBottomColor: '#f3f3f3'
-  },
+  }
 });
 
 export default class CCInput extends Component {
