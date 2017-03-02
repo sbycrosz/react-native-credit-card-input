@@ -7,6 +7,7 @@ import ReactNative, {
   ScrollView,
   Dimensions,
   TextInput,
+  I18nManager,
 } from "react-native";
 
 import CreditCard from "./CardView";
@@ -19,6 +20,7 @@ const s = StyleSheet.create({
   },
   form: {
     marginTop: 20,
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row'
   },
   inputContainer: {
     marginLeft: 20,
@@ -165,6 +167,7 @@ export default class CreditCardInput extends Component {
             showsHorizontalScrollIndicator={false}
             style={s.form}>
           <CCInput {...this._inputProps("number")}
+              autoFocus={I18nManager.isRTL}
               containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
           <CCInput {...this._inputProps("expiry")}
               containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
