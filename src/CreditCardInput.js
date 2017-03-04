@@ -13,6 +13,11 @@ const s = StyleSheet.create({
   container: {
     flex: 1
   },
+  cardView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   form: {
     marginTop: 20
   },
@@ -100,19 +105,21 @@ export default class CreditCardInput extends Component {
       <View style={s.container}>
         {
           this.props.creditCard ? (
-            <CreditCard
-              {...cardViewSize}
-              focused={focused}
-              bgColor={bgColor}
-              imageFront={imageFront}
-              imageBack={imageBack}
-              name={requiresName ? name : ' ' }
-              number={removeNonNumber(number)}
-              expiry={expiry}
-              cvc={cvc}
-              shiny={false}
-              clickable={false}
-              bar />
+            <View style={styles.cardView}>
+              <CreditCard
+                {...cardViewSize}
+                focused={focused}
+                bgColor={bgColor}
+                imageFront={imageFront}
+                imageBack={imageBack}
+                name={requiresName ? name : ' ' }
+                number={removeNonNumber(number)}
+                expiry={expiry}
+                cvc={cvc}
+                shiny={false}
+                clickable={false}
+                bar />
+            </View>
           ) : null
         }
           <View style={s.form}>
