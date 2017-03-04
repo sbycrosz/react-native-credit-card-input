@@ -13,6 +13,11 @@ const s = StyleSheet.create({
   container: {
     flex: 1
   },
+  cardView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   form: {
     marginTop: 20
   },
@@ -44,6 +49,7 @@ export default class CreditCardInput extends Component {
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
     inputContainerStyle: View.propTypes.style,
+    containerStyle: View.propTypes.style,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
@@ -91,28 +97,30 @@ export default class CreditCardInput extends Component {
 
   render() {
     const {
-      imageFront, imageBack, cardViewSize, inputContainerStyle, bgColor,
+      imageFront, imageBack, cardViewSize, inputContainerStyle, containerStyle, bgColor,
       values: { number, expiry, cvc, name }, focused,
       requiresName, requiresCVC, requiresPostalCode,
     } = this.props;
 
     return (
-      <View style={s.container}>
+      <View style={[s.container, containerStyle]}>
         {
           this.props.creditCard ? (
-            <CreditCard
-              {...cardViewSize}
-              focused={focused}
-              bgColor={bgColor}
-              imageFront={imageFront}
-              imageBack={imageBack}
-              name={requiresName ? name : ' ' }
-              number={removeNonNumber(number)}
-              expiry={expiry}
-              cvc={cvc}
-              shiny={false}
-              clickable={false}
-              bar />
+            <View style={s.cardView}>
+              <CreditCard
+                {...cardViewSize}
+                focused={focused}
+                bgColor={bgColor}
+                imageFront={imageFront}
+                imageBack={imageBack}
+                name={requiresName ? name : ' ' }
+                number={removeNonNumber(number)}
+                expiry={expiry}
+                cvc={cvc}
+                shiny={false}
+                clickable={false}
+                bar />
+            </View>
           ) : null
         }
           <View style={s.form}>
