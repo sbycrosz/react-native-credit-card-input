@@ -1,52 +1,6 @@
-{
-  "_args": [
-    [
-      {
-        "raw": "react-native-credit-card-input",
-        "scope": null,
-        "escapedName": "react-native-credit-card-input",
-        "name": "react-native-credit-card-input",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
-      },
-      "C:\\react\\iOrder-react"
-    ]
-  ],
-  "_from": "react-native-credit-card-input@latest",
-  "_id": "react-native-credit-card-input@0.3.3",
-  "_inCache": true,
-  "_location": "/react-native-credit-card-input",
-  "_nodeVersion": "5.7.1",
-  "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/react-native-credit-card-input-0.3.3.tgz_1483067493143_0.6405136724933982"
-  },
-  "_npmUser": {
-    "name": "sbycrosz",
-    "email": "sam@aryasa.net"
-  },
-  "_npmVersion": "3.6.0",
-  "_phantomChildren": {},
-  "_requested": {
-    "raw": "react-native-credit-card-input",
-    "scope": null,
-    "escapedName": "react-native-credit-card-input",
-    "name": "react-native-credit-card-input",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
-  },
-  "_requiredBy": [
-    "#USER"
-  ],
-  "_resolved": "https://registry.npmjs.org/react-native-credit-card-form/-/react-native-credit-card-input-0.3.3.tgz",
-  "_shasum": "c1de0c440fb1cee6114aec9aee5ea600dafac58e",
-  "_shrinkwrap": null,
-  "_spec": "react-native-credit-card-input",
-  "_where": "C:\\react\\iOrder-react",
+{  
   "author": {
-    "name": "sbycrosz"
+    "name": "sbycrosz, cvthien"
   },
   "bugs": {
     "url": "https://github.com/cvt3894/react-native-credit-card-input/issues"
@@ -70,11 +24,6 @@
     "eslint-plugin-react": "^4.2.0"
   },
   "directories": {},
-  "dist": {
-    "shasum": "c1de0c440fb1cee6114aec9aee5ea600dafac58e",
-    "tarball": "https://registry.npmjs.org/react-native-credit-card-form/-/react-native-credit-card-input-0.3.3.tgz"
-  },
-  "gitHead": "b78eab9509153bf836b62b845738be3198b4b200",
   "homepage": "https://github.com/cvt3894/react-native-credit-card-input#readme",
   "keywords": [
     "react-native",
@@ -93,14 +42,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "maintainers": [
-    {
-      "name": "sbycrosz",
-      "email": "sam@aryasa.net"
-    }
-  ],
-  "name": "react-native-credit-card-form",
-  "optionalDependencies": {},
+  "name": "react-native-form-credit-card",
   "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
@@ -110,5 +52,5 @@
     "lint": "eslint --ext .js .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.3.3"
+  "version": "0.1.0"
 }
