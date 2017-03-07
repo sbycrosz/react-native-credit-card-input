@@ -40,7 +40,7 @@
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "https://registry.npmjs.org/react-native-credit-card-input/-/react-native-credit-card-input-0.3.3.tgz",
+  "_resolved": "https://registry.npmjs.org/react-native-credit-card-form/-/react-native-credit-card-input-0.3.3.tgz",
   "_shasum": "c1de0c440fb1cee6114aec9aee5ea600dafac58e",
   "_shrinkwrap": null,
   "_spec": "react-native-credit-card-input",
@@ -49,7 +49,7 @@
     "name": "sbycrosz"
   },
   "bugs": {
-    "url": "https://github.com/sbycrosz/react-native-credit-card-input/issues"
+    "url": "https://github.com/cvt3894/react-native-credit-card-input/issues"
   },
   "dependencies": {
     "card-validator": "^3.0.0",
@@ -71,10 +71,10 @@
   "directories": {},
   "dist": {
     "shasum": "c1de0c440fb1cee6114aec9aee5ea600dafac58e",
-    "tarball": "https://registry.npmjs.org/react-native-credit-card-input/-/react-native-credit-card-input-0.3.3.tgz"
+    "tarball": "https://registry.npmjs.org/react-native-credit-card-form/-/react-native-credit-card-input-0.3.3.tgz"
   },
   "gitHead": "b78eab9509153bf836b62b845738be3198b4b200",
-  "homepage": "https://github.com/sbycrosz/react-native-credit-card-input#readme",
+  "homepage": "https://github.com/cvt3894/react-native-credit-card-input#readme",
   "keywords": [
     "react-native",
     "ios",
@@ -98,12 +98,12 @@
       "email": "sam@aryasa.net"
     }
   ],
-  "name": "react-native-credit-card-input",
+  "name": "react-native-credit-card-form",
   "optionalDependencies": {},
   "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sbycrosz/react-native-credit-card-input.git"
+    "url": "git+https://github.com/cvt3894/react-native-credit-card-input.git"
   },
   "scripts": {
     "lint": "eslint --ext .js .",
