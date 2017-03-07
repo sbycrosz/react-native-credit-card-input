@@ -57,7 +57,8 @@
     "lodash.every": "^4.6.0",
     "lodash.pick": "^4.4.0",
     "lodash.values": "^4.3.0",
-    "react-native-flip-card": "^3.3.0"
+    "react-native-flip-card": "^3.3.0",
+    "react-native-credit-card": "^0.1.9"
   },
   "description": "React native credit card input component",
   "devDependencies": {
