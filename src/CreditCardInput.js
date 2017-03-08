@@ -5,10 +5,9 @@ import ReactNative, {
   Text,
   StyleSheet
 } from 'react-native'
-import { removeNonNumber } from './Utilities'
 import CCInput from './CCInput'
-import { InjectedProps } from './connectToState'
 import CreditCard from './CardView'
+import { InjectedProps } from './connectToState'
 const s = StyleSheet.create({
   container: {
     flex: 1
@@ -95,11 +94,12 @@ export default class CreditCardInput extends Component {
     }
   };
 
-  render () {
+  render() {
     const {
-      imageFront, imageBack, cardViewSize, inputContainerStyle, containerStyle, bgColor,
-      values: { number, expiry, cvc, name }, focused,
-      requiresName, requiresCVC, requiresPostalCode
+      cardImageFront, cardImageBack, inputContainerStyle, containerStyle,
+      values: { number, expiry, cvc, name, type }, focused,
+      allowScroll, requiresName, requiresCVC, requiresPostalCode,
+      cardScale, cardFontFamily, cardBrandIcons,
     } = this.props
 
     return (
@@ -107,31 +107,29 @@ export default class CreditCardInput extends Component {
         {
           this.props.creditCard ? (
             <View style={s.cardView}>
-              <CreditCard
-                {...cardViewSize}
-                focused={focused}
-                bgColor={bgColor}
-                imageFront={imageFront}
-                imageBack={imageBack}
-                name={requiresName ? name : ' '}
-                number={removeNonNumber(number)}
+              <CreditCard focused={focused}
+                brand={type}
+                scale={cardScale}
+                fontFamily={cardFontFamily}
+                imageFront={cardImageFront}
+                imageBack={cardImageBack}
+                customIcons={cardBrandIcons}
+                name={requiresName ? name : " "}
+                number={number}
                 expiry={expiry}
-                cvc={cvc}
-                shiny={false}
-                clickable={false}
-                bar />
+                cvc={cvc} />
             </View>
           ) : null
         }
         <View style={s.form}>
-          <CCInput {...this._inputProps('number')} inputStyle={inputContainerStyle} />
+          <CCInput {...this._inputProps('number') } inputStyle={inputContainerStyle} />
           <View style={s.rowInput}>
             <View style={s.rowInputLeft}>
-              <CCInput {...this._inputProps('expiry')} inputStyle={inputContainerStyle} />
+              <CCInput {...this._inputProps('expiry') } inputStyle={inputContainerStyle} />
             </View>
             <View style={s.rowInputRight}>
-              { requiresCVC && <CCInput {...this._inputProps('cvc')} inputStyle={inputContainerStyle} /> }
-              { requiresName && <CCInput {...this._inputProps('name')} keyboardType='default' inputStyle={inputContainerStyle} /> }
+              {requiresCVC && <CCInput {...this._inputProps('cvc') } inputStyle={inputContainerStyle} />}
+              {requiresName && <CCInput {...this._inputProps('name') } keyboardType='default' inputStyle={inputContainerStyle} />}
             </View>
           </View>
         </View>
