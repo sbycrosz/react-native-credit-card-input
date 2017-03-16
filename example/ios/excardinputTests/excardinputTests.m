@@ -10,17 +10,17 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-#import "RCTLog.h"
-#import "RCTRootView.h"
+#import <React/RCTLog.h>
+#import <React/RCTRootView.h>
 
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface exampleTests : XCTestCase
+@interface excardinputTests : XCTestCase
 
 @end
 
-@implementation exampleTests
+@implementation excardinputTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {
