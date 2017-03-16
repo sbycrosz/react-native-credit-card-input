@@ -49,7 +49,6 @@ export default class Example extends Component {
 
             requiresName
             requiresCVC
-            requiresPostalCode
 
             labelStyle={s.label}
             inputStyle={s.input}
