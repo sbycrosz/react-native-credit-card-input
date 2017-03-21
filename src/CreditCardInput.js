@@ -162,7 +162,7 @@ export default class CreditCardInput extends Component {
             cvc={cvc} />
         <ScrollView ref="Form"
             horizontal
-            keyboardShouldPersistTaps  //in RN 0.40+ use: "always"
+            keyboardShouldPersistTaps="always"  //in RN < 0.40 use: delete "always" or change it to {true}
             scrollEnabled={allowScroll}
             showsHorizontalScrollIndicator={false}
             style={s.form}>
