@@ -6,7 +6,6 @@ import ReactNative, {
   StyleSheet,
   ScrollView,
   Dimensions,
-  TextInput,
 } from "react-native";
 
 import CreditCard from "./CardView";
@@ -49,11 +48,11 @@ export default class CreditCardInput extends Component {
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
     inputContainerStyle: View.propTypes.style,
+    keyboardShouldPersistTaps: PropTypes.string,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
     placeholderColor: PropTypes.string,
-
     cardImageFront: PropTypes.number,
     cardImageBack: PropTypes.number,
     cardScale: PropTypes.number,
@@ -61,8 +60,6 @@ export default class CreditCardInput extends Component {
     cardBrandIcons: PropTypes.object,
 
     allowScroll: PropTypes.bool,
-
-    additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
   };
 
   static defaultProps = {
@@ -73,6 +70,7 @@ export default class CreditCardInput extends Component {
       expiry: "EXPIRY",
       cvc: "CVC/CCV",
       postalCode: "POSTAL CODE",
+      keyboardShouldPersistTaps: 'always'
     },
     placeholders: {
       name: "Full Name",
@@ -89,7 +87,6 @@ export default class CreditCardInput extends Component {
     invalidColor: "red",
     placeholderColor: "gray",
     allowScroll: false,
-    additionalInputsProps: {},
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -117,7 +114,6 @@ export default class CreditCardInput extends Component {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputsProps,
     } = this.props;
 
     return {
@@ -132,8 +128,6 @@ export default class CreditCardInput extends Component {
       status: status[field],
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-
-      additionalInputProps: additionalInputsProps[field],
     };
   };
 
@@ -160,7 +154,7 @@ export default class CreditCardInput extends Component {
             cvc={cvc} />
         <ScrollView ref="Form"
             horizontal
-            keyboardShouldPersistTaps="always"
+            keyboardShouldPersistTaps={this.props.keyboardShouldPersistTaps}
             scrollEnabled={allowScroll}
             showsHorizontalScrollIndicator={false}
             style={s.form}>
