@@ -142,7 +142,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 
 additionalInputsProps gives you more control over the inputs in LiteCreditCardInput and CreditCardInput. An example object is as follows:
 ```javascript
-addtionalInputProps = {
+additionalInputsProps = {
   name: {
     defaultValue: 'my name',
     maxLength: 40,
