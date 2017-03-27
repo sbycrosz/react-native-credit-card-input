@@ -41,7 +41,6 @@ export default class CCInput extends Component {
     label: "",
     value: "",
     status: "incomplete",
-    keyboardType: "numeric",
     containerStyle: {},
     inputStyle: {},
     labelStyle: {},

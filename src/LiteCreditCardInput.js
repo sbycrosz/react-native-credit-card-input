@@ -148,6 +148,7 @@ export default class LiteCreditCardInput extends Component {
           showRightPart ? s.hidden : s.expanded,
         ]}>
           <CCInput {...this._inputProps("number")}
+              keyboardType="numeric"
               containerStyle={s.numberInput} />
         </View>
         <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
@@ -168,8 +169,10 @@ export default class LiteCreditCardInput extends Component {
             </View>
           </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
+              keyboardType="numeric"
               containerStyle={s.expiryInput} />
           <CCInput {...this._inputProps("cvc")}
+              keyboardType="numeric"
               containerStyle={s.cvcInput} />
         </View>
       </View>
