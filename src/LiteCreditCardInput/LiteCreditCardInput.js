@@ -164,19 +164,29 @@ export default class LiteCreditCardInput extends Component {
           s.rightPart,
           showRightPart ? s.expanded : s.hidden,
         ]}>
-          <TouchableOpacity onPress={this._focusNumber}
-              style={s.last4}>
-            <View pointerEvents={"none"}>
-              <CCInput field="last4"
-                  value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
-                  inputStyle={[s.input, inputStyle]}
-                  containerStyle={[s.last4Input]} />
+          <TouchableOpacity
+            onPress={this._focusNumber}
+            style={s.last4}
+          >
+            <View
+              pointerEvents="none"
+            >
+              <CCInput
+                field="last4"
+                value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
+                inputStyle={[s.input, inputStyle]}
+                containerStyle={[s.last4Input]}
+              />
             </View>
           </TouchableOpacity>
-          <CCInput {...this._inputProps("expiry")}
-              containerStyle={s.expiryInput} />
-          <CCInput {...this._inputProps("cvc")}
-              containerStyle={s.cvcInput} />
+          <CCInput
+            {...this._inputProps("expiry")}
+            containerStyle={s.expiryInput}
+          />
+          <CCInput
+            {...this._inputProps("cvc")}
+            containerStyle={s.cvcInput}
+          />
         </View>
       </View>
     );
