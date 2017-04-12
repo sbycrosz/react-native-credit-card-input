@@ -1,7 +1,17 @@
 import React from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 
+/**
+ * <LiteCreditCardInputCardIcon />
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function LiteCreditCardInputCardIcon(props) {
+  if (!props.icon) {
+    return null;
+  }
+
   return (
     <TouchableOpacity
       onPress={props.onPress}
