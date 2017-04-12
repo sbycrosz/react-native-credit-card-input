@@ -144,11 +144,11 @@ export default class LiteCreditCardInput extends Component {
 
     return (
       <View
-        style={s.container}
+        style={[s.container, this.props.style]}
       >
         <LiteCreditCardInputCardIcon
           onPress={showRightPart ? this._focusNumber : this._focusExpiry}
-          icon={props.leftIcon || Icons[this._iconToShow()]}
+          icon={this.props.leftIcon || Icons[this._iconToShow()]}
           iconStyle={s.icon}
         />
         <View style={[
@@ -162,7 +162,7 @@ export default class LiteCreditCardInput extends Component {
         </View>
         <LiteCreditCardInputCardIcon
           onPress={showRightPart ? this._focusNumber : this._focusExpiry}
-          icon={props.rightIcon}
+          icon={this.props.rightIcon}
           iconStyle={s.icon}
         />
 
