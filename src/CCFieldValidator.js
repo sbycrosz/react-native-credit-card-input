@@ -3,7 +3,7 @@ import pick from "lodash.pick";
 import values from "lodash.values";
 import every from "lodash.every";
 
-const toStatus = validation => {
+const toStatus = (validation) => {
   return validation.isValid ? "valid" :
          validation.isPotentiallyValid ? "incomplete" :
          "invalid";
@@ -26,7 +26,7 @@ export default class CCFieldValidator {
       number: toStatus(numberValidation),
       expiry: toStatus(expiryValidation),
       cvc: toStatus(cvcValidation),
-      name: !!formValues.name ? "valid" : "incomplete",
+      name: formValues.name ? "valid" : "incomplete",
       postalCode: this._validatePostalCode(formValues.postalCode),
     }, this._displayedFields);
 

@@ -52,7 +52,7 @@ export default class CCInput extends Component {
     additionalInputProps: {},
   };
 
-  componentWillReceiveProps = newProps => {
+  componentWillReceiveProps = (newProps) => {
     const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
     const { status: newStatus, value: newValue } = newProps;
 
@@ -71,11 +71,13 @@ export default class CCInput extends Component {
             validColor, invalidColor, placeholderColor,
             additionalInputProps } = this.props;
     return (
-      <TouchableOpacity onPress={this.focus}
+      <TouchableOpacity
+          onPress={this.focus}
           activeOpacity={0.99}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
-          <TextInput ref="input"
+          <TextInput
+              ref="input"
               {...additionalInputProps}
               keyboardType={keyboardType}
               autoCapitalise="words"
