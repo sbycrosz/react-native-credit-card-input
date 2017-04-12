@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import LiteCreditCardInputCardIcon from './LiteCreditCardInputCardIcon';
 
 import Icons from "../Icons";
 import CCInput from "../CCInput";
@@ -142,19 +143,22 @@ export default class LiteCreditCardInput extends Component {
     const showRightPart = focused && focused !== "number";
 
     return (
-      <View style={s.container}>
-        <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
-          <Image
-            style={s.icon}
-            source={Icons[this._iconToShow()]}
-          />
-        </TouchableOpacity>
+      <View
+        style={s.container}
+      >
+        <LiteCreditCardInputCardIcon
+          onPress={showRightPart ? this._focusNumber : this._focusExpiry}
+          icon={Icons[this._iconToShow()]}
+          iconStyle={s.icon}
+        />
         <View style={[
           s.leftPart,
           showRightPart ? s.hidden : s.expanded,
         ]}>
-          <CCInput {...this._inputProps("number")}
-              containerStyle={s.numberInput} />
+          <CCInput
+            {...this._inputProps("number")}
+            containerStyle={s.numberInput}
+          />
         </View>
         <View style={[
           s.rightPart,
