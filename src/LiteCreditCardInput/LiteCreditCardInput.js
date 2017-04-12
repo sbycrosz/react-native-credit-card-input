@@ -71,8 +71,10 @@ export default class LiteCreditCardInput extends Component {
     ...InjectedProps,
 
     placeholders: PropTypes.object,
+    icons: PropTypes.object,
 
     inputStyle: Text.propTypes.style,
+    style: PropTypes.object,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
@@ -92,6 +94,11 @@ export default class LiteCreditCardInput extends Component {
     placeholderColor: "gray",
     additionalInputsProps: {},
   };
+
+  constructor() {
+    super();
+    this._renderRightIcon = this._renderRightIcon.bind(this);
+  }
 
   componentDidMount = () => this._focus(this.props.focused);
 
@@ -136,11 +143,14 @@ export default class LiteCreditCardInput extends Component {
     if (focused === "cvc") return "cvc";
     if (type) return type;
     return "placeholder";
-  }
+  };
 
   render() {
     const { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
     const showRightPart = focused && focused !== "number";
+
+    const iconName = this._iconToShow();
+    let icon = this.props.icons && this.props.icons[iconName] ? this.props.icons[iconName] : Icons[iconName];
 
     return (
       <View
@@ -148,8 +158,8 @@ export default class LiteCreditCardInput extends Component {
       >
         <LiteCreditCardInputCardIcon
           onPress={showRightPart ? this._focusNumber : this._focusExpiry}
-          icon={this.props.leftIcon || Icons[this._iconToShow()]}
-          iconStyle={s.icon}
+          icon={this.props.leftIcon || icon}
+          iconStyle={[s.icon, this.props.iconStyle]}
         />
         <View style={[
           s.leftPart,
@@ -160,11 +170,7 @@ export default class LiteCreditCardInput extends Component {
             containerStyle={s.numberInput}
           />
         </View>
-        <LiteCreditCardInputCardIcon
-          onPress={showRightPart ? this._focusNumber : this._focusExpiry}
-          icon={this.props.rightIcon}
-          iconStyle={s.icon}
-        />
+        {this._renderRightIcon()}
 
         <View style={[
           s.rightPart,
@@ -195,6 +201,22 @@ export default class LiteCreditCardInput extends Component {
           />
         </View>
       </View>
+    );
+  }
+
+  _renderRightIcon() {
+    const showRightPart = this.props.focused && this.props.focused !== 'number';
+
+    if (showRightPart) {
+      return null;
+    }
+
+    return (
+      <LiteCreditCardInputCardIcon
+        onPress={this._focusExpiry}
+        icon={this.props.rightIcon}
+        iconStyle={[s.icon, this.props.iconStyle]}
+      />
     );
   }
 }
