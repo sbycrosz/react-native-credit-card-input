@@ -9,9 +9,9 @@ import {
   TextInput,
 } from "react-native";
 
-import Icons from "./Icons";
-import CCInput from "./CCInput";
-import { InjectedProps } from "./connectToState";
+import Icons from "../Icons";
+import CCInput from "../CCInput";
+import { InjectedProps } from "../connectToState";
 
 const INFINITE_WIDTH = 1000;
 
@@ -143,6 +143,12 @@ export default class LiteCreditCardInput extends Component {
 
     return (
       <View style={s.container}>
+        <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
+          <Image
+            style={s.icon}
+            source={Icons[this._iconToShow()]}
+          />
+        </TouchableOpacity>
         <View style={[
           s.leftPart,
           showRightPart ? s.hidden : s.expanded,
@@ -150,10 +156,6 @@ export default class LiteCreditCardInput extends Component {
           <CCInput {...this._inputProps("number")}
               containerStyle={s.numberInput} />
         </View>
-        <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
-          <Image style={s.icon}
-              source={{ uri: Icons[this._iconToShow()] }} />
-        </TouchableOpacity>
         <View style={[
           s.rightPart,
           showRightPart ? s.expanded : s.hidden,
