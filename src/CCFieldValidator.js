@@ -16,7 +16,7 @@ export default class CCFieldValidator {
     this._validatePostalCode = validatePostalCode;
   }
 
-  validateValues = (formValues) => {
+  validateValues = (formValues, options = {}) => {
     const numberValidation = valid.number(formValues.number);
     const expiryValidation = valid.expirationDate(formValues.expiry);
     const maxCVCLength = (numberValidation.card || FALLBACK_CARD).code.size;
@@ -29,6 +29,12 @@ export default class CCFieldValidator {
       name: formValues.name ? "valid" : "incomplete",
       postalCode: this._validatePostalCode(formValues.postalCode),
     }, this._displayedFields);
+
+    const acceptCard = !options.cardsWhiteList || options.cardsWhiteList.indexOf(formValues.type) > -1;
+
+    if (!acceptCard) {
+      validationStatuses.number = 'invalid';
+    }
 
     return {
       valid: every(values(validationStatuses), status => status === "valid"),
