@@ -89,7 +89,12 @@ _onChange => form => console.log(form);
 |validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
 |invalidColor | PropTypes.string | Color that will be applied for invalid text input. Defaults to: "red" |
 |placeholderColor | PropTypes.string | Color that will be applied for text input placeholder. Defaults to: "gray" |
-| additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
+|additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
+|icons | PropTypes.object | Collection of icons to override (see Icons.js)|
+|style | PropTypes.object | Additional styling for the Lite Credit Card Input|
+|placeholderColor | PropTypes.string | Color for the Placeholder|
+|cardsWhiteList | PropTypes.array | Array of card types to accept e.g. 'visa'|
+
 
 #### NOTES
 LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `requiresPostalCode` at the moment, PRs are welcome :party:
@@ -119,9 +124,9 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |validatePostalCode | PropTypes.func | Function to validate postalCode, expects `incomplete`, `valid`, or `invalid` as return values|
 |allowScroll | PropTypes.bool | enables horizontal scrolling on CreditCardInput <br/> Defaults to `false` |
 |cardBrandIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
-| additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
+|additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
 
-##CardView
+## CardView
 
 | Property | Type | Description |
 | --- | --- | --- |
