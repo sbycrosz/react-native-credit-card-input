@@ -15,25 +15,15 @@ function LiteCreditCardInputCardIcon(props) {
   // In case an image was provided
   if (props.icon && typeof props.icon.uri === 'string') {
     return (
-      <TouchableOpacity
-        onPress={props.onPress}
-      >
-        <Image
-          style={props.iconStyle}
-          source={props.icon}
-        />
-      </TouchableOpacity>
+      <Image
+        style={props.iconStyle}
+        source={props.icon}
+      />
     );
   }
 
   // In case icon is a component
-  return (
-    <TouchableOpacity
-      onPress={props.onPress}
-    >
-      {props.icon}
-    </TouchableOpacity>
-  );
+  return props.icon;
 }
 
 export default LiteCreditCardInputCardIcon;
