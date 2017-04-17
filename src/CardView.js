@@ -87,8 +87,8 @@ export default class CardView extends Component {
 
     scale: PropTypes.number,
     fontFamily: PropTypes.string,
-    imageFront: PropTypes.number,
-    imageBack: PropTypes.number,
+    imageFront: PropTypes.object,
+    imageBack: PropTypes.object,
     customIcons: PropTypes.object,
   };
 
