@@ -87,8 +87,8 @@ export default class CardView extends Component {
 
     scale: PropTypes.number,
     fontFamily: PropTypes.string,
-    imageFront: PropTypes.number,
-    imageBack: PropTypes.number,
+    imageFront: PropTypes.object,
+    imageBack: PropTypes.object,
     customIcons: PropTypes.object,
   };
 
@@ -103,8 +103,8 @@ export default class CardView extends Component {
 
     scale: 1,
     fontFamily: Platform.select({ ios: "Courier", android: "monospace" }),
-    imageFront: require("../images/card-front.png"),
-    imageBack: require("../images/card-back.png"),
+    imageFront: { uri: 'card_front' },
+    imageBack: { uri: 'card_back' },
   };
 
   render() {
