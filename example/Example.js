@@ -24,12 +24,12 @@ const s = StyleSheet.create({
 const USE_LITE_CREDIT_CARD_INPUT = false;
 
 export default class Example extends Component {
-  _onChange = formData => {
+  _onChange = (formData) => {
     /* eslint no-console: 0 */
     console.log(JSON.stringify(formData, null, " "));
   };
 
-  _onFocus = field => {
+  _onFocus = (field) => {
     /* eslint no-console: 0 */
     console.log(field);
   };

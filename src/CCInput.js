@@ -52,18 +52,31 @@ export default class CCInput extends Component {
     additionalInputProps: {},
   };
 
-  componentWillReceiveProps = newProps => {
+  componentWillReceiveProps = (newProps) => {
     const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
     const { status: newStatus, value: newValue } = newProps;
 
-    if (value !== "" && newValue === "") onBecomeEmpty(field);
     if (status !== "valid" && newStatus === "valid") onBecomeValid(field);
   };
 
   focus = () => this.refs.input.focus();
 
-  _onFocus = () => this.props.onFocus(this.props.field);
+  _onFocus = () => {
+    this.props.onFocus(this.props.field);
+
+    if (this.props.value.length > 0) {
+      this.props.onChange(this.props.field, this.props.value.substring(0, this.props.value.length - 1));
+    }
+  };
   _onChange = value => this.props.onChange(this.props.field, value);
+  _onKeyPress = (eventData) => {
+    const { value } = this.props;
+    if (eventData.nativeEvent.key === 'Backspace') {
+      if (value === "") {
+        this.props.onBecomeEmpty(this.props.field);
+      }
+    }
+  };
 
   render() {
     const { label, value, placeholder, status, keyboardType,
@@ -71,11 +84,13 @@ export default class CCInput extends Component {
             validColor, invalidColor, placeholderColor,
             additionalInputProps } = this.props;
     return (
-      <TouchableOpacity onPress={this.focus}
+      <TouchableOpacity
+          onPress={this.focus}
           activeOpacity={0.99}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
-          <TextInput ref="input"
+          <TextInput
+              ref="input"
               {...additionalInputProps}
               keyboardType={keyboardType}
               autoCapitalise="words"
@@ -92,6 +107,7 @@ export default class CCInput extends Component {
               placeholder={placeholder}
               value={value}
               onFocus={this._onFocus}
+              onKeyPress={this._onKeyPress}
               onChangeText={this._onChange} />
         </View>
       </TouchableOpacity>

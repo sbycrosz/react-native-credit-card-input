@@ -55,11 +55,11 @@ export default function connectToState(CreditCardInput) {
       this.props.autoFocus && this.focus("number");
     });
 
-    setValues = values => {
+    setValues = (values) => {
       const newValues = { ...this.state.values, ...values };
       const displayedFields = this._displayedFields();
       const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
-      const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
+      const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues, { cardsWhiteList: this.props.cardsWhiteList });
       const newState = { values: formattedValues, ...validation };
 
       this.setState(newState);
@@ -81,14 +81,14 @@ export default function connectToState(CreditCardInput) {
       ]);
     };
 
-    _focusPreviousField = field => {
+    _focusPreviousField = (field) => {
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const previousField = displayedFields[fieldIndex - 1];
       if (previousField) this.focus(previousField);
     };
 
-    _focusNextField = field => {
+    _focusNextField = (field) => {
       if (field === "name") return;
       // Should not focus to the next field after name (e.g. when requiresName & requiresPostalCode are true
       // because we can't determine if the user has completed their name or not)

@@ -8,10 +8,11 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import LiteCreditCardInputCardIcon from './LiteCreditCardInputCardIcon';
 
-import Icons from "./Icons";
-import CCInput from "./CCInput";
-import { InjectedProps } from "./connectToState";
+import Icons from "../Icons";
+import CCInput from "../CCInput";
+import { InjectedProps } from "../connectToState";
 
 const INFINITE_WIDTH = 1000;
 
@@ -42,7 +43,6 @@ const s = StyleSheet.create({
     flexDirection: "row",
   },
   last4: {
-    flex: 1,
     justifyContent: "center",
   },
   numberInput: {
@@ -70,8 +70,10 @@ export default class LiteCreditCardInput extends Component {
     ...InjectedProps,
 
     placeholders: PropTypes.object,
+    icons: PropTypes.object,
 
     inputStyle: Text.propTypes.style,
+    style: PropTypes.object,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
@@ -91,6 +93,11 @@ export default class LiteCreditCardInput extends Component {
     placeholderColor: "gray",
     additionalInputsProps: {},
   };
+
+  constructor() {
+    super();
+    this._renderRightIcon = this._renderRightIcon.bind(this);
+  }
 
   componentDidMount = () => this._focus(this.props.focused);
 
@@ -135,44 +142,78 @@ export default class LiteCreditCardInput extends Component {
     if (focused === "cvc") return "cvc";
     if (type) return type;
     return "placeholder";
-  }
+  };
 
   render() {
     const { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
     const showRightPart = focused && focused !== "number";
 
+    const iconName = this._iconToShow();
+    let icon = this.props.icons && this.props.icons[iconName] ? this.props.icons[iconName] : Icons[iconName];
+
     return (
-      <View style={s.container}>
+      <View
+        style={[s.container, this.props.style]}
+      >
+        <LiteCreditCardInputCardIcon
+          icon={this.props.leftIcon || icon}
+          iconStyle={[s.icon, this.props.iconStyle]}
+        />
         <View style={[
           s.leftPart,
           showRightPart ? s.hidden : s.expanded,
         ]}>
-          <CCInput {...this._inputProps("number")}
-              containerStyle={s.numberInput} />
+          <CCInput
+            {...this._inputProps("number")}
+            containerStyle={s.numberInput}
+          />
         </View>
-        <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
-          <Image style={s.icon}
-              source={{ uri: Icons[this._iconToShow()] }} />
-        </TouchableOpacity>
+        {this._renderRightIcon()}
+
         <View style={[
           s.rightPart,
           showRightPart ? s.expanded : s.hidden,
         ]}>
-          <TouchableOpacity onPress={this._focusNumber}
-              style={s.last4}>
-            <View pointerEvents={"none"}>
-              <CCInput field="last4"
-                  value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
-                  inputStyle={[s.input, inputStyle]}
-                  containerStyle={[s.last4Input]} />
+          <TouchableOpacity
+            onPress={this._focusNumber}
+            style={s.last4}
+          >
+            <View
+              pointerEvents="none"
+            >
+              <CCInput
+                field="last4"
+                value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
+                inputStyle={[s.input, inputStyle]}
+                containerStyle={[s.last4Input]}
+              />
             </View>
           </TouchableOpacity>
-          <CCInput {...this._inputProps("expiry")}
-              containerStyle={s.expiryInput} />
-          <CCInput {...this._inputProps("cvc")}
-              containerStyle={s.cvcInput} />
+          <CCInput
+            {...this._inputProps("expiry")}
+            containerStyle={s.expiryInput}
+          />
+          <CCInput
+            {...this._inputProps("cvc")}
+            containerStyle={s.cvcInput}
+          />
         </View>
       </View>
+    );
+  }
+
+  _renderRightIcon() {
+    const showRightPart = this.props.focused && this.props.focused !== 'number';
+
+    if (showRightPart) {
+      return null;
+    }
+
+    return (
+      <LiteCreditCardInputCardIcon
+        icon={this.props.rightIcon}
+        iconStyle={[s.icon, this.props.iconStyle]}
+      />
     );
   }
 }
