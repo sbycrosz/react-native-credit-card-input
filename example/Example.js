@@ -51,7 +51,6 @@ export default class Example extends Component {
             (<CreditCardInput
                 autoFocus
 
-                requiresName
                 requiresCVC
                 requiresPostalCode
 
