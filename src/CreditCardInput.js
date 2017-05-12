@@ -19,9 +19,10 @@ const s = StyleSheet.create({
   },
   form: {
     marginTop: 20,
+    paddingTop: 5,
   },
   inputContainer: {
-    marginLeft: 20,
+    marginLeft: 5,
   },
   inputLabel: {
     fontWeight: "bold",
@@ -72,7 +73,7 @@ export default class CreditCardInput extends Component {
       number: "CARD NUMBER",
       expiry: "EXPIRY",
       cvc: "CVC/CCV",
-      postalCode: "POSTAL CODE",
+      postalCode: "ZIP CODE",
     },
     placeholders: {
       name: "Full Name",
@@ -165,7 +166,7 @@ export default class CreditCardInput extends Component {
             style={s.form}>
           <CCInput {...this._inputProps("number")}
               containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
-          <View style={{flexDirection: 'row', paddingTop: 10}}>
+          <View style={{flexDirection: 'row', paddingTop: 20}}>
             <CCInput {...this._inputProps("expiry")}
               containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
             { requiresCVC &&
