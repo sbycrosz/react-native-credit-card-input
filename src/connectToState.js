@@ -36,8 +36,8 @@ export default function connectToState(CreditCardInput) {
       requiresCVC: true,
       requiresPostalCode: false,
       validatePostalCode: (postalCode = "") => {
-        return postalCode.match(/^\d{6}$/) ? "valid" :
-               postalCode.length > 6 ? "invalid" :
+        return postalCode.match(/^\d{5}$/) ? "valid" :
+               postalCode.length > 5 ? "invalid" :
                "incomplete";
       },
     };
