@@ -7,6 +7,7 @@ import ReactNative, {
   ScrollView,
   Dimensions,
   TextInput,
+  Platform,
 } from "react-native";
 
 import CreditCard from "./CardView";
@@ -32,7 +33,12 @@ const s = StyleSheet.create({
   },
 });
 
-const CVC_INPUT_WIDTH = 70;
+const CVC_INPUT_WIDTH = 0;
+if (Platform.OS === "android") {
+  CVC_INPUT_WIDTH = 80;
+} else {
+  CVC_INPUT_WIDTH = 70;
+}
 const EXPIRY_INPUT_WIDTH = CVC_INPUT_WIDTH;
 const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
 const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
