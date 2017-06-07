@@ -6,7 +6,6 @@ import {
   Image,
   LayoutAnimation,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 
 import Icons from "./Icons";
@@ -47,6 +46,7 @@ const s = StyleSheet.create({
   },
   numberInput: {
     width: INFINITE_WIDTH,
+    marginLeft: 20,
   },
   expiryInput: {
     width: 80,
@@ -57,6 +57,9 @@ const s = StyleSheet.create({
   last4Input: {
     width: 60,
     marginLeft: 20,
+  },
+  zipInput: {
+    width: 80,
   },
   input: {
     height: 40,
@@ -76,8 +79,6 @@ export default class LiteCreditCardInput extends Component {
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
     placeholderColor: PropTypes.string,
-
-    additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
   };
 
   static defaultProps = {
@@ -85,16 +86,17 @@ export default class LiteCreditCardInput extends Component {
       number: "1234 5678 1234 5678",
       expiry: "MM/YY",
       cvc: "CVC",
+      postalCode: "ZIP",
     },
     validColor: "",
     invalidColor: "red",
     placeholderColor: "gray",
-    additionalInputsProps: {},
   };
 
   componentDidMount = () => this._focus(this.props.focused);
 
   componentWillReceiveProps = newProps => {
+    console.log("logging newProps ", newProps.focused);
     if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
   };
 
@@ -112,7 +114,6 @@ export default class LiteCreditCardInput extends Component {
       inputStyle, validColor, invalidColor, placeholderColor,
       placeholders, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputsProps,
     } = this.props;
 
     return {
@@ -125,7 +126,6 @@ export default class LiteCreditCardInput extends Component {
       status: status[field],
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputProps: additionalInputsProps[field],
     };
   };
 
@@ -171,6 +171,8 @@ export default class LiteCreditCardInput extends Component {
               containerStyle={s.expiryInput} />
           <CCInput {...this._inputProps("cvc")}
               containerStyle={s.cvcInput} />
+          <CCInput {...this._inputProps("postalCode")}
+              containerStyle={s.zipInput} />
         </View>
       </View>
     );
