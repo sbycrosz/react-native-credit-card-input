@@ -43,6 +43,7 @@ const s = StyleSheet.create({
   last4: {
     flex: 1,
     justifyContent: "center",
+    marginRight: 80
   },
   numberInput: {
     width: INFINITE_WIDTH,
@@ -93,10 +94,11 @@ export default class LiteCreditCardInput extends Component {
     placeholderColor: "gray",
   };
 
-  componentDidMount = () => this._focus(this.props.focused);
+  componentDidMount = () => {
+    this._focus("number");
+  }
 
   componentWillReceiveProps = newProps => {
-    console.log("logging newProps ", newProps.focused);
     if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
   };
 
@@ -116,6 +118,7 @@ export default class LiteCreditCardInput extends Component {
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
     } = this.props;
 
+
     return {
       inputStyle: [s.input, inputStyle],
       validColor, invalidColor, placeholderColor,
@@ -124,6 +127,8 @@ export default class LiteCreditCardInput extends Component {
       placeholder: placeholders[field],
       value: values[field],
       status: status[field],
+      keyboardType: field === "postalCode" ? "numbers-and-punctuation" : "numeric",
+      _handleSubmit: this.props._handleSubmit,
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
     };
