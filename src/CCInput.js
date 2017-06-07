@@ -10,6 +10,7 @@ import {
 const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
+    fontSize: 14,
   },
 });
 
@@ -62,7 +63,6 @@ export default class CCInput extends Component {
 
   _onFocus = () => this.props.onFocus(this.props.field);
   _onChange = value => this.props.onChange(this.props.field, value);
-
   render() {
     const { label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
@@ -74,6 +74,7 @@ export default class CCInput extends Component {
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
               keyboardType={keyboardType}
+              returnKeyType={keyboardType === 'numbers-and-punctuation' ? "done" : "default"}
               autoCapitalise="words"
               autoCorrect={false}
               style={[
@@ -88,7 +89,8 @@ export default class CCInput extends Component {
               placeholder={placeholder}
               value={value}
               onFocus={this._onFocus}
-              onChangeText={this._onChange} />
+              onChangeText={this._onChange}
+              onSubmitEditing={(event) => {this.props._handleSubmit();}}/>
         </View>
       </TouchableOpacity>
     );
