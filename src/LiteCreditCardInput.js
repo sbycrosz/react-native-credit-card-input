@@ -38,6 +38,7 @@ const s = StyleSheet.create({
   },
   rightPart: {
     overflow: "hidden",
+    justifyContent: 'center',
     flexDirection: "row",
   },
   last4: {
@@ -60,7 +61,7 @@ const s = StyleSheet.create({
     marginLeft: 20,
   },
   zipInput: {
-    width: 80,
+    width: 60,
   },
   input: {
     height: 40,
@@ -163,15 +164,14 @@ export default class LiteCreditCardInput extends Component {
           s.rightPart,
           showRightPart ? s.expanded : s.hidden,
         ]}>
-          <TouchableOpacity onPress={this._focusNumber}
-              style={s.last4}>
-            <View pointerEvents={"none"}>
+            <TouchableOpacity onPress={this._focusNumber}
+            style={s.last4}>
               <CCInput field="last4"
                   value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
+                  onFocus={this._focusNumber}
                   inputStyle={[s.input, inputStyle]}
                   containerStyle={[s.last4Input]} />
-            </View>
-          </TouchableOpacity>
+                  </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
               containerStyle={s.expiryInput} />
           <CCInput {...this._inputProps("cvc")}
