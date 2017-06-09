@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Image,
   LayoutAnimation,
-  Alert,
   TouchableOpacity,
 } from "react-native";
 

@@ -83,7 +83,7 @@ export default class CCInput extends Component {
                 s.baseInputStyle,
                 inputStyle,
                 ((validColor && status === "valid") ? { color: validColor } :
-                  (status !== "valid" && field === "number" && (value.length > 0 && value.match(/\d/g).length > 16)) ? { color: invalidColor } :
+                  (status !== "valid" && field === "number" && (value.length > 0 && value.match(/\d/g).length >= 16)) ? { color: invalidColor } :
                  (invalidColor && status === "invalid") ? { color: invalidColor } :
                  {}),
               ]}
