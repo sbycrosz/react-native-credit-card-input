@@ -10,6 +10,7 @@ import {
 const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
+    fontSize: 14,
   },
 });
 
@@ -34,7 +35,6 @@ export default class CCInput extends Component {
     onChange: PropTypes.func,
     onBecomeEmpty: PropTypes.func,
     onBecomeValid: PropTypes.func,
-    additionalInputProps: PropTypes.shape(TextInput.propTypes),
   };
 
   static defaultProps = {
@@ -49,7 +49,6 @@ export default class CCInput extends Component {
     onChange: () => {},
     onBecomeEmpty: () => {},
     onBecomeValid: () => {},
-    additionalInputProps: {},
   };
 
   componentWillReceiveProps = newProps => {
@@ -63,27 +62,28 @@ export default class CCInput extends Component {
   focus = () => this.refs.input.focus();
 
   _onFocus = () => this.props.onFocus(this.props.field);
-  _onChange = value => this.props.onChange(this.props.field, value);
-
+  _onChange = value => {
+    this.props.onChange(this.props.field, value);
+  }
   render() {
-    const { label, value, placeholder, status, keyboardType,
+    const { field, label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+            validColor, invalidColor, placeholderColor } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
-              {...additionalInputProps}
               keyboardType={keyboardType}
+              returnKeyType={keyboardType === 'numbers-and-punctuation' ? "done" : "default"}
               autoCapitalise="words"
               autoCorrect={false}
               style={[
                 s.baseInputStyle,
                 inputStyle,
                 ((validColor && status === "valid") ? { color: validColor } :
+                  (status !== "valid" && field === "number" && (value.length > 0 && value.match(/\d/g).length > 16)) ? { color: invalidColor } :
                  (invalidColor && status === "invalid") ? { color: invalidColor } :
                  {}),
               ]}
@@ -92,7 +92,8 @@ export default class CCInput extends Component {
               placeholder={placeholder}
               value={value}
               onFocus={this._onFocus}
-              onChangeText={this._onChange} />
+              onChangeText={this._onChange}
+              onSubmitEditing={(event) => {this.props._handleSubmit();}}/>
         </View>
       </TouchableOpacity>
     );

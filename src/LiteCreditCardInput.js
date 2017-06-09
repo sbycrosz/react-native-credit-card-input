@@ -5,8 +5,8 @@ import {
   StyleSheet,
   Image,
   LayoutAnimation,
+  Alert,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 
 import Icons from "./Icons";
@@ -39,6 +39,7 @@ const s = StyleSheet.create({
   },
   rightPart: {
     overflow: "hidden",
+    justifyContent: 'center',
     flexDirection: "row",
   },
   last4: {
@@ -47,16 +48,20 @@ const s = StyleSheet.create({
   },
   numberInput: {
     width: INFINITE_WIDTH,
+    marginLeft: 20,
   },
   expiryInput: {
-    width: 80,
+    width: 60,
   },
   cvcInput: {
-    width: 80,
+    width: 40,
   },
   last4Input: {
     width: 60,
     marginLeft: 20,
+  },
+  zipInput: {
+    width: 60,
   },
   input: {
     height: 40,
@@ -76,8 +81,6 @@ export default class LiteCreditCardInput extends Component {
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
     placeholderColor: PropTypes.string,
-
-    additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
   };
 
   static defaultProps = {
@@ -85,14 +88,16 @@ export default class LiteCreditCardInput extends Component {
       number: "1234 5678 1234 5678",
       expiry: "MM/YY",
       cvc: "CVC",
+      postalCode: "ZIP",
     },
     validColor: "",
     invalidColor: "red",
     placeholderColor: "gray",
-    additionalInputsProps: {},
   };
 
-  componentDidMount = () => this._focus(this.props.focused);
+  componentDidMount = () => {
+    this._focus("number");
+  }
 
   componentWillReceiveProps = newProps => {
     if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
@@ -106,14 +111,17 @@ export default class LiteCreditCardInput extends Component {
     this.refs[field].focus();
     LayoutAnimation.easeInEaseOut();
   }
+  _handleSubmit() {
+    this.props._handleSubmit(this);
+  }
 
   _inputProps = field => {
     const {
       inputStyle, validColor, invalidColor, placeholderColor,
       placeholders, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputsProps,
     } = this.props;
+
 
     return {
       inputStyle: [s.input, inputStyle],
@@ -121,11 +129,12 @@ export default class LiteCreditCardInput extends Component {
       ref: field, field,
 
       placeholder: placeholders[field],
-      value: values[field],
+      value: values[field] ? values[field] : "",
       status: status[field],
+      keyboardType: field === "postalCode" ? "numbers-and-punctuation" : "numeric",
+      _handleSubmit: this._handleSubmit.bind(this),
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputProps: additionalInputsProps[field],
     };
   };
 
@@ -158,19 +167,20 @@ export default class LiteCreditCardInput extends Component {
           s.rightPart,
           showRightPart ? s.expanded : s.hidden,
         ]}>
-          <TouchableOpacity onPress={this._focusNumber}
-              style={s.last4}>
-            <View pointerEvents={"none"}>
+            <TouchableOpacity onPress={this._focusNumber}
+            style={s.last4}>
               <CCInput field="last4"
                   value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
+                  onFocus={this._focusNumber}
                   inputStyle={[s.input, inputStyle]}
                   containerStyle={[s.last4Input]} />
-            </View>
-          </TouchableOpacity>
+                  </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
               containerStyle={s.expiryInput} />
           <CCInput {...this._inputProps("cvc")}
               containerStyle={s.cvcInput} />
+          <CCInput {...this._inputProps("postalCode")}
+              containerStyle={s.zipInput} />
         </View>
       </View>
     );
