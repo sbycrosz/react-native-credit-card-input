@@ -44,17 +44,16 @@ const s = StyleSheet.create({
   last4: {
     flex: 1,
     justifyContent: "center",
-    marginRight: 80
   },
   numberInput: {
     width: INFINITE_WIDTH,
     marginLeft: 20,
   },
   expiryInput: {
-    width: 80,
+    width: 60,
   },
   cvcInput: {
-    width: 80,
+    width: 40,
   },
   last4Input: {
     width: 60,
