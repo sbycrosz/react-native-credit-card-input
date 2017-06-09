@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   LayoutAnimation,
+  Alert,
   TouchableOpacity,
 } from "react-native";
 
@@ -110,6 +111,9 @@ export default class LiteCreditCardInput extends Component {
     this.refs[field].focus();
     LayoutAnimation.easeInEaseOut();
   }
+  _handleSubmit() {
+    this.props._handleSubmit(this);
+  }
 
   _inputProps = field => {
     const {
@@ -125,10 +129,10 @@ export default class LiteCreditCardInput extends Component {
       ref: field, field,
 
       placeholder: placeholders[field],
-      value: values[field],
+      value: values[field] ? values[field] : "",
       status: status[field],
       keyboardType: field === "postalCode" ? "numbers-and-punctuation" : "numeric",
-      _handleSubmit: this.props._handleSubmit,
+      _handleSubmit: this._handleSubmit.bind(this),
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
     };
