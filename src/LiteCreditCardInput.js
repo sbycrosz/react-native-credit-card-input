@@ -167,7 +167,8 @@ export default class LiteCreditCardInput extends Component {
 
     return (
       <View style={s.container}>
-        <View style={creditNumberStyle}>
+        <View style={creditNumberStyle}
+              key={'leftSide'}>
           <CCInput {...this._inputProps("number")}
               containerStyle={s.numberInput} />
         </View>
@@ -175,7 +176,8 @@ export default class LiteCreditCardInput extends Component {
           <Image style={s.icon}
                  source={{ uri: Icons[this._iconToShow()] }} />
         </TouchableOpacity>
-        <View style={infoStyle}>
+        <View style={infoStyle}
+              key={'rightSide'}>
           <TouchableOpacity onPress={this._focusNumber}
                             style={s.last4}>
             <CCInput field="last4"
