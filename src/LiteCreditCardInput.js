@@ -147,11 +147,11 @@ export default class LiteCreditCardInput extends Component {
 
   render() {
     const { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
-    const showRightPart = focused && focused !== "number";
+    const showRightPart = focused && focused != "number";
     const extraCreditNumberStyle = showRightPart ? s.hidden : s.expanded;
     const extraInfoStyle = showRightPart ? s.expanded : s.hidden;
     const onPressFunc = showRightPart ? this._focusNumber : this._focusExpiry;
-    const last4Value = numberStatus === "valid" ? number.substr(number.length - 4, 4) : "";
+    const last4Value = numberStatus == "valid" ? number.substr(number.length - 4, 4) : "";
 
     return (
       <View style={s.container}>
