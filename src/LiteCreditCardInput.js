@@ -147,33 +147,31 @@ export default class LiteCreditCardInput extends Component {
 
   render() {
     const { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
-    const showRightPart = focused && focused !== "number";
+    const showRightPart = focused && focused != "number";
+    const extraCreditNumberStyle = showRightPart ? s.hidden : s.expanded;
+    const extraInfoStyle = showRightPart ? s.expanded : s.hidden;
+    const onPressFunc = showRightPart ? this._focusNumber : this._focusExpiry;
+    const last4Value = numberStatus == "valid" ? number.substr(number.length - 4, 4) : "";
 
     return (
       <View style={s.container}>
-        <View style={[
-          s.leftPart,
-          showRightPart ? s.hidden : s.expanded,
-        ]}>
+        <View style={[s.leftPart, extraCreditNumberStyle]}>
           <CCInput {...this._inputProps("number")}
               containerStyle={s.numberInput} />
         </View>
-        <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
+        <TouchableOpacity onPress={onPressFunc}>
           <Image style={s.icon}
-              source={{ uri: Icons[this._iconToShow()] }} />
+                 source={{ uri: Icons[this._iconToShow()] }} />
         </TouchableOpacity>
-        <View style={[
-          s.rightPart,
-          showRightPart ? s.expanded : s.hidden,
-        ]}>
-            <TouchableOpacity onPress={this._focusNumber}
-            style={s.last4}>
-              <CCInput field="last4"
-                  value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
-                  onFocus={this._focusNumber}
-                  inputStyle={[s.input, inputStyle]}
-                  containerStyle={[s.last4Input]} />
-                  </TouchableOpacity>
+        <View style={[s.rightPart, extraInfoStyle]}>
+          <TouchableOpacity onPress={this._focusNumber}
+                            style={s.last4}>
+            <CCInput field="last4"
+                     value={last4Value}
+                     onFocus={this._focusNumber}
+                     inputStyle={[s.input, inputStyle]}
+                     containerStyle={[s.last4Input]} />
+          </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
               containerStyle={s.expiryInput} />
           <CCInput {...this._inputProps("cvc")}
