@@ -142,8 +142,8 @@ export default class LiteCreditCardInput extends Component {
       return;
     }
 
-    console.error('CCDEBUG lite input focus: ' + this.refs[field]);
-    this.refs[field].focus();
+    console.error('CCDEBUG lite input focus: ' + this[field]);
+    this[field].focus();
     //LayoutAnimation.easeInEaseOut();
   }
 
@@ -162,8 +162,8 @@ export default class LiteCreditCardInput extends Component {
     return {
       inputStyle: [s.input, inputStyle],
       validColor, invalidColor, placeholderColor,
-      ref: field, field,
-
+      ref: (ref) => {this[field] = ref},
+      field,
       placeholder: placeholders[field],
       value: values[field] ? values[field] : "",
       status: status[field],

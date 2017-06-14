@@ -59,7 +59,7 @@ export default class CCInput extends Component {
     if (status !== "valid" && newStatus === "valid") onBecomeValid(field);
   };
 
-  focus = () => this.refs.input.focus();
+  focus = () => this.input.focus();
 
   _onFocus = () => this.props.onFocus(this.props.field);
   _onChange = value => {
@@ -75,7 +75,7 @@ export default class CCInput extends Component {
           activeOpacity={0.99}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
-          <TextInput ref="input"
+          <TextInput ref={(ref) => {this.input = ref}}
               autoFocus={(field == "number")}
               keyboardType={keyboardType}
               returnKeyType={keyboardType === 'numbers-and-punctuation' ? "done" : "default"}

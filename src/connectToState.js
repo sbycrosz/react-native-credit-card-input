@@ -63,7 +63,7 @@ export default function connectToState(CreditCardInput) {
     focus = (field) => {
       console.error('CCDEBUG focus: ' + field);
       if (this.state.focused == field) {
-        console.log('CCDEBUG already focused return');
+        console.error('CCDEBUG already focused return');
         return;
       }
 
