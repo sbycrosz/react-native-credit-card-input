@@ -49,9 +49,11 @@ export default function connectToState(CreditCardInput) {
       };
     }
 
-    componentDidMount = () => setTimeout(() => { // Hacks because componentDidMount happens before component is rendered
-      this.props.autoFocus && this.focus("number");
-    });
+    componentDidMount = () => {
+      setTimeout(() => { // Hacks because componentDidMount happens before component is rendered
+        this.props.autoFocus && this.focus("number");
+      }, 50);
+    };
 
     setValues = values => {
       const newValues = { ...this.state.values, ...values };
@@ -64,7 +66,10 @@ export default function connectToState(CreditCardInput) {
       this.props.onChange(newState);
     };
 
-    focus = (field = "number") => {
+    focus = (field) => {
+      if (!field) {
+        field = 'number';
+      }
       this.setState({ focused: field });
     };
 

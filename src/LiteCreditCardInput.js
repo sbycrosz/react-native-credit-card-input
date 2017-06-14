@@ -146,16 +146,28 @@ export default class LiteCreditCardInput extends Component {
   }
 
   render() {
-    const { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
-    const showRightPart = focused && focused != "number";
-    const extraCreditNumberStyle = showRightPart ? s.hidden : s.expanded;
-    const extraInfoStyle = showRightPart ? s.expanded : s.hidden;
-    const onPressFunc = showRightPart ? this._focusNumber : this._focusExpiry;
-    const last4Value = numberStatus == "valid" ? number.substr(number.length - 4, 4) : "";
+    let { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
+    let last4Value = numberStatus == "valid" ? number.substr(number.length - 4, 4) : "";
+
+    let showRightPart = (focused != "number");
+    let creditNumberStyle = [];
+    let infoStyle = [];
+    let onPressFunc = () => {};
+
+    if (showRightPart) {
+      creditNumberStyle = [s.hidden, s.leftPart];
+      infoStyle = [s.expanded, s.rightPart];
+      onPressFunc = this._focusNumber;
+    } else {
+      creditNumberStyle = [s.expanded, s.leftPart;
+      infoStyle = [s.hidden, s.rightPart];
+      onPressFunc = this._focusExpiry;
+    }
+
 
     return (
       <View style={s.container}>
-        <View style={[s.leftPart, extraCreditNumberStyle]}>
+        <View style={creditNumberStyle}>
           <CCInput {...this._inputProps("number")}
               containerStyle={s.numberInput} />
         </View>
@@ -163,7 +175,7 @@ export default class LiteCreditCardInput extends Component {
           <Image style={s.icon}
                  source={{ uri: Icons[this._iconToShow()] }} />
         </TouchableOpacity>
-        <View style={[s.rightPart, extraInfoStyle]}>
+        <View style={infoStyle}>
           <TouchableOpacity onPress={this._focusNumber}
                             style={s.last4}>
             <CCInput field="last4"
