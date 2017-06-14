@@ -144,7 +144,7 @@ export default class LiteCreditCardInput extends Component {
 
     console.error('CCDEBUG lite input focus: ' + this.refs[field]);
     this.refs[field].focus();
-    LayoutAnimation.easeInEaseOut();
+    //LayoutAnimation.easeInEaseOut();
   }
 
   _handleSubmit() {
