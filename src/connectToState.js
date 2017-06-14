@@ -61,6 +61,7 @@ export default function connectToState(CreditCardInput) {
     };
 
     focus = (field) => {
+      console.log('CCDEBUG focus: ' + field);
       if (!field) {
         field = 'number';
       }
