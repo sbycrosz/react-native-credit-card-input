@@ -159,7 +159,7 @@ export default class LiteCreditCardInput extends Component {
       infoStyle = [s.expanded, s.rightPart];
       onPressFunc = this._focusNumber;
     } else {
-      creditNumberStyle = [s.expanded, s.leftPart;
+      creditNumberStyle = [s.expanded, s.leftPart];
       infoStyle = [s.hidden, s.rightPart];
       onPressFunc = this._focusExpiry;
     }
