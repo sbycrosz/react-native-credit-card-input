@@ -11,6 +11,7 @@ import {
 import Icons from "./Icons";
 import CCInput from "./CCInput";
 import { InjectedProps } from "./connectToState";
+import _ from 'lodash';
 
 const INFINITE_WIDTH = 1000;
 
@@ -27,10 +28,10 @@ const s = StyleSheet.create({
     height: 40,
     resizeMode: "contain",
   },
-  expanded: {
+  expandedViewStyle: {
     flex: 1,
   },
-  hidden: {
+  hiddenViewStyle: {
     width: 0,
   },
   leftPart: {
@@ -95,27 +96,57 @@ export default class LiteCreditCardInput extends Component {
     placeholderColor: "gray",
   };
 
-  componentDidMount = () => {
-    //this._focus("number");
+  shouldComponentUpdate = (nextProps, nextState) => {
+    let diffProps = _.reduce(nextProps, (result, value, key) => {
+        return _.isEqual(value, this.props[key]) ?
+            result : result.concat(key);
+    }, []);
+
+    console.error('CCDEBUG: props changed: ' + JSON.stringify(diffProps));
+    let diffState = _.reduce(nextState, (result, value, key) => {
+        return _.isEqual(value, this.state[key]) ?
+            result : result.concat(key);
+    }, []);
+
+    console.error('CCDEBUG: state changed: ' + JSON.stringify(diffState));
+    return diffProps.length > 0 || diffState.length > 0;
   }
 
   componentWillReceiveProps = newProps => {
-    if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
+    if (this.props.focused !== newProps.focused) {
+      console.error('CCDEBUG: props changed new focus, call focus');
+      this._focus(newProps.focused);
+    }
+
+    let diff = _.reduce(newProps, (result, value, key) => {
+        return _.isEqual(value, this.props[key]) ?
+            result : result.concat(key);
+    }, []);
+    console.error('CCDEBUG: props changed: ' + JSON.stringify(diff));
   };
 
   _focusNumber = () => {
+    console.error('CCDEBUG focus number');
     this._focus("number");
   };
 
   _focusExpiry = () => {
+    console.error('CCDEBUG focus expiry');
     this._focus("expiry");
   };
 
   _focus = field => {
-    if (!field) return;
+    console.error('CCDEBUG lite input focus: ' + field);
+
+    if (!field || this.props.focused == field) {
+      return;
+    }
+
+    console.error('CCDEBUG lite input focus: ' + this.refs[field]);
     this.refs[field].focus();
     LayoutAnimation.easeInEaseOut();
   }
+
   _handleSubmit() {
     this.props._handleSubmit(this);
   }
@@ -154,21 +185,28 @@ export default class LiteCreditCardInput extends Component {
   render() {
     let { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
     let last4Value = numberStatus == "valid" ? number.substr(number.length - 4, 4) : "";
+    console.error('CCDEBUG: destructured focused: ' + focused);
+
+    console.error('CCDEBUG: props focused: ' + this.props.focused);
     let showRightPart = !focused || (focused != "number");
     let creditNumberStyle = [];
     let infoStyle = [];
     let onPressFunc = () => {};
 
     if (showRightPart) {
-      creditNumberStyle = [s.hidden, s.leftPart];
-      infoStyle = [s.expanded, s.rightPart];
+      creditNumberStyle = [s.hiddenViewStyle, s.leftPart];
+      infoStyle = [s.expandedViewStyle, s.rightPart];
       onPressFunc = this._focusNumber;
+      console.error('CCDEBUG: showRightPart true');
     } else {
-      creditNumberStyle = [s.expanded, s.leftPart];
-      infoStyle = [s.hidden, s.rightPart];
+      console.error('CCDEBUG: showRightPart false');
+      creditNumberStyle = [s.expandedViewStyle, s.leftPart];
+      infoStyle = [s.hiddenViewStyle, s.rightPart];
       onPressFunc = this._focusExpiry;
     }
 
+    console.error('CCDEBUG number style: ' + JSON.stringify(StyleSheet.flatten(creditNumberStyle)));
+    console.error('CCDEBUG info style: ' + JSON.stringify(StyleSheet.flatten(infoStyle)));
     return (
       <View style={s.container}>
         <View style={creditNumberStyle}
