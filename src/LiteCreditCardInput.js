@@ -103,21 +103,21 @@ export default class LiteCreditCardInput extends Component {
   };
 
   _focusNumber = () => {
-    console.log('CCDEBUG focus number');
+    console.error('CCDEBUG focus number');
     this._focus("number");
   };
 
   _focusExpiry = () => {
-    console.log('CCDEBUG focus expiry');
+    console.error('CCDEBUG focus expiry');
     this._focus("expiry");
   };
 
   _focus = field => {
-    console.log('CCDEBUG lite input focus: ' + field);
+    console.error('CCDEBUG lite input focus: ' + field);
 
     if (!field) return;
 
-    console.log('CCDEBUG lite input focus: ' + this.refs[field]);
+    console.error('CCDEBUG lite input focus: ' + this.refs[field]);
     this.refs[field].focus();
     LayoutAnimation.easeInEaseOut();
   }
@@ -159,21 +159,21 @@ export default class LiteCreditCardInput extends Component {
   render() {
     let { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
     let last4Value = numberStatus == "valid" ? number.substr(number.length - 4, 4) : "";
-    console.log('CCDEBUG: destructured focused: ' + focused);
+    console.error('CCDEBUG: destructured focused: ' + focused);
 
-    console.log('CCDEBUG: props focused: ' + this.props.focused);
+    console.error('CCDEBUG: props focused: ' + this.props.focused);
     let showRightPart = (focused != "number");
     let creditNumberStyle = [];
     let infoStyle = [];
     let onPressFunc = () => {};
 
     if (showRightPart) {
-      console.log('CCDEBUG: showRightPart true');
+      console.error('CCDEBUG: showRightPart true');
       creditNumberStyle = [s.hidden, s.leftPart];
       infoStyle = [s.expanded, s.rightPart];
       onPressFunc = this._focusNumber;
     } else {
-      console.log('CCDEBUG: showRightPart false');
+      console.error('CCDEBUG: showRightPart false');
       creditNumberStyle = [s.expanded, s.leftPart];
       infoStyle = [s.hidden, s.rightPart];
       onPressFunc = this._focusExpiry;
