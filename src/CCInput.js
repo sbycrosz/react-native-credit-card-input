@@ -69,12 +69,14 @@ export default class CCInput extends Component {
     const { field, label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor } = this.props;
+
     return (
       <TouchableOpacity onPress={this.focus}
           activeOpacity={0.99}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
+              autoFocus={(field == "number")}
               keyboardType={keyboardType}
               returnKeyType={keyboardType === 'numbers-and-punctuation' ? "done" : "default"}
               autoCapitalise="words"

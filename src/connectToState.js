@@ -43,7 +43,7 @@ export default function connectToState(CreditCardInput) {
     constructor() {
       super();
       this.state = {
-        focused: "",
+        focused: "number",
         values: {},
         status: {},
       };
@@ -61,7 +61,6 @@ export default function connectToState(CreditCardInput) {
     };
 
     focus = (field) => {
-      console.error('CCDEBUG focus: ' + field);
       if (!field) {
         field = 'number';
       }
