@@ -15,7 +15,7 @@ import _ from 'lodash';
 
 const INFINITE_WIDTH = 1000;
 
-const s = StyleSheet.create({
+const s = {
   container: {
     paddingLeft: 10,
     paddingRight: 10,
@@ -67,7 +67,7 @@ const s = StyleSheet.create({
     height: 40,
     color: "black",
   },
-});
+};
 
 /* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
 export default class LiteCreditCardInput extends Component {
