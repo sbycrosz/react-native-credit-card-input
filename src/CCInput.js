@@ -69,7 +69,9 @@ export default class CCInput extends Component {
   }
 
   _onFocus() {
-    this.props.onFocus(this.props.field);
+    setTimeout(() => {
+      this.props.onFocus(this.props.field);
+    }, 50);
   }
 
   _onChange(value) {
@@ -82,33 +84,31 @@ export default class CCInput extends Component {
             validColor, invalidColor, placeholderColor } = this.props;
 
     return (
-      <TouchableOpacity onPress={this.focus}
-          activeOpacity={0.99}>
-        <View style={[containerStyle]}>
-          { !!label && <Text style={[labelStyle]}>{label}</Text>}
-          <TextInput ref={(ref) => {this.input = ref}}
-              autoFocus={(field == "number")}
-              keyboardType={keyboardType}
-              returnKeyType={keyboardType === 'numbers-and-punctuation' ? "done" : "default"}
-              autoCapitalise="words"
-              autoCorrect={false}
-              style={[
-                s.baseInputStyle,
-                inputStyle,
-                ((validColor && status === "valid") ? { color: validColor } :
-                  (status !== "valid" && field === "number" && (value.length > 0 && value.match(/\d/g).length >= 16)) ? { color: invalidColor } :
-                 (invalidColor && status === "invalid") ? { color: invalidColor } :
-                 {}),
-              ]}
-              underlineColorAndroid={"transparent"}
-              placeholderTextColor={placeholderColor}
-              placeholder={placeholder}
-              value={value}
-              onFocus={this._onFocus.bind(this)}
-              onChangeText={this._onChange.bind(this)}
-              onSubmitEditing={(event) => {this.props._handleSubmit();}}/>
-        </View>
-      </TouchableOpacity>
+      <View onPress={this.focus}
+            style={containerStyle}>
+        { !!label && <Text style={[labelStyle]}>{label}</Text>}
+        <TextInput ref={(ref) => {this.input = ref}}
+            autoFocus={(field == "number")}
+            keyboardType={keyboardType}
+            returnKeyType={keyboardType === 'numbers-and-punctuation' ? "done" : "default"}
+            autoCapitalise="words"
+            autoCorrect={false}
+            style={[
+              s.baseInputStyle,
+              inputStyle,
+              ((validColor && status === "valid") ? { color: validColor } :
+                (status !== "valid" && field === "number" && (value.length > 0 && value.match(/\d/g).length >= 16)) ? { color: invalidColor } :
+               (invalidColor && status === "invalid") ? { color: invalidColor } :
+               {}),
+            ]}
+            underlineColorAndroid={"transparent"}
+            placeholderTextColor={placeholderColor}
+            placeholder={placeholder}
+            value={value}
+            onFocus={this._onFocus.bind(this)}
+            onChangeText={this._onChange.bind(this)}
+            onSubmitEditing={(event) => {this.props._handleSubmit();}}/>
+      </View>
     );
   }
 }

@@ -1,178 +1,137 @@
 import React, { Component, PropTypes } from "react";
-import ReactNative, {
-  NativeModules,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-} from "react-native";
+import CCFieldFormatter from "./CCFieldFormatter";
+import CCFieldValidator from "./CCFieldValidator";
+import compact from "lodash.compact";
 
-import CreditCard from "./CardView";
-import CCInput from "./CCInput";
-import { InjectedProps } from "./connectToState";
+import FullCreditCardInput from "./FullCreditCardInput";
+import LiteCreditCardInput from "./LiteCreditCardInput";
 
-const s = StyleSheet.create({
-  container: {
-    alignItems: "center",
-  },
-  form: {
-    marginTop: 20,
-  },
-  inputContainer: {
-    marginLeft: 20,
-  },
-  inputLabel: {
-    fontWeight: "bold",
-  },
-  input: {
-    height: 40,
-  },
-});
+export const SharedProps = {
+  focused: PropTypes.string,
+  values: PropTypes.object.isRequired,
+  status: PropTypes.object.isRequired,
+  onFocus: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBecomeEmpty: PropTypes.func.isRequired,
+  onBecomeValid: PropTypes.func.isRequired,
+  requiresName: PropTypes.bool,
+  requiresCVC: PropTypes.bool,
+  requiresPostalCode: PropTypes.bool,
+};
 
-const CVC_INPUT_WIDTH = 70;
-const EXPIRY_INPUT_WIDTH = CVC_INPUT_WIDTH;
-const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
-const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
-const NAME_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
-const PREVIOUS_FIELD_OFFSET = 40;
-const POSTAL_CODE_INPUT_WIDTH = 120;
-
-/* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
 export default class CreditCardInput extends Component {
   static propTypes = {
-    ...InjectedProps,
-    labels: PropTypes.object,
-    placeholders: PropTypes.object,
-
-    labelStyle: Text.propTypes.style,
-    inputStyle: Text.propTypes.style,
-    inputContainerStyle: View.propTypes.style,
-
-    validColor: PropTypes.string,
-    invalidColor: PropTypes.string,
-    placeholderColor: PropTypes.string,
-
-    cardImageFront: PropTypes.number,
-    cardImageBack: PropTypes.number,
-    cardScale: PropTypes.number,
-    cardFontFamily: PropTypes.string,
-    cardBrandIcons: PropTypes.object,
-
-    allowScroll: PropTypes.bool,
+    autoFocus: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    onFocus: PropTypes.func,
+    requiresName: PropTypes.bool,
+    requiresCVC: PropTypes.bool,
+    requiresPostalCode: PropTypes.bool,
+    validatePostalCode: PropTypes.func,
+    isLite: PropTypes.bool
   };
 
   static defaultProps = {
-    cardViewSize: {},
-    labels: {
-      name: "CARDHOLDER'S NAME",
-      number: "CARD NUMBER",
-      expiry: "EXPIRY",
-      cvc: "CVC/CCV",
-      postalCode: "POSTAL CODE",
+    autoFocus: false,
+    isLite: true,
+    onChange: () => {},
+    onFocus: () => {},
+    requiresName: false,
+    requiresCVC: true,
+    requiresPostalCode: true,
+    validatePostalCode: (postalCode = "") => {
+      return postalCode.length > 0 ? "valid" : "invalid";
     },
-    placeholders: {
-      name: "Full Name",
-      number: "1234 5678 1234 5678",
-      expiry: "MM/YY",
-      cvc: "CVC",
-      postalCode: "34567",
-    },
-    inputContainerStyle: {
-      borderBottomWidth: 1,
-      borderBottomColor: "black",
-    },
-    validColor: "",
-    invalidColor: "red",
-    placeholderColor: "gray",
-    allowScroll: false,
   };
 
-  componentDidMount = () => this._focus(this.props.focused);
-
-  componentWillReceiveProps = newProps => {
-    if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
-  };
-
-  _focus = field => {
-    if (!field) return;
-
-    const scrollResponder = this.refs.Form.getScrollResponder();
-    const nodeHandle = ReactNative.findNodeHandle(this.refs[field]);
-
-    NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
-      e => { throw e; },
-      x => {
-        scrollResponder.scrollTo({ x: Math.max(x - PREVIOUS_FIELD_OFFSET, 0), animated: true });
-        this.refs[field].focus();
-      });
+  constructor() {
+    super();
+    this.state = {
+      focused: "number",
+      values: {},
+      status: {},
+    };
   }
 
-  _inputProps = field => {
-    const {
-      inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
-      placeholders, labels, values, status,
-      onFocus, onChange, onBecomeEmpty, onBecomeValid,
-    } = this.props;
+  setValues(values) {
+    const newValues = { ...this.state.values, ...values };
+    const displayedFields = this._displayedFields();
+    const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
+    const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
+    const newState = { values: formattedValues, ...validation };
 
-    return {
-      inputStyle: [s.input, inputStyle],
-      labelStyle: [s.inputLabel, labelStyle],
-      validColor, invalidColor, placeholderColor,
-      ref: field, field,
+    this.setState(newState);
+    this.props.onChange(newState);
+  }
 
-      label: labels[field],
-      placeholder: placeholders[field],
-      value: values[field],
-      status: status[field],
+  focus(field) {
+    console.log('CCDEBUG focus: ' + field);
+    if (this.state.focused == field) {
+      console.log('CCDEBUG already focused return');
+      return;
+    }
 
-      onFocus, onChange, onBecomeEmpty, onBecomeValid,
-    };
-  };
+    if (!field) {
+      field = 'number';
+    }
+
+    this.setState({ focused: field });
+  }
+
+  _displayedFields() {
+    const { requiresName, requiresCVC, requiresPostalCode } = this.props;
+    return compact([
+      "number",
+      "expiry",
+      requiresCVC ? "cvc" : null,
+      requiresName ? "name" : null,
+      requiresPostalCode ? "postalCode" : null,
+    ]);
+  }
+
+  _focusPreviousField(field) {
+    const displayedFields = this._displayedFields();
+    const fieldIndex = displayedFields.indexOf(field);
+    const previousField = displayedFields[fieldIndex - 1];
+    if (previousField) {
+      this.focus(previousField);
+    }
+  }
+
+  _focusNextField(field) {
+    if (field === "name") {
+      return;
+    }
+    // Should not focus to the next field after name (e.g. when requiresName & requiresPostalCode are true
+    // because we can't determine if the user has completed their name or not)
+
+    const displayedFields = this._displayedFields();
+    const fieldIndex = displayedFields.indexOf(field);
+    const nextField = displayedFields[fieldIndex + 1];
+    if (nextField) {
+      this.focus(nextField);
+    }
+  }
+
+  _change(field, value) {
+    this.setValues({ [field]: value });
+  }
+
+  _onFocus(field) {
+    this.focus(field);
+    this.props.onFocus(field);
+  }
 
   render() {
-    const {
-      cardImageFront, cardImageBack, inputContainerStyle,
-      values: { number, expiry, cvc, name, type }, focused,
-      allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons,
-    } = this.props;
-
+    const CreditCardElement = this.props.isLite ? LiteCreditCardInput : FullCreditCardInput;
     return (
-      <View style={s.container}>
-        <CreditCard focused={focused}
-            brand={type}
-            scale={cardScale}
-            fontFamily={cardFontFamily}
-            imageFront={cardImageFront}
-            imageBack={cardImageBack}
-            customIcons={cardBrandIcons}
-            name={requiresName ? name : " "}
-            number={number}
-            expiry={expiry}
-            cvc={cvc} />
-        <ScrollView ref="Form"
-            horizontal
-            keyboardShouldPersistTaps
-            scrollEnabled={allowScroll}
-            showsHorizontalScrollIndicator={false}
-            style={s.form}>
-          <CCInput {...this._inputProps("number")}
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
-          <CCInput {...this._inputProps("expiry")}
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
-          { requiresCVC &&
-            <CCInput {...this._inputProps("cvc")}
-                containerStyle={[s.inputContainer, inputContainerStyle, { width: CVC_INPUT_WIDTH }]} /> }
-          { requiresName &&
-            <CCInput {...this._inputProps("name")}
-                keyboardType="default"
-                containerStyle={[s.inputContainer, inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
-          { requiresPostalCode &&
-            <CCInput {...this._inputProps("postalCode")}
-                containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
-        </ScrollView>
-      </View>
+      <CreditCardElement
+          {...this.props}
+          {...this.state}
+          onFocus={this._onFocus.bind(this)}
+          onChange={this._change.bind(this)}
+          onBecomeEmpty={this._focusPreviousField.bind(this)}
+          onBecomeValid={this._focusNextField.bind(this)} />
     );
   }
 }
