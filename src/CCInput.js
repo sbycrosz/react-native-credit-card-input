@@ -49,22 +49,33 @@ export default class CCInput extends Component {
     onChange: () => {},
     onBecomeEmpty: () => {},
     onBecomeValid: () => {},
-  };
+  }
 
-  componentWillReceiveProps = newProps => {
+  componentWillReceiveProps(newProps) {
     const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
     const { status: newStatus, value: newValue } = newProps;
 
-    if (value !== "" && newValue === "") onBecomeEmpty(field);
-    if (status !== "valid" && newStatus === "valid") onBecomeValid(field);
-  };
+    if (value !== "" && newValue === "") {
+      onBecomeEmpty(field);
+    }
 
-  focus = () => this.input.focus();
+    if (status !== "valid" && newStatus === "valid") {
+      onBecomeValid(field);
+    }
+  }
 
-  _onFocus = () => this.props.onFocus(this.props.field);
-  _onChange = value => {
+  focus() {
+    this.input.focus();
+  }
+
+  _onFocus() {
+    this.props.onFocus(this.props.field);
+  }
+
+  _onChange(value) {
     this.props.onChange(this.props.field, value);
   }
+
   render() {
     const { field, label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
@@ -93,8 +104,8 @@ export default class CCInput extends Component {
               placeholderTextColor={placeholderColor}
               placeholder={placeholder}
               value={value}
-              onFocus={this._onFocus}
-              onChangeText={this._onChange}
+              onFocus={this._onFocus.bind(this)}
+              onChangeText={this._onChange.bind(this)}
               onSubmitEditing={(event) => {this.props._handleSubmit();}}/>
         </View>
       </TouchableOpacity>

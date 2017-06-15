@@ -36,7 +36,7 @@ export default function connectToState(CreditCardInput) {
       requiresCVC: true,
       requiresPostalCode: true,
       validatePostalCode: (postalCode = "") => {
-        return postalCode.length > 0 ? "valid" : "invalid";
+        return postalCode.length > 1 ? "valid" : "invalid";
       },
     };
 
@@ -49,7 +49,7 @@ export default function connectToState(CreditCardInput) {
       };
     }
 
-    setValues = values => {
+    setValues(values) {
       const newValues = { ...this.state.values, ...values };
       const displayedFields = this._displayedFields();
       const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
@@ -58,9 +58,9 @@ export default function connectToState(CreditCardInput) {
 
       this.setState(newState);
       this.props.onChange(newState);
-    };
+    }
 
-    focus = (field) => {
+    focus(field) {
       console.error('CCDEBUG focus: ' + field);
       if (this.state.focused == field) {
         console.error('CCDEBUG already focused return');
@@ -72,9 +72,9 @@ export default function connectToState(CreditCardInput) {
       }
 
       this.setState({ focused: field });
-    };
+    }
 
-    _displayedFields = () => {
+    _displayedFields() {
       const { requiresName, requiresCVC, requiresPostalCode } = this.props;
       return compact([
         "number",
@@ -83,44 +83,50 @@ export default function connectToState(CreditCardInput) {
         requiresName ? "name" : null,
         requiresPostalCode ? "postalCode" : null,
       ]);
-    };
+    }
 
-    _focusPreviousField = field => {
+    _focusPreviousField(field) {
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const previousField = displayedFields[fieldIndex - 1];
-      if (previousField) this.focus(previousField);
-    };
+      if (previousField) {
+        this.focus(previousField);
+      }
+    }
 
-    _focusNextField = field => {
-      if (field === "name") return;
+    _focusNextField(field) {
+      if (field === "name") {
+        return;
+      }
       // Should not focus to the next field after name (e.g. when requiresName & requiresPostalCode are true
       // because we can't determine if the user has completed their name or not)
 
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const nextField = displayedFields[fieldIndex + 1];
-      if (nextField) this.focus(nextField);
-    };
+      if (nextField) {
+        this.focus(nextField);
+      }
+    }
 
-    _change = (field, value) => {
+    _change(field, value) {
       this.setValues({ [field]: value });
-    };
+    }
 
-    _onFocus = (field) => {
+    _onFocus(field) {
       this.focus(field);
       this.props.onFocus(field);
-    };
+    }
 
     render() {
       return (
         <CreditCardInput
             {...this.props}
             {...this.state}
-            onFocus={this._onFocus}
-            onChange={this._change}
-            onBecomeEmpty={this._focusPreviousField}
-            onBecomeValid={this._focusNextField} />
+            onFocus={this._onFocus.bind(this)}
+            onChange={this._change.bind(this)}
+            onBecomeEmpty={this._focusPreviousField.bind(this)}
+            onBecomeValid={this._focusNextField.bind(this)} />
       );
     }
   }
