@@ -6,7 +6,8 @@ import {
   Image,
   TouchableOpacity,
   LayoutAnimation,
-  findNodeHandle
+  findNodeHandle,
+  TextInput
 } from "react-native";
 
 import Icons from "./Icons";
@@ -138,14 +139,14 @@ export default class LiteCreditCardInput extends Component {
     let onPressFunc = () => {};
 
     if (showRightPart) {
-      creditNumberStyle = [{width: 0}, s.leftPart];
-      infoStyle = [{flex: 1}, s.rightPart];
+      creditNumberStyle = [s.leftPart, {width: 0}];
+      infoStyle = [s.rightPart, {flex: 1}];
       onPressFunc = this._focusNumber.bind(this);
       console.log('CCDEBUG: showRightPart true');
     } else {
       console.log('CCDEBUG: showRightPart false');
-      creditNumberStyle = [{flex: 1}, s.leftPart, {marginLeft: 20}];
-      infoStyle = [{width: 0}, s.rightPart];
+      creditNumberStyle = [s.leftPart, {marginLeft: 20, flex: 1}];
+      infoStyle = [s.rightPart, {width: 0}];
       onPressFunc = this._focusExpiry.bind(this);
     }
 
@@ -164,11 +165,11 @@ export default class LiteCreditCardInput extends Component {
               key={'rightSide'}>
           <TouchableOpacity onPress={this._focusNumber.bind(this)}
                             style={s.last4}>
-            <CCInput field="last4"
-                     value={last4Value}
-                     onFocus={this._focusNumber.bind(this)}
-                     inputStyle={[s.input, inputStyle]}
-                     containerStyle={[s.last4Input]} />
+            <View style={s.last4Input}>
+              <TextInput style={[s.input, s.last4Text, inputStyle]}
+                         value={last4Value}
+                         editable={false}/>
+            </View>
           </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
               containerStyle={s.expiryInput} />
@@ -202,15 +203,18 @@ const s = StyleSheet.create({
     width: 0,
   },
   leftPart: {
+    backgroundColor:'blue',
     overflow: "hidden",
   },
   rightPart: {
+    backgroundColor:'yellow',
     overflow: "hidden",
     justifyContent: 'center',
     flexDirection: "row",
   },
   last4: {
     flex: 1,
+    backgroundColor: 'pink',
     justifyContent: "center",
   },
   numberInput: {
@@ -224,7 +228,13 @@ const s = StyleSheet.create({
   },
   last4Input: {
     width: 60,
+    flexGrow:0,
     marginLeft: 20,
+    backgroundColor: 'green',
+  },
+  last4Text: {
+    color: "black",
+    fontSize: 14,
   },
   zipInput: {
     width: 60,
