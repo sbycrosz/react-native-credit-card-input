@@ -139,14 +139,14 @@ export default class LiteCreditCardInput extends Component {
     let onPressFunc = () => {};
 
     if (showRightPart) {
-      creditNumberStyle = [s.leftPart, {width: 0}];
-      infoStyle = [s.rightPart, {flex: 1}];
+      creditNumberStyle = [s.leftPart, {position:'absolute', flex: 1, left:0, opacity:0}];
+      infoStyle = [s.rightPart, {flex: 1, position:'relative', opacity:1}];
       onPressFunc = this._focusNumber.bind(this);
       console.log('CCDEBUG: showRightPart true');
     } else {
       console.log('CCDEBUG: showRightPart false');
-      creditNumberStyle = [s.leftPart, {marginLeft: 20, flex: 1}];
-      infoStyle = [s.rightPart, {width: 0}];
+      creditNumberStyle = [s.leftPart, {marginLeft: 20, flex: 1, position:'relative', opacity:1}];
+      infoStyle = [s.rightPart, {position:'absolute', flex: 1, right:0, opacity:0}];
       onPressFunc = this._focusExpiry.bind(this);
     }
 
@@ -203,18 +203,15 @@ const s = StyleSheet.create({
     width: 0,
   },
   leftPart: {
-    backgroundColor:'blue',
     overflow: "hidden",
   },
   rightPart: {
-    backgroundColor:'yellow',
     overflow: "hidden",
     justifyContent: 'center',
     flexDirection: "row",
   },
   last4: {
     flex: 1,
-    backgroundColor: 'pink',
     justifyContent: "center",
   },
   numberInput: {
@@ -230,7 +227,6 @@ const s = StyleSheet.create({
     width: 60,
     flexGrow:0,
     marginLeft: 20,
-    backgroundColor: 'green',
   },
   last4Text: {
     color: "black",
