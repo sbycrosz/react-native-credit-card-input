@@ -48,41 +48,34 @@ export default class LiteCreditCardInput extends Component {
             result : result.concat(key);
     }, []);
 
-    console.log('CCDEBUG: props changed: ' + JSON.stringify(diffProps));
     let diffState = _.reduce(nextState, (result, value, key) => {
         return _.isEqual(value, this.state[key]) ?
             result : result.concat(key);
     }, []);
 
-    console.log('CCDEBUG: state changed: ' + JSON.stringify(diffState));
     return diffProps.length > 0 || diffState.length > 0;
   }
 
   componentWillReceiveProps (newProps) {
     if (this.props.focused !== newProps.focused) {
-      console.log('CCDEBUG: props changed new focus, call focus');
       this._focus(newProps.focused);
     }
   }
 
   _focusNumber() {
-    console.log('CCDEBUG focus number');
     this._focus("number");
   }
 
   _focusExpiry() {
-    console.log('CCDEBUG focus expiry');
     this._focus("expiry");
   };
 
   _focus(field) {
-    console.log('CCDEBUG lite input focus: ' + field);
 
     if (!field || this.props.focused == field) {
       return;
     }
 
-    console.log('CCDEBUG lite input focus: ' + this[field]);
     this[field].focus();
     LayoutAnimation.easeInEaseOut();
   }
@@ -130,9 +123,7 @@ export default class LiteCreditCardInput extends Component {
   render() {
     let { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
     let last4Value = numberStatus == "valid" ? number.substr(number.length - 4, 4) : "";
-    console.log('CCDEBUG: destructured focused: ' + focused);
 
-    console.log('CCDEBUG: props focused: ' + this.props.focused);
     let showRightPart = !focused || (focused != "number");
     let creditNumberStyle = [];
     let infoStyle = [];
@@ -142,16 +133,12 @@ export default class LiteCreditCardInput extends Component {
       creditNumberStyle = [s.leftPart, {position:'absolute', flex: 1, left:0, opacity:0}];
       infoStyle = [s.rightPart, {flex: 1, position:'relative', opacity:1}];
       onPressFunc = this._focusNumber.bind(this);
-      console.log('CCDEBUG: showRightPart true');
     } else {
-      console.log('CCDEBUG: showRightPart false');
       creditNumberStyle = [s.leftPart, {marginLeft: 20, flex: 1, position:'relative', opacity:1}];
       infoStyle = [s.rightPart, {position:'absolute', flex: 1, right:0, opacity:0}];
       onPressFunc = this._focusExpiry.bind(this);
     }
 
-    console.log('CCDEBUG number style: ' + JSON.stringify(StyleSheet.flatten(creditNumberStyle)));
-    console.log('CCDEBUG info style: ' + JSON.stringify(StyleSheet.flatten(infoStyle)));
     return (
       <View style={s.container}>
         <CCInput {...this._inputProps("number")}

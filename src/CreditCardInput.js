@@ -65,9 +65,7 @@ export default class CreditCardInput extends Component {
   }
 
   focus(field) {
-    console.log('CCDEBUG focus: ' + field);
     if (this.state.focused == field) {
-      console.log('CCDEBUG already focused return');
       return;
     }
 
