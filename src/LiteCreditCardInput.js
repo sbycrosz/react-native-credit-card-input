@@ -138,14 +138,14 @@ export default class LiteCreditCardInput extends Component {
     let onPressFunc = () => {};
 
     if (showRightPart) {
-      creditNumberStyle = [s.hiddenViewStyle, s.leftPart];
-      infoStyle = [s.expandedViewStyle, s.rightPart];
+      creditNumberStyle = [{width: 0}, s.leftPart];
+      infoStyle = [{flex: 1}, s.rightPart];
       onPressFunc = this._focusNumber.bind(this);
       console.log('CCDEBUG: showRightPart true');
     } else {
       console.log('CCDEBUG: showRightPart false');
-      creditNumberStyle = [s.expandedViewStyle, s.leftPart, {marginLeft: 20}];
-      infoStyle = [s.hiddenViewStyle, s.rightPart];
+      creditNumberStyle = [{flex: 1}, s.leftPart, {marginLeft: 20}];
+      infoStyle = [{width: 0}, s.rightPart];
       onPressFunc = this._focusExpiry.bind(this);
     }
 
@@ -198,6 +198,9 @@ const s = StyleSheet.create({
   expandedViewStyle: {
     flex: 1,
   },
+  hiddenViewStyle: {
+    width: 0,
+  },
   leftPart: {
     overflow: "hidden",
   },
@@ -229,8 +232,5 @@ const s = StyleSheet.create({
   input: {
     height: 40,
     color: "black",
-  },
-  hiddenViewStyle: {
-    width: 0,
   },
 });
