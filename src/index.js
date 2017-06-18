@@ -7,4 +7,4 @@ import Icons from "./Icons";
 export const CreditCardInput = connectToState(CCF);
 export const LiteCreditCardInput = connectToState(LiteCCF);
 export const CardView = CV;
-export const CCICons = Icons;
+export const CCIcons = Icons;
