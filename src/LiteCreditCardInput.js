@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   LayoutAnimation,
   findNodeHandle,
-  TextInput
+  TextInput,
+  Platform,
 } from "react-native";
 
 import Icons from "./Icons";
@@ -205,10 +206,10 @@ const s = StyleSheet.create({
     width: INFINITE_WIDTH,
   },
   expiryInput: {
-    width: 60,
+    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 80 : 60,
   },
   cvcInput: {
-    width: 40,
+    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 50 : 40,
   },
   last4Input: {
     width: 60,
@@ -220,7 +221,7 @@ const s = StyleSheet.create({
     fontSize: 14,
   },
   zipInput: {
-    width: 60,
+    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 70 : 60,
   },
   input: {
     height: 40,
