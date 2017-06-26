@@ -107,6 +107,7 @@ export default class CCInput extends Component {
             value={value}
             onFocus={this._onFocus.bind(this)}
             onChangeText={this._onChange.bind(this)}
+            numberOfLines={1}
             onSubmitEditing={(event) => {this.props._handleSubmit();}}/>
       </View>
     );
