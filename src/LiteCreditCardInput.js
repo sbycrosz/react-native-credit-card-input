@@ -195,12 +195,11 @@ const s = StyleSheet.create({
   },
   rightPart: {
     overflow: "hidden",
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'space-between',
     flexDirection: "row",
   },
   last4: {
-    flex: 1,
     justifyContent: "center",
   },
   numberInput: {
@@ -208,7 +207,10 @@ const s = StyleSheet.create({
   },
   expiryInput: {
     ...Platform.select({
-      android: {},
+      android: {
+        alignSelf: 'stretch',
+        minWidth: 70,
+      },
       ios: {
         width: 60,
       }
@@ -216,16 +218,24 @@ const s = StyleSheet.create({
   },
   cvcInput: {
     ...Platform.select({
-      android: {},
+      android: {
+        alignSelf: 'stretch',
+        minWidth: 60,
+      },
       ios: {
         width: 40,
       }
     })
   },
   last4Input: {
-    width: 60,
-    flexGrow:0,
-    // marginLeft: 10,
+    ...Platform.select({
+      android: {
+        minWidth: 60,
+      },
+      ios: {
+        width: 60,
+      }
+    })
   },
   last4Text: {
     color: "black",
@@ -233,7 +243,10 @@ const s = StyleSheet.create({
   },
   zipInput: {
     ...Platform.select({
-      android: {},
+      android: {
+        alignSelf: 'stretch',
+        minWidth: 70,
+      },
       ios: {
         width: 60,
       }
