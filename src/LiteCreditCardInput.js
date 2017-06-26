@@ -214,7 +214,7 @@ const s = StyleSheet.create({
   last4Input: {
     width: 60,
     flexGrow:0,
-    marginLeft: 20,
+    marginLeft: 10,
   },
   last4Text: {
     color: "black",
