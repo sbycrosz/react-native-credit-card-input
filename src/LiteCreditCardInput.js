@@ -207,10 +207,24 @@ const s = StyleSheet.create({
     width: INFINITE_WIDTH,
   },
   expiryInput: {
-    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 80 : 60,
+    ...Platform.select({
+      android: {
+        maxWidth: 60,
+      },
+      ios: {
+        width: 60,
+      }
+    })
   },
   cvcInput: {
-    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 50 : 40,
+    ...Platform.select({
+      android: {
+        maxWidth: 40,
+      },
+      ios: {
+        width: 40,
+      }
+    })
   },
   last4Input: {
     width: 60,
@@ -222,7 +236,14 @@ const s = StyleSheet.create({
     fontSize: 14,
   },
   zipInput: {
-    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 70 : 60,
+    ...Platform.select({
+      android: {
+        maxWidth: 60,
+      },
+      ios: {
+        width: 60,
+      }
+    })
   },
   input: {
     height: 40,
