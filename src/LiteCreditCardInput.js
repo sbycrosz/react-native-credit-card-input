@@ -195,7 +195,8 @@ const s = StyleSheet.create({
   },
   rightPart: {
     overflow: "hidden",
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     flexDirection: "row",
   },
   last4: {
@@ -214,7 +215,7 @@ const s = StyleSheet.create({
   last4Input: {
     width: 60,
     flexGrow:0,
-    marginLeft: 10,
+    // marginLeft: 10,
   },
   last4Text: {
     color: "black",
