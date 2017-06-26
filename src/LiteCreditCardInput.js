@@ -195,62 +195,33 @@ const s = StyleSheet.create({
   },
   rightPart: {
     overflow: "hidden",
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     flexDirection: "row",
   },
   last4: {
+    flex: 1,
     justifyContent: "center",
   },
   numberInput: {
     width: INFINITE_WIDTH,
   },
   expiryInput: {
-    ...Platform.select({
-      android: {
-        alignSelf: 'stretch',
-        minWidth: 70,
-      },
-      ios: {
-        width: 60,
-      }
-    })
+    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 80 : 60,
   },
   cvcInput: {
-    ...Platform.select({
-      android: {
-        alignSelf: 'stretch',
-        minWidth: 60,
-      },
-      ios: {
-        width: 40,
-      }
-    })
+    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 60 : 40,
   },
   last4Input: {
-    ...Platform.select({
-      android: {
-        minWidth: 60,
-      },
-      ios: {
-        width: 60,
-      }
-    })
+    width: 60,
+    flexGrow:0,
+    marginLeft: 20,
   },
   last4Text: {
     color: "black",
     fontSize: 14,
   },
   zipInput: {
-    ...Platform.select({
-      android: {
-        alignSelf: 'stretch',
-        minWidth: 70,
-      },
-      ios: {
-        width: 60,
-      }
-    })
+    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 70 : 60,
   },
   input: {
     height: 40,
