@@ -208,9 +208,7 @@ const s = StyleSheet.create({
   },
   expiryInput: {
     ...Platform.select({
-      android: {
-        maxWidth: 60,
-      },
+      android: {},
       ios: {
         width: 60,
       }
@@ -218,9 +216,7 @@ const s = StyleSheet.create({
   },
   cvcInput: {
     ...Platform.select({
-      android: {
-        maxWidth: 40,
-      },
+      android: {},
       ios: {
         width: 40,
       }
@@ -237,9 +233,7 @@ const s = StyleSheet.create({
   },
   zipInput: {
     ...Platform.select({
-      android: {
-        maxWidth: 60,
-      },
+      android: {},
       ios: {
         width: 60,
       }
