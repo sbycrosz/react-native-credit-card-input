@@ -209,7 +209,7 @@ const s = StyleSheet.create({
     width: (Platform.OS == 'android' && Platform.Version <= 19) ? 80 : 60,
   },
   cvcInput: {
-    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 52 : 40,
+    width: (Platform.OS == 'android' && Platform.Version <= 19) ? 50 : 40,
   },
   last4Input: {
     width: 60,
