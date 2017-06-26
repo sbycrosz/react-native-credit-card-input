@@ -10,6 +10,7 @@ import {
 const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
+    fontSize: 14,
   },
 });
 
@@ -34,7 +35,6 @@ export default class CCInput extends Component {
     onChange: PropTypes.func,
     onBecomeEmpty: PropTypes.func,
     onBecomeValid: PropTypes.func,
-    additionalInputProps: PropTypes.shape(TextInput.propTypes),
   };
 
   static defaultProps = {
@@ -49,52 +49,67 @@ export default class CCInput extends Component {
     onChange: () => {},
     onBecomeEmpty: () => {},
     onBecomeValid: () => {},
-    additionalInputProps: {},
-  };
+  }
 
-  componentWillReceiveProps = newProps => {
+  componentWillReceiveProps(newProps) {
     const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
     const { status: newStatus, value: newValue } = newProps;
 
-    if (value !== "" && newValue === "") onBecomeEmpty(field);
-    if (status !== "valid" && newStatus === "valid") onBecomeValid(field);
-  };
+    if (value !== "" && newValue === "") {
+      onBecomeEmpty(field);
+    }
 
-  focus = () => this.refs.input.focus();
+    if (status !== "valid" && newStatus === "valid") {
+      onBecomeValid(field);
+    }
+  }
 
-  _onFocus = () => this.props.onFocus(this.props.field);
-  _onChange = value => this.props.onChange(this.props.field, value);
+  focus() {
+    this.input.focus();
+  }
+
+  _onFocus() {
+    setTimeout(() => {
+      this.props.onFocus(this.props.field);
+    }, 50);
+  }
+
+  _onChange(value) {
+    this.props.onChange(this.props.field, value);
+  }
 
   render() {
-    const { label, value, placeholder, status, keyboardType,
+    const { field, label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+            validColor, invalidColor, placeholderColor } = this.props;
+
     return (
-      <TouchableOpacity onPress={this.focus}
-          activeOpacity={0.99}>
-        <View style={[containerStyle]}>
-          { !!label && <Text style={[labelStyle]}>{label}</Text>}
-          <TextInput ref="input"
-              {...additionalInputProps}
-              keyboardType={keyboardType}
-              autoCapitalise="words"
-              autoCorrect={false}
-              style={[
-                s.baseInputStyle,
-                inputStyle,
-                ((validColor && status === "valid") ? { color: validColor } :
-                 (invalidColor && status === "invalid") ? { color: invalidColor } :
-                 {}),
-              ]}
-              underlineColorAndroid={"transparent"}
-              placeholderTextColor={placeholderColor}
-              placeholder={placeholder}
-              value={value}
-              onFocus={this._onFocus}
-              onChangeText={this._onChange} />
-        </View>
-      </TouchableOpacity>
+      <View onPress={this.focus}
+            style={containerStyle}>
+        { !!label && <Text style={[labelStyle]}>{label}</Text>}
+        <TextInput ref={(ref) => {this.input = ref}}
+            autoFocus={(field == "number")}
+            keyboardType={keyboardType}
+            returnKeyType={keyboardType === 'numbers-and-punctuation' ? "done" : "default"}
+            autoCapitalise="words"
+            autoCorrect={false}
+            style={[
+              s.baseInputStyle,
+              inputStyle,
+              ((validColor && status === "valid") ? { color: validColor } :
+                (status !== "valid" && field === "number" && (value.length > 0 && value.match(/\d/g).length >= 16)) ? { color: invalidColor } :
+               (invalidColor && status === "invalid") ? { color: invalidColor } :
+               {}),
+            ]}
+            underlineColorAndroid={"transparent"}
+            placeholderTextColor={placeholderColor}
+            placeholder={placeholder}
+            value={value}
+            onFocus={this._onFocus.bind(this)}
+            onChangeText={this._onChange.bind(this)}
+            numberOfLines={1}
+            onSubmitEditing={(event) => {this.props._handleSubmit();}}/>
+      </View>
     );
   }
 }
