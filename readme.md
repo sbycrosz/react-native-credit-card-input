@@ -80,7 +80,7 @@ _onChange => form => console.log(form);
 
 ## LiteCreditCardInput
 | Property | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
@@ -97,7 +97,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 
 ## CreditCardInput
 | Property | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
