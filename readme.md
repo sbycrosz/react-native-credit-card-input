@@ -67,12 +67,12 @@ _onChange => form => console.log(form);
 	number: "incomplete",
 	expiry: "incomplete",
 	cvc: "incomplete",
-	name: "incomplete", 
+	name: "incomplete",
 	postalCode: "incomplete",
   },
 };
 
-// Notes: 
+// Notes:
 // cvc, name, & postalCode will only be available when the respective props is enabled (e.g. requiresName, requiresCVC)
 ```
 
@@ -80,13 +80,13 @@ _onChange => form => console.log(form);
 
 ## LiteCreditCardInput
 | Property | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
 |placeholders | PropTypes.object | Defaults to <br/>`{ number: "1234 5678 1234 5678", expiry: "MM/YY", cvc: "CVC" }` |
 |inputStyle | Text.propTypes.style | Style for credit-card form's textInput |
-|validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: "{inputStyle.color}" |
+|validColor | PropTypes.string | Color that will be applied for valid text input. Defaults to: `{inputStyle.color}` |
 |invalidColor | PropTypes.string | Color that will be applied for invalid text input. Defaults to: "red" |
 |placeholderColor | PropTypes.string | Color that will be applied for text input placeholder. Defaults to: "gray" |
 | additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
@@ -97,7 +97,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 
 ## CreditCardInput
 | Property | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
@@ -121,15 +121,15 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 |cardBrandIcons | PropTypes.object | brand icons for CardView. see `./src/Icons.js` for details |
 | additionalInputsProps | PropTypes.objectOf(TextInput.propTypes) | An object with Each key of the object corresponding to the name of the field. Allows you to change all props documented in [RN TextInput](https://facebook.github.io/react-native/docs/textinput.html).
 
-##CardView
+## CardView
 
 | Property | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 |focused | PropTypes.string | Determines the front face of the card|
 |brand | PropTypes.string | Brand of the credit card|
 |name | PropTypes.string | Cardholder's name (Use empty string if you need to hide the placeholder) |
 |number | PropTypes.string | Credit card number (you'll need to the formatting yourself) |
-|expiry | PropTypes.string | Credit card expiry (should be in MM/YY format)|
+|expiry | PropTypes.string | Credit card expiry (should be in `MM/YY` format)|
 |cvc | PropTypes.string | Credit card CVC |
 |placeholder | PropTypes.object | Placeholder texts|
 |scale | PropTypes.number | Scales the card|
