@@ -1246,9 +1246,11 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-react-native-flip-card@^3.3.0:
+"react-native-flip-card@git+https://github.com/brunocascio/react-native-flip-card.git":
   version "3.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-flip-card/-/react-native-flip-card-3.4.1.tgz#29599ae8bce082e091a2bdec2a982f7ab9a22460"
+  resolved "git+https://github.com/brunocascio/react-native-flip-card.git#6e1d71542c237d447d0e9497ab1362719ed731af"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-proxy@^1.1.7:
   version "1.1.8"
