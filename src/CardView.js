@@ -11,8 +11,8 @@ import defaultIcons from "./Icons";
 import FlipCard from "react-native-flip-card";
 import CachedImage from 'react-native-cached-image';
 
-const Img = CachedImage || Image
-const ImgBackground = CachedImage || ImageBackground
+const ImgBackground = CachedImage || ImageBackground;
+
 const BASE_SIZE = { width: 300, height: 190 };
 
 const s = StyleSheet.create({
@@ -136,7 +136,7 @@ export default class CardView extends Component {
             flip={shouldFlip}>
           <ImgBackground style={[BASE_SIZE, s.cardFace, transform]}
               source={imageFront}>
-              <Img style={[s.icon]}
+              <Image style={[s.icon]}
                   source={Icons[brand]} />
               <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>
                 { !number ? placeholder.number : number }
