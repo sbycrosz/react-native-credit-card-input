@@ -58,7 +58,7 @@ export default class LiteCreditCardInput extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (this.props.focused !== newProps.focused) {
+    if (newProps.isAutoFocusing) {
       this._focus(newProps.focused);
     }
   }

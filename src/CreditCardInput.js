@@ -93,6 +93,13 @@ export default class CreditCardInput extends Component {
     const previousField = displayedFields[fieldIndex - 1];
     if (previousField) {
       this.focus(previousField);
+      this.setState({
+        isAutoFocusing: true,
+      }, () => {
+        this.setState({
+          isAutoFocusing: false,
+        });
+      });
     }
   }
 
@@ -108,6 +115,13 @@ export default class CreditCardInput extends Component {
     const nextField = displayedFields[fieldIndex + 1];
     if (nextField) {
       this.focus(nextField);
+      this.setState({
+        isAutoFocusing: true,
+      }, () => {
+        this.setState({
+          isAutoFocusing: false,
+        });
+      });
     }
   }
 
