@@ -102,11 +102,13 @@ export default class CreditCardInput extends Component {
   _focus = field => {
     if (!field) return;
 
+    const scrollResponder = this.refs.Form.getScrollResponder();
     const nodeHandle = ReactNative.findNodeHandle(this.refs[field]);
 
     NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
       e => { throw e; },
       x => {
+        scrollResponder.scrollTo({ x: Math.max(x - PREVIOUS_FIELD_OFFSET, 0), animated: true });
         this.refs[field].focus();
       });
   }
@@ -158,10 +160,10 @@ export default class CreditCardInput extends Component {
             expiry={expiry}
             cvc={cvc} />
         <ScrollView ref="Form"
-            vertical
+            horizontal
             keyboardShouldPersistTaps="always"
             scrollEnabled={allowScroll}
-            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             style={s.form}>
           <CCInput {...this._inputProps("number")}
               containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
