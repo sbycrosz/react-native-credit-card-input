@@ -102,13 +102,11 @@ export default class CreditCardInput extends Component {
   _focus = field => {
     if (!field) return;
 
-    const scrollResponder = this.refs.Form.getScrollResponder();
     const nodeHandle = ReactNative.findNodeHandle(this.refs[field]);
 
     NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
       e => { throw e; },
       x => {
-        scrollResponder.scrollTo({ x: Math.max(x - PREVIOUS_FIELD_OFFSET, 0), animated: true });
         this.refs[field].focus();
       });
   }
@@ -160,10 +158,10 @@ export default class CreditCardInput extends Component {
             expiry={expiry}
             cvc={cvc} />
         <ScrollView ref="Form"
-            horizontal
+            vertical
             keyboardShouldPersistTaps="always"
             scrollEnabled={allowScroll}
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             style={s.form}>
           <CCInput {...this._inputProps("number")}
               containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
@@ -172,13 +170,13 @@ export default class CreditCardInput extends Component {
           { requiresCVC &&
             <CCInput {...this._inputProps("cvc")}
                 containerStyle={[s.inputContainer, inputContainerStyle, { width: CVC_INPUT_WIDTH }]} /> }
+          { requiresPostalCode &&
+            <CCInput {...this._inputProps("postalCode")}
+                containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
           { requiresName &&
             <CCInput {...this._inputProps("name")}
                 keyboardType="default"
                 containerStyle={[s.inputContainer, inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
-          { requiresPostalCode &&
-            <CCInput {...this._inputProps("postalCode")}
-                containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
         </ScrollView>
       </View>
     );

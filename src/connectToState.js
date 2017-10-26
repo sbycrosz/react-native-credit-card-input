@@ -77,8 +77,8 @@ export default function connectToState(CreditCardInput) {
         "number",
         "expiry",
         requiresCVC ? "cvc" : null,
-        requiresName ? "name" : null,
         requiresPostalCode ? "postalCode" : null,
+        requiresName ? "name" : null,
       ]);
     };
 
