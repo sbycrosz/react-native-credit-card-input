@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import PropTypes from 'prop-types';
 
 import Icons from "./Icons";
 import CCInput from "./CCInput";
@@ -151,8 +152,7 @@ export default class LiteCreditCardInput extends Component {
               containerStyle={s.numberInput} />
         </View>
         <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
-          <Image style={s.icon}
-              source={{ uri: Icons[this._iconToShow()] }} />
+          <Image style={s.icon} source={Icons[this._iconToShow()]} />
         </TouchableOpacity>
         <View style={[
           s.rightPart,
