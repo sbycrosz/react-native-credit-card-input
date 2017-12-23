@@ -20,13 +20,16 @@
     "fail": false
   },
   "rules": {
+    "react/jsx-filename-extension": 0,
+    "no-underscore-dangle": 0,
+    "no-console": 0,
     "react/self-closing-comp": 0,
     "no-unused-expressions": 0,
     "max-len": [2, 150, 4, {"ignoreUrls": true}],
     "new-cap": [2, { "capIsNewExceptions": ["Map", "List", "Stack", "Record"]}],
     "func-names": 0,
     "quotes": [2, "double"],
-    "react/jsx-indent-props": [2, 4],
+    "react/jsx-indent-props": [2, 2],
     "react/jsx-closing-bracket-location": [2, "after-props"],
     "no-use-before-define": [2, { "functions": false }],
     "react/prefer-stateless-function": 0,

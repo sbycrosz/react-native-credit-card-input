@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -41,7 +42,6 @@ export default class CCInput extends Component {
     label: "",
     value: "",
     status: "incomplete",
-    keyboardType: "numeric",
     containerStyle: {},
     inputStyle: {},
     labelStyle: {},

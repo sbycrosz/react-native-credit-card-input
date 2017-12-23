@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -148,6 +149,7 @@ export default class LiteCreditCardInput extends Component {
           showRightPart ? s.hidden : s.expanded,
         ]}>
           <CCInput {...this._inputProps("number")}
+              keyboardType="numeric"
               containerStyle={s.numberInput} />
         </View>
         <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
@@ -162,14 +164,17 @@ export default class LiteCreditCardInput extends Component {
               style={s.last4}>
             <View pointerEvents={"none"}>
               <CCInput field="last4"
+                  keyboardType="numeric"
                   value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
                   inputStyle={[s.input, inputStyle]}
                   containerStyle={[s.last4Input]} />
             </View>
           </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
+              keyboardType="numeric"
               containerStyle={s.expiryInput} />
           <CCInput {...this._inputProps("cvc")}
+              keyboardType="numeric"
               containerStyle={s.cvcInput} />
         </View>
       </View>
