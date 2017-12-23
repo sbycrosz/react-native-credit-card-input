@@ -17,7 +17,7 @@ const s = StyleSheet.create({
   },
 });
 
-const USE_LITE_CREDIT_CARD_INPUT = false;
+const USE_LITE_CREDIT_CARD_INPUT = true;
 
 export default class Example extends Component {
   _onChange = (formData) => {

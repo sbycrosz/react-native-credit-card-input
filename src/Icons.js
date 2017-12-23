@@ -1,16 +1,13 @@
-/* eslint max-len: 0 */
 const Icons = {
-  // CVC
-  cvc: require('./icons/cvc-general.png'),
-  cvc_amex: require('./icons/cvc-amex.png'),
-  // Cards
-  'american-express': require('./icons/amex.png'),
-  'diners-club': require('./icons/diners.png'),
-  'master-card': require('./icons/mastercard.png'),
-  discover: require('./icons/discover.png'),
-  jcb: require('./icons/jcb.png'),
-  placeholder: require('./icons/placeholder.png'),
-  visa: require('./icons/visa.png'),
+  cvc: require('./icons/stp_card_cvc.png'),
+  cvc_amex: require('./icons/stp_card_cvc_amex.png'),
+  'american-express': require('./icons/stp_card_amex.png'),
+  'diners-club': require('./icons/stp_card_diners.png'),
+  'master-card': require('./icons/stp_card_mastercard.png'),
+  discover: require('./icons/stp_card_discover.png'),
+  jcb: require('./icons/stp_card_jcb.png'),
+  placeholder: require('./icons/stp_card_unknown.png'),
+  visa: require('./icons/stp_card_visa.png'),
 };
 
 export default Icons;
