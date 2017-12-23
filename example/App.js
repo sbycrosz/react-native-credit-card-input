@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Switch } from "react-native";
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
 const s = StyleSheet.create({
+  switch: {
+    alignSelf: "center",
+    marginTop: 20,
+    marginBottom: 20,
+  },
   container: {
     backgroundColor: "#F5F5F5",
     marginTop: 60,
@@ -17,21 +22,22 @@ const s = StyleSheet.create({
   },
 });
 
-const USE_LITE_CREDIT_CARD_INPUT = true;
 
 export default class Example extends Component {
-  _onChange = (formData) => {
-    console.log(JSON.stringify(formData, null, " "));
-  };
+  state = { useLiteCreditCardInput: false };
 
-  _onFocus = (field) => {
-    console.log(field);
-  };
+  _onChange = (formData) => console.log(JSON.stringify(formData, null, " "));
+  _onFocus = (field) => console.log('focusing', field);
 
   render() {
     return (
       <View style={s.container}>
-        { USE_LITE_CREDIT_CARD_INPUT ?
+        <Switch
+          style={s.switch}
+          onValueChange={(useLiteCreditCardInput) => this.setState({ useLiteCreditCardInput })}
+          value={this.state.useLiteCreditCardInput} />
+
+        { this.state.useLiteCreditCardInput ?
           (
             <LiteCreditCardInput
               autoFocus
