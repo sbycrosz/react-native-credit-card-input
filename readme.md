@@ -80,7 +80,7 @@ _onChange => form => console.log(form);
 
 ## LiteCreditCardInput
 | Property | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
@@ -97,7 +97,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 
 ## CreditCardInput
 | Property | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
@@ -124,7 +124,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 ##CardView
 
 | Property | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 |focused | PropTypes.string | Determines the front face of the card|
 |brand | PropTypes.string | Brand of the credit card|
 |name | PropTypes.string | Cardholder's name (Use empty string if you need to hide the placeholder) |
@@ -142,7 +142,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 
 additionalInputsProps gives you more control over the inputs in LiteCreditCardInput and CreditCardInput. An example object is as follows:
 ```javascript
-addtionalInputProps = {
+addtionalInputsProps = {
   name: {
     defaultValue: 'my name',
     maxLength: 40,
