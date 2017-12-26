@@ -27,14 +27,15 @@ export default class Example extends Component {
   state = { useLiteCreditCardInput: false };
 
   _onChange = (formData) => console.log(JSON.stringify(formData, null, " "));
-  _onFocus = (field) => console.log('focusing', field);
+  _onFocus = (field) => console.log("focusing", field);
+  _setUseLiteCreditCardInput = (useLiteCreditCardInput) => this.setState({ useLiteCreditCardInput });
 
   render() {
     return (
       <View style={s.container}>
         <Switch
           style={s.switch}
-          onValueChange={(useLiteCreditCardInput) => this.setState({ useLiteCreditCardInput })}
+          onValueChange={this._setUseLiteCreditCardInput}
           value={this.state.useLiteCreditCardInput} />
 
         { this.state.useLiteCreditCardInput ?

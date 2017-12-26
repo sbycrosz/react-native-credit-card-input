@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {
   View,
   ImageBackground,
@@ -127,21 +127,21 @@ export default class CardView extends Component {
     return (
       <View style={[s.cardContainer, containerSize]}>
         <FlipCard style={{ borderWidth: 0 }}
-            flipHorizontal
-            flipVertical={false}
-            friction={10}
-            perspective={2000}
-            clickable={false}
-            flip={shouldFlip}>
+          flipHorizontal
+          flipVertical={false}
+          friction={10}
+          perspective={2000}
+          clickable={false}
+          flip={shouldFlip}>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
-              source={imageFront}>
+            source={imageFront}>
               <Image style={[s.icon]}
-                  source={Icons[brand]} />
+                source={Icons[brand]} />
               <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>
                 { !number ? placeholder.number : number }
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.name, !name && s.placeholder, focused === "name" && s.focused]}
-                  numberOfLines={1}>
+                numberOfLines={1}>
                 { !name ? placeholder.name : name.toUpperCase() }
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
@@ -156,7 +156,7 @@ export default class CardView extends Component {
                   </Text> }
           </ImageBackground>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
-              source={imageBack}>
+            source={imageBack}>
               <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
                 { !cvc ? placeholder.cvc : cvc }
               </Text>
