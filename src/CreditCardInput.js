@@ -62,6 +62,7 @@ export default class CreditCardInput extends Component {
     cardFontFamily: PropTypes.string,
     cardBrandIcons: PropTypes.object,
 
+    horizontalScroll: PropTypes.bool,
     allowScroll: PropTypes.bool,
 
     additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
@@ -90,6 +91,7 @@ export default class CreditCardInput extends Component {
     validColor: "",
     invalidColor: "red",
     placeholderColor: "gray",
+    horizontalScroll: true,
     allowScroll: false,
     additionalInputsProps: {},
   };
@@ -143,7 +145,8 @@ export default class CreditCardInput extends Component {
     const {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
-      allowScroll, requiresName, requiresCVC, requiresPostalCode,
+      horizontalScroll, allowScroll,
+      requiresName, requiresCVC, requiresPostalCode,
       cardScale, cardFontFamily, cardBrandIcons,
     } = this.props;
 
@@ -161,28 +164,28 @@ export default class CreditCardInput extends Component {
           expiry={expiry}
           cvc={cvc} />
         <ScrollView ref="Form"
-          horizontal
+          horizontal={horizontalScroll}
           keyboardShouldPersistTaps="always"
           scrollEnabled={allowScroll}
           showsHorizontalScrollIndicator={false}
           style={s.form}>
-          <CCInput {...this._inputProps("number")}
+          <CCInput {...this._inputProps("number") }
             keyboardType="numeric"
             containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
-          <CCInput {...this._inputProps("expiry")}
+          <CCInput {...this._inputProps("expiry") }
             keyboardType="numeric"
             containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
-          { requiresCVC &&
-            <CCInput {...this._inputProps("cvc")}
+          {requiresCVC &&
+            <CCInput {...this._inputProps("cvc") }
               keyboardType="numeric"
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: CVC_INPUT_WIDTH }]} /> }
-          { requiresName &&
-            <CCInput {...this._inputProps("name")}
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
-          { requiresPostalCode &&
-            <CCInput {...this._inputProps("postalCode")}
+              containerStyle={[s.inputContainer, inputContainerStyle, { width: CVC_INPUT_WIDTH }]} />}
+          {requiresName &&
+            <CCInput {...this._inputProps("name") }
+              containerStyle={[s.inputContainer, inputContainerStyle, { width: NAME_INPUT_WIDTH }]} />}
+          {requiresPostalCode &&
+            <CCInput {...this._inputProps("postalCode") }
               keyboardType="numeric"
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
+              containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} />}
         </ScrollView>
       </View>
     );
