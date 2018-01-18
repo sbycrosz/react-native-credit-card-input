@@ -151,7 +151,6 @@ export default class CreditCardInput extends Component {
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
       cardScale, cardFontFamily, cardBrandIcons,
     } = this.props;
-
     return (
       <View style={s.container}>
         <CreditCard focused={focused}
@@ -165,6 +164,7 @@ export default class CreditCardInput extends Component {
             number={number}
             expiry={expiry}
             cvc={cvc} />
+        {this.props.renderScanView()}
         <ScrollView ref="Form"
             keyboardShouldPersistTaps="always"
             scrollEnabled={allowScroll}
