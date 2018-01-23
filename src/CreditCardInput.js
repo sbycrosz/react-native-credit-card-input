@@ -164,7 +164,7 @@ export default class CreditCardInput extends Component {
             number={number}
             expiry={expiry}
             cvc={cvc} />
-        {this.props.renderScanView()}
+        {this.props.renderScanView && this.props.renderScanView()}
         <ScrollView ref="Form"
             keyboardShouldPersistTaps="always"
             scrollEnabled={allowScroll}
