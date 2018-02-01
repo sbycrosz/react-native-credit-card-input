@@ -81,6 +81,7 @@ _onChange => form => console.log(form);
 ## LiteCreditCardInput
 | Property | Type | Description |
 | --- | --- | --- |
+|style | PropTypes.object |  Defaults to <br/>`{ paddingHorizontal: 10 }`|
 |autoFocus | PropTypes.bool | Automatically focus Card Number field on render|
 |onChange | PropTypes.func | Receives a `formData` object every time the form changes |
 |onFocus | PropTypes.func | Receives the name of currently focused field |
