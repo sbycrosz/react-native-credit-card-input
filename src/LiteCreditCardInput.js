@@ -159,6 +159,7 @@ export default class LiteCreditCardInput extends Component {
           s.rightPart,
           showRightPart ? s.expanded : s.hidden,
         ]}>
+          <View style={{flex: 1}} />
           <CCInput {...this._inputProps("expiry")}
             keyboardType="numeric"
             containerStyle={s.expiryInput} />
