@@ -178,11 +178,11 @@ const s = StyleSheet.create({
               </Text>
             )}
           </ImageBackground>
-          <Image style={[BASE_SIZE, s.cardFace, transform]} source={imageBack}>
+          <ImageBackground style={[BASE_SIZE, s.cardFace, transform]} source={imageBack}>
             <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === 'cvc' && s.focused]}>
               {!cvc ? placeholder.cvc : cvc}
             </Text>
-          </Image>
+          </ImageBackground>
         </FlipCard>
       </View>
     );
