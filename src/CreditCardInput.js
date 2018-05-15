@@ -69,8 +69,8 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
     previousFieldOffset: PropTypes.number,
     postalCodeInputWidth: PropTypes.number,
 
-    cardImageFront: PropTypes.number,
-    cardImageBack: PropTypes.number,
+    cardImageFront: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    cardImageBack: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     cardScale: PropTypes.number,
     cardFontFamily: PropTypes.string,
     cardBrandIcons: PropTypes.object,

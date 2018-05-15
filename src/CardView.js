@@ -81,8 +81,8 @@ const s = StyleSheet.create({
 
     scale: PropTypes.number,
     fontFamily: PropTypes.string,
-    imageFront: PropTypes.object,
-    imageBack: PropTypes.object,
+    imageFront: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    imageBack: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     customIcons: PropTypes.object
   };
 
