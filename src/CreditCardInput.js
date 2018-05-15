@@ -8,7 +8,8 @@ import ReactNative, {
   ScrollView,
   Dimensions,
   TextInput,
-  Platform
+  Platform,
+  ViewPropTypes
 } from 'react-native';
 
 import CreditCard from './CardView';
@@ -55,7 +56,7 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
 
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
-    inputContainerStyle: View.propTypes.style,
+    inputContainerStyle: ViewPropTypes.style,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
