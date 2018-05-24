@@ -118,6 +118,7 @@ const s = StyleSheet.create({
       status,
       onFocus,
       onChange,
+      onSubmitEditing,
       onBecomeEmpty,
       onBecomeValid,
       additionalInputsProps,
@@ -137,6 +138,7 @@ const s = StyleSheet.create({
 
       onFocus,
       onChange,
+      onSubmitEditing,
       onBecomeEmpty,
       onBecomeValid,
       additionalInputProps: additionalInputsProps[field],
@@ -144,7 +146,10 @@ const s = StyleSheet.create({
   };
 
   _iconToShow = () => {
-    const { focused, values: { type } } = this.props;
+    const {
+      focused,
+      values: { type },
+    } = this.props;
     if (focused === 'cvc' && type === 'american-express') return 'cvc_amex';
     if (focused === 'cvc') return 'cvc';
     if (type) return type;
