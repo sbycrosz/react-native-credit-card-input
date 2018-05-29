@@ -13,6 +13,9 @@ const s = StyleSheet.create({
   },
 });
 
+
+let alreadyFocus = false;
+
 export default class CCInput extends Component {
   static propTypes = {
     field: PropTypes.string.isRequired,
@@ -62,7 +65,13 @@ export default class CCInput extends Component {
 
   focus = () => this.refs.input.focus();
 
-  _onFocus = () => this.props.onFocus(this.props.field);
+  _onFocus = () => {
+    if (!alreadyFocus) {
+      alreadyFocus = true;
+      this.props.onFocus(this.props.field);
+      setTimeout(() => (alreadyFocus = false), 200);
+    }
+  };
   _onChange = value => this.props.onChange(this.props.field, value);
 
   render() {
