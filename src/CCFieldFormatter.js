@@ -41,14 +41,17 @@ export default class CCFieldFormatter {
   };
 
   _formatExpiry = (expiry) => {
-    const sanitized = limitLength(removeNonNumber(expiry), 4);
-    if (sanitized.match(/^[2-9]$/)) { return `0${sanitized}`; }
-    if (sanitized.length > 2) { return `${sanitized.substr(0, 2)}/${sanitized.substr(2, sanitized.length)}`; }
-    return sanitized;
+      if (!!expiry) {
+      const sanitized = limitLength(removeNonNumber(expiry), 4);
+      if (sanitized.match(/^[2-9]$/)) { return `0${sanitized}`; }
+      if (sanitized.length > 2) { return `${sanitized.substr(0, 2)}/${sanitized.substr(2, sanitized.length)}`; }
+      return sanitized;
+    }
+    return null;
   };
 
-  _formatCVC = (cvc, card) => {
-    const maxCVCLength = card.code.size;
-    return limitLength(removeNonNumber(cvc), maxCVCLength);
-  };
+_formatCVC = (cvc, card) => {
+  const maxCVCLength = card.code.size;
+  return limitLength(removeNonNumber(cvc), maxCVCLength);
+};
 }
