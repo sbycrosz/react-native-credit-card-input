@@ -11,7 +11,7 @@ Easy (and good looking) credit-card input for your React Native Project ðŸ’³ ðŸ’
 
 Code:
 
-```js
+```jsx
 <CreditCardInput onChange={this._onChange} />
 // or
 <LiteCreditCardInput onChange={this._onChange} />
@@ -35,7 +35,7 @@ npm i --save react-native-credit-card-input
 
 then add these lines in your react-native codebase
 
-```js
+```jsx
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
 <CreditCardInput onChange={this._onChange} />
@@ -49,7 +49,7 @@ import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-i
 
 And then on your onChange handler:
 
-```js
+```jsx
 _onChange => form => console.log(form);
 
 // will print:
@@ -160,7 +160,7 @@ The above would set the default value of the name field to `my name` and limit t
 Set values into credit card form
 
 
-```js
+```jsx
 	// sets 4242 on credit card number field
 	// other fields will stay unchanged
 	this.refs.CCInput.setValues({ number: "4242" });
@@ -172,7 +172,7 @@ Set values into credit card form
 ## focus
 focus on to specified field
 
-```js
+```jsx
 	// focus to expiry field
 	this.refs.CCInput.focus("expiry");
 ```
