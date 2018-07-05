@@ -196,8 +196,10 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
       cardScale,
       cardFontFamily,
       cardBrandIcons,
+      container,
       CVCInputWidth,
       expiryInputWidth,
+      form,
       cardNumberInputWidthOffset,
       cardNumberInputWidth,
       nameInputWidth,
@@ -205,7 +207,7 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
       postalCodeInputWidth
     } = this.props;
     return (
-      <View style={s.container}>
+      <View style={[s.container, container]}>
         <CreditCard
           focused={focused}
           brand={type}
@@ -225,7 +227,7 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
           keyboardShouldPersistTaps="always"
           scrollEnabled={allowScroll}
           showsHorizontalScrollIndicator={false}
-          style={s.form}
+          style={[s.form, form]}
         >
           <CCInput
             {...this._inputProps('number')}
