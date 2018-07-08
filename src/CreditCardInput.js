@@ -25,7 +25,7 @@ const s = StyleSheet.create({
     paddingTop: 5
   },
   inputContainer: {
-    marginLeft: 5
+    marginLeft: 0
   },
   inputLabel: {
     fontWeight: 'bold'
@@ -196,18 +196,17 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
       cardScale,
       cardFontFamily,
       cardBrandIcons,
-      container,
       CVCInputWidth,
       expiryInputWidth,
-      form,
       cardNumberInputWidthOffset,
       cardNumberInputWidth,
       nameInputWidth,
       previousFieldOffset,
       postalCodeInputWidth
     } = this.props;
+    const width = Dimensions.get('window').width;
     return (
-      <View style={[s.container, container]}>
+      <View style={s.container}>
         <CreditCard
           focused={focused}
           brand={type}
@@ -227,27 +226,34 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
           keyboardShouldPersistTaps="always"
           scrollEnabled={allowScroll}
           showsHorizontalScrollIndicator={false}
-          style={[s.form, form]}
+          style={[s.form, { width: '100%' }]}
         >
           <CCInput
             {...this._inputProps('number')}
             containerStyle={[s.inputContainer, { width: cardNumberInputWidth }, inputContainerStyle]}
           />
-          <View style={{ flexDirection: 'row', paddingTop: 20, width: Dimensions.get('window').width }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingTop: 20,
+              width: cardNumberInputWidth,
+              justifyContent: 'space-between'
+            }}
+          >
             <CCInput
               {...this._inputProps('expiry')}
-              containerStyle={[s.inputContainer, { width: expiryInputWidth }, inputContainerStyle]}
+              containerStyle={[s.inputContainer, { width: width * 0.26 }, inputContainerStyle]}
             />
             {requiresCVC && (
               <CCInput
                 {...this._inputProps('cvc')}
-                containerStyle={[s.inputContainer, { width: CVCInputWidth }, inputContainerStyle]}
+                containerStyle={[s.inputContainer, { width: width * 0.26 }, inputContainerStyle]}
               />
             )}
             {requiresPostalCode && (
               <CCInput
                 {...this._inputProps('postalCode')}
-                containerStyle={[s.inputContainer, { width: postalCodeInputWidth }, inputContainerStyle]}
+                containerStyle={[s.inputContainer, { width: width * 0.33 }, inputContainerStyle]}
               />
             )}
           </View>
