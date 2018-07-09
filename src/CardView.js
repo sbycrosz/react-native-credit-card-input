@@ -116,10 +116,12 @@ const s = StyleSheet.create({
       scale,
       fontFamily,
       placeholderStyle,
-      focusedStyle
+      focusedStyle,
+      baseTextStyle
     } = this.props;
     s.placeholder = placeholderStyle;
     s.focused = focusedStyle;
+    s.baseText = baseTextStyle;
     const Icons = { ...defaultIcons, ...customIcons };
     const isAmex = brand === 'american-express';
     const shouldFlip = !isAmex && focused === 'cvc';

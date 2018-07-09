@@ -204,6 +204,7 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
       previousFieldOffset,
       postalCodeInputWidth,
       placeholderStyle,
+      baseTextStyle,
       focusedStyle
     } = this.props;
     const width = Dimensions.get('window').width;
@@ -212,6 +213,7 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
         <CreditCard
           placeholderStyle={placeholderStyle}
           focusedStyle={focusedStyle}
+          baseTextStyle={baseTextStyle}
           focused={focused}
           brand={type}
           scale={cardScale}
