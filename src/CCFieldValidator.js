@@ -1,12 +1,12 @@
-import valid from "card-validator";
+import valid from "../card-validator";
 import pick from "lodash.pick";
 import values from "lodash.values";
 import every from "lodash.every";
 
-const toStatus = validation => {
+const toStatus = (validation) => {
   return validation.isValid ? "valid" :
-         validation.isPotentiallyValid ? "incomplete" :
-         "invalid";
+    validation.isPotentiallyValid ? "incomplete" :
+      "invalid";
 };
 
 const FALLBACK_CARD = { gaps: [4, 8, 12], lengths: [16], code: { size: 3 } };
