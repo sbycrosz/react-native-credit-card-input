@@ -1,4 +1,4 @@
-import valid from "../card-validator";
+import valid from "card-validator";
 import pick from "lodash.pick";
 import values from "lodash.values";
 import every from "lodash.every";
@@ -26,7 +26,7 @@ export default class CCFieldValidator {
       number: toStatus(numberValidation),
       expiry: toStatus(expiryValidation),
       cvc: toStatus(cvcValidation),
-      name: !!formValues.name ? "valid" : "incomplete",
+      name: formValues.name ? "valid" : "incomplete",
       postalCode: this._validatePostalCode(formValues.postalCode),
     }, this._displayedFields);
 

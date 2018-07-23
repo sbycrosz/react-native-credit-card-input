@@ -102,6 +102,7 @@ export default class CreditCardInput extends Component {
   };
 
   _focus = (field) => {
+    console.log("_FOCUS", field);
     if (!field) return;
 
     const scrollResponder = this.Form.getScrollResponder();
@@ -115,6 +116,15 @@ export default class CreditCardInput extends Component {
         this[field].focus();
       },
     );
+  }
+
+  onBecomeValid = (onBecomeValid, field) => {
+    const { requiresName, requiresCVC, requiresPostalCode } = this.props;
+    if (
+      (field === "expiry" && !requiresCVC && !requiresName && !requiresPostalCode)
+      || (field === "cvc" && !requiresName && !requiresPostalCode)
+    ) this.dismissKeyboard();
+    return onBecomeValid(field);
   }
 
   _inputProps = (field) => {
@@ -142,7 +152,7 @@ export default class CreditCardInput extends Component {
       onFocus,
       onChange,
       onBecomeEmpty,
-      onBecomeValid,
+      onBecomeValid: (...args) => this.onBecomeValid(onBecomeValid, ...args),
 
       additionalInputProps: additionalInputsProps[field],
     };
@@ -151,6 +161,7 @@ export default class CreditCardInput extends Component {
   dismissKeyboard = () => Keyboard.dismiss()
 
   scrollViewRef = (ref) => { this.Form = ref; }
+
   fieldRef = field => (ref) => { this[field] = ref; }
 
   render() {
@@ -160,23 +171,28 @@ export default class CreditCardInput extends Component {
         number, expiry, cvc, name, type, maxNumberLength, maxCodeLength, maxExpiryLength,
       }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons,
+      cardScale, cardFontFamily, cardBrandIcons, hidePicture,
     } = this.props;
 
     return (
       <View style={s.container}>
-        <CreditCard
-          focused={focused}
-          brand={type}
-          scale={cardScale}
-          fontFamily={cardFontFamily}
-          imageFront={cardImageFront}
-          imageBack={cardImageBack}
-          customIcons={cardBrandIcons}
-          name={requiresName ? name : " "}
-          number={number}
-          expiry={expiry}
-          cvc={cvc} />
+        {
+          hidePicture
+          ? null
+          :
+          <CreditCard
+            focused={focused}
+            brand={type}
+            scale={cardScale}
+            fontFamily={cardFontFamily}
+            imageFront={cardImageFront}
+            imageBack={cardImageBack}
+            customIcons={cardBrandIcons}
+            name={requiresName ? name : " "}
+            number={number}
+            expiry={expiry}
+            cvc={cvc} />
+        }
         <ScrollView
           ref={this.scrollViewRef}
           horizontal
@@ -195,6 +211,7 @@ export default class CreditCardInput extends Component {
             {...this._inputProps("expiry")}
             onBlur={this.dismissKeyboard}
             maxLength={maxExpiryLength}
+            onSubmitEditing={!requiresCVC && !requiresName && !requiresPostalCode ? this.dismissKeyboard : null}
             keyboardType="numeric"
             containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
           { requiresCVC &&
