@@ -100,6 +100,7 @@ export default class CardView extends Component {
       number: "•••• •••• •••• ••••",
       name: "FULL NAME",
       expiry: "••/••",
+      expiryLabel: "MONTH/YEAR",
       cvc: "•••",
     },
 
@@ -145,7 +146,7 @@ export default class CardView extends Component {
                 { !name ? placeholder.name : name.toUpperCase() }
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
-                MONTH/YEAR
+                {placeholder.expiryLabel}
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
                 { !expiry ? placeholder.expiry : expiry }
