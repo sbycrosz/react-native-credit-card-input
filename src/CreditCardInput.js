@@ -234,6 +234,14 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
           showsHorizontalScrollIndicator={false}
           style={[s.form, { width: '100%' }]}
         >
+          {requiresName && (
+            <CCInput
+              {...this._inputProps('name')}
+              keyboardType="default"
+              containerStyle={[s.inputContainer, { width: nameInputWidth, paddingBottom: 15  }, inputContainerStyle]}
+            />
+          )}
+          
           <CCInput
             {...this._inputProps('number')}
             containerStyle={[s.inputContainer, { width: cardNumberInputWidth }, inputContainerStyle]}
@@ -241,7 +249,7 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
           <View
             style={{
               flexDirection: 'row',
-              paddingTop: 20,
+              paddingTop: 15,
               width: cardNumberInputWidth,
               justifyContent: 'space-between'
             }}
@@ -263,13 +271,6 @@ const POSTAL_CODE_INPUT_WIDTH = 100; // https://github.com/yannickcr/eslint-plug
               />
             )}
           </View>
-          {requiresName && (
-            <CCInput
-              {...this._inputProps('name')}
-              keyboardType="default"
-              containerStyle={[s.inputContainer, { width: nameInputWidth }, inputContainerStyle]}
-            />
-          )}
         </ScrollView>
       </View>
     );
