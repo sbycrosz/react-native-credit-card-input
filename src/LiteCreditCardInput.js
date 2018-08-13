@@ -23,6 +23,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     overflow: "hidden",
+    backgroundColor: "#f7f7f7",
   },
   icon: {
     width: 48,
@@ -41,7 +42,7 @@ const s = StyleSheet.create({
   rightPart: {
     overflow: "hidden",
     flexDirection: "row",
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#f7f7f7"
   },
   last4: {
     flex: 1,
