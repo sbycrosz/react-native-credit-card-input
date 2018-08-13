@@ -41,6 +41,7 @@ const s = StyleSheet.create({
   rightPart: {
     overflow: "hidden",
     flexDirection: "row",
+    backgroundColor: "#FFFFFF"
   },
   last4: {
     flex: 1,
