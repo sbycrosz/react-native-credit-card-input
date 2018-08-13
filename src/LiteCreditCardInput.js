@@ -29,6 +29,7 @@ const s = StyleSheet.create({
     width: 48,
     height: 40,
     resizeMode: "contain",
+    backgroundColor: "#f7f7f7",
   },
   expanded: {
     flex: 1,
