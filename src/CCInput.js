@@ -87,6 +87,7 @@ export default class CCInput extends Component {
               ((validColor && status === "valid") ? { color: validColor } :
               (invalidColor && status === "invalid") ? { color: invalidColor } :
               {}),
+              additionalInputProps.style
             ]}
             underlineColorAndroid={"transparent"}
             placeholderTextColor={placeholderColor}
