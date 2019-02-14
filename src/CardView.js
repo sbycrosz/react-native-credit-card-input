@@ -85,7 +85,7 @@ export default class CardView extends Component {
     number: PropTypes.string,
     expiry: PropTypes.string,
     cvc: PropTypes.string,
-    placeholder: PropTypes.object,
+    onCardLabels: PropTypes.object,
 
     scale: PropTypes.number,
     fontFamily: PropTypes.string,
@@ -96,9 +96,10 @@ export default class CardView extends Component {
 
   static defaultProps = {
     name: "",
-    placeholder: {
+    onCardLabels: {
       number: "•••• •••• •••• ••••",
       name: "FULL NAME",
+      expiryLabel: "MONTH/YEAR",
       expiry: "••/••",
       cvc: "•••",
     },
@@ -111,7 +112,7 @@ export default class CardView extends Component {
   render() {
     const { focused,
       brand, name, number, expiry, cvc, customIcons,
-      placeholder, imageFront, imageBack, scale, fontFamily,
+      imageFront, imageBack, scale, fontFamily,
       onCardLabels } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
