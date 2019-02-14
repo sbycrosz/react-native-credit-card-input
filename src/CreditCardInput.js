@@ -84,13 +84,6 @@ export default class CreditCardInput extends Component {
       cvc: "CVC",
       postalCode: "34567",
     },
-    onCardLabels: {
-      number: "•••• •••• •••• ••••",
-      name: "FULL NAME",
-      expiryLabel: "MONTH/YEAR",
-      expiry: "••/••",
-      cvc: "•••",
-    },
     inputContainerStyle: {
       borderBottomWidth: 1,
       borderBottomColor: "black",
