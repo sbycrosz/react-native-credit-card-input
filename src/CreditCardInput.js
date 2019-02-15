@@ -69,7 +69,7 @@ export default class CreditCardInput extends Component {
 
     allowScroll: PropTypes.bool,
     verticalInput: PropTypes.bool,
-    
+
     additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
   };
 
@@ -125,7 +125,7 @@ export default class CreditCardInput extends Component {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputsProps, verticalInput
+      additionalInputsProps
     } = this.props;
 
     return {
@@ -150,7 +150,7 @@ export default class CreditCardInput extends Component {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons, onCardLabels
+      cardScale, cardFontFamily, cardBrandIcons, onCardLabels, verticalInput
     } = this.props;
 
     return (
