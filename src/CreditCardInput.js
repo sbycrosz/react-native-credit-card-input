@@ -26,9 +26,9 @@ const s = StyleSheet.create({
     marginTop: 20,
   },
   verticalFormRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   inputContainer: {
     marginLeft: 20,
@@ -152,57 +152,51 @@ export default class CreditCardInput extends Component {
     };
   };
 
-  render() {
-    const {
-      cardImageFront, cardImageBack, values: { number, expiry, cvc, name, type },
-      focused, requiresName, requiresCVC, requiresPostalCode, cardScale,
-      cardFontFamily, cardBrandIcons,
-    } = this.props;
+  renderField = (fieldName, fieldWidth) => {
+    const { inputContainerStyle } = this.props;
 
-    return (
-      <View style={s.container}>
-        <CreditCard focused={focused}
-          brand={type}
-          scale={cardScale}
-          fontFamily={cardFontFamily}
-          imageFront={cardImageFront}
-          imageBack={cardImageBack}
-          customIcons={cardBrandIcons}
-          name={requiresName ? name : " "}
-          number={number}
-          expiry={expiry}
-          cvc={cvc} />
-
-          { this.renderForm() }
-      </View>
-    );
-  }
-
-  renderForm = () => (
-    this.props.verticalForm ?
-      this.renderVerticalForm()
-      :
-      this.renderHorizontalForm()
-  )
-
-  renderHorizontalForm = () => {
-    const { formStyle, allowScroll, requiresName, requiresCVC, requiresPostalCode } = this.props;
-
-    return (
-      <ScrollView
-        ref="Form"
-        horizontal
-        keyboardShouldPersistTaps="always"
-        scrollEnabled={allowScroll}
-        showsHorizontalScrollIndicator={false}
-        style={[s.form, formStyle]}>
-        { this.renderField('number') }
-        { this.renderField('expiry') }
-        { requiresCVC && this.renderField('cvc') }
-        { requiresName && this.renderField('name') }
-        { requiresPostalCode && this.renderField('postalCode') }
-      </ScrollView>
-    );
+    switch (fieldName) {
+      case "number":
+        return (
+          <CCInput {...this._inputProps(fieldName)}
+            key={fieldName}
+            keyboardType="numeric"
+            containerStyle={[
+              s.inputContainer, inputContainerStyle,
+              { width: fieldWidth || CARD_NUMBER_INPUT_WIDTH }]} />
+        );
+      case "expiry":
+        return (
+          <CCInput {...this._inputProps(fieldName)}
+            key={fieldName}
+            keyboardType="numeric"
+            containerStyle={[
+              s.inputContainer,
+              inputContainerStyle, { width: fieldWidth || EXPIRY_INPUT_WIDTH }]} />
+        );
+      case "cvc":
+        return (
+          <CCInput {...this._inputProps(fieldName)}
+            key={fieldName}
+            keyboardType="numeric"
+            containerStyle={[s.inputContainer, inputContainerStyle, { width: fieldWidth || CVC_INPUT_WIDTH }]} />
+        );
+      case "name":
+        return (
+          <CCInput {...this._inputProps(fieldName)}
+            key={fieldName}
+            containerStyle={[s.inputContainer, inputContainerStyle, { width: fieldWidth || NAME_INPUT_WIDTH }]} />
+        );
+      case "postalCode":
+        return (
+          <CCInput {...this._inputProps("postalCode")}
+            key={fieldName}
+            keyboardType="numeric"
+            containerStyle={[s.inputContainer, inputContainerStyle, { width: fieldWidth || POSTAL_CODE_INPUT_WIDTH }]} />
+        );
+      default:
+        return null;
+    }
   }
 
   renderVerticalForm = () => {
@@ -223,43 +217,58 @@ export default class CreditCardInput extends Component {
           </View>
         ))}
       </ScrollView>
-    )
+    );
   }
 
-  renderField = (fieldName, fieldWidth) => {
-    const { inputContainerStyle } = this.props;
+  renderHorizontalForm = () => {
+    const { formStyle, allowScroll, requiresName, requiresCVC, requiresPostalCode } = this.props;
 
-    switch(fieldName) {
-      case 'number':
-        return <CCInput {...this._inputProps(fieldName)}
-          key={fieldName}
-          keyboardType="numeric"
-          containerStyle={[
-            s.inputContainer, inputContainerStyle,
-            { width: fieldWidth || CARD_NUMBER_INPUT_WIDTH }]} />;
-      case 'expiry':
-        return <CCInput {...this._inputProps(fieldName)}
-          key={fieldName}
-          keyboardType="numeric"
-          containerStyle={[
-            s.inputContainer,
-            inputContainerStyle, { width: fieldWidth || EXPIRY_INPUT_WIDTH }]} />
-      case 'cvc':
-        return <CCInput {...this._inputProps(fieldName)}
-          key={fieldName}
-          keyboardType="numeric"
-          containerStyle={[s.inputContainer, inputContainerStyle, { width: fieldWidth || CVC_INPUT_WIDTH }]} />;
-      case 'name':
-        return <CCInput {...this._inputProps(fieldName)}
-          key={fieldName}
-          containerStyle={[s.inputContainer, inputContainerStyle, { width: fieldWidth || NAME_INPUT_WIDTH }]} />;
-      case 'postalCode':
-        return <CCInput {...this._inputProps("postalCode")}
-          key={fieldName}
-          keyboardType="numeric"
-          containerStyle={[s.inputContainer, inputContainerStyle, { width: fieldWidth || POSTAL_CODE_INPUT_WIDTH }]} />;
-      default:
-        return null;
-    }
+    return (
+      <ScrollView
+        ref="Form"
+        horizontal
+        keyboardShouldPersistTaps="always"
+        scrollEnabled={allowScroll}
+        showsHorizontalScrollIndicator={false}
+        style={[s.form, formStyle]}>
+        { this.renderField("number") }
+        { this.renderField("expiry") }
+        { requiresCVC && this.renderField("cvc") }
+        { requiresName && this.renderField("name") }
+        { requiresPostalCode && this.renderField("postalCode") }
+      </ScrollView>
+    );
+  }
+
+  renderForm = () => (
+    this.props.verticalForm ?
+      this.renderVerticalForm()
+      :
+      this.renderHorizontalForm()
+  )
+
+  render() {
+    const {
+      cardImageFront, cardImageBack, values: { number, expiry, cvc, name, type },
+      focused, requiresName, cardScale, cardFontFamily, cardBrandIcons,
+    } = this.props;
+
+    return (
+      <View style={s.container}>
+        <CreditCard focused={focused}
+          brand={type}
+          scale={cardScale}
+          fontFamily={cardFontFamily}
+          imageFront={cardImageFront}
+          imageBack={cardImageBack}
+          customIcons={cardBrandIcons}
+          name={requiresName ? name : " "}
+          number={number}
+          expiry={expiry}
+          cvc={cvc} />
+
+          { this.renderForm() }
+      </View>
+    );
   }
 }
