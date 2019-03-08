@@ -213,7 +213,7 @@ export default class CreditCardInput extends Component {
         keyboardShouldPersistTaps="always"
         showsVerticalScrollIndicator={false}
         style={[s.verticalForm, formStyle]}>
-        { verticalFormRows.map((row) => (
+        { verticalFormRows.map((row, index) => (
           <View style={[s.verticalFormRow, verticalFormRowStyle]} key={index}>
             { row.fields.map((field) => (
               this.renderField(field.name, field.width)
