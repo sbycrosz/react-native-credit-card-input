@@ -73,6 +73,12 @@ export default class CCInput extends Component {
             validColor, invalidColor, placeholderColor,
             additionalInputProps } = this.props;
 
+    const webStyles = {}
+
+    if (Platform.OS === 'web') {
+      webStyles.outline = 'none'
+    }
+
     return (
       <TouchableOpacity onPress={this.focus}
         activeOpacity={0.99}>
@@ -86,6 +92,7 @@ export default class CCInput extends Component {
             style={[
               s.baseInputStyle,
               inputStyle,
+              webStyles,
               ((validColor && status === "valid") ? { color: validColor } :
               (invalidColor && status === "invalid") ? { color: invalidColor } :
               {}),
