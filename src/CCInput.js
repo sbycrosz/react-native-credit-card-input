@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ViewPropTypes,
+  Platform,
 } from "react-native";
 
 const s = StyleSheet.create({
@@ -71,6 +72,7 @@ export default class CCInput extends Component {
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor,
             additionalInputProps } = this.props;
+
     return (
       <TouchableOpacity onPress={this.focus}
         activeOpacity={0.99}>
@@ -78,7 +80,7 @@ export default class CCInput extends Component {
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
             {...additionalInputProps}
-            keyboardType={keyboardType}
+            keyboardType={Platform.OS === 'web' ? undefined : keyboardType}
             autoCapitalise="words"
             autoCorrect={false}
             style={[
