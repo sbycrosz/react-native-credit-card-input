@@ -72,7 +72,8 @@ export default class CreditCardInput extends Component {
     expiryInputWidth: PropTypes.number,
     cvcInputWidth: PropTypes.number,
     nameInputWidth: PropTypes.number,
-    postalCodeInputWidth: PropTypes.number
+    postalCodeInputWidth: PropTypes.number,
+    renderInputButton: PropTypes.func,
   };
 
   static defaultProps = {
@@ -127,7 +128,7 @@ export default class CreditCardInput extends Component {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputsProps,
+      additionalInputsProps, 
     } = this.props;
 
     return {
@@ -154,9 +155,8 @@ export default class CreditCardInput extends Component {
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
       cardScale, cardFontFamily, cardBrandIcons, cardPlaceholders,
       cardNumberInputWidth, expiryInputWidth, cvcInputWidth, nameInputWidth,
-      postalCodeInputWidth
+      postalCodeInputWidth, renderInputButton
     } = this.props;
-
     return (
       <View style={[s.container, containerStyle]}>
         <CreditCard focused={focused}
@@ -179,7 +179,9 @@ export default class CreditCardInput extends Component {
           style={s.form}>
           <CCInput {...this._inputProps("number")}
             keyboardType="numeric"
-            containerStyle={[s.inputContainer, inputContainerStyle, { width: cardNumberInputWidth || CARD_NUMBER_INPUT_WIDTH }]} />
+            containerStyle={[s.inputContainer, inputContainerStyle, { width: cardNumberInputWidth || CARD_NUMBER_INPUT_WIDTH }]}
+            />
+          {renderInputButton()}
           <CCInput {...this._inputProps("expiry")}
             keyboardType="numeric"
             containerStyle={[s.inputContainer, inputContainerStyle, { width: expiryInputWidth || EXPIRY_INPUT_WIDTH }]} />
