@@ -34,7 +34,7 @@ const s = StyleSheet.create({
   },
   cardNumberContainer: {
    flexDirection: 'row',
-   justifyContent: 'center',
+   justifyContent: 'space-between',
    marginBottom: COMMON_MARGIN
   },
   cvcDuedateContainer: {
@@ -42,9 +42,9 @@ const s = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: COMMON_MARGIN
   },
-  cardHolderNameContainer: { 
+  cardHolderNameContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'flex-start'
   }
 });
 
