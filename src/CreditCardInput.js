@@ -168,7 +168,7 @@ export default class CreditCardInput extends Component {
       cardImageFront, cardImageBack, inputContainerStyle, containerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons, cardPlaceholders,
+      cardScale, cardFontFamily, cardBrandIcons, cardPlaceholders, hideCVC,
       cardNumberInputWidth, expiryInputWidth, cvcInputWidth, nameInputWidth,
       postalCodeInputWidth, renderInputButton
     } = this.props;
@@ -185,33 +185,36 @@ export default class CreditCardInput extends Component {
           number={number}
           expiry={expiry}
           cvc={cvc}
-          placeholder={cardPlaceholders} />
+          placeholder={cardPlaceholders}
+          hideCVC={hideCVC}
+        />
         <ScrollView ref="Form"
           keyboardShouldPersistTaps="always"
           scrollEnabled={allowScroll}
           showsHorizontalScrollIndicator={false}
           style={s.form}>
           <View style={s.cardNumberContainer}>
-            <CCInput {...this._inputProps("number")}
-              keyboardType="numeric"
-              containerStyle={[inputContainerStyle, { width: cardNumberInputWidth || CARD_NUMBER_INPUT_WIDTH }]}
+          <CCInput {...this._inputProps("number")}
+            keyboardType="numeric"
+            containerStyle={[inputContainerStyle, { width: cardNumberInputWidth || CARD_NUMBER_INPUT_WIDTH }]}
               />
             {renderInputButton()}
           </View>
           <View style={s.cvcDuedateContainer}>
-            <CCInput {...this._inputProps("expiry")}
+          <CCInput {...this._inputProps("expiry")}
+            keyboardType="numeric"
+            containerStyle={[inputContainerStyle, { width: expiryInputWidth || EXPIRY_INPUT_WIDTH }]} />
+          { requiresCVC &&
+            <CCInput {...this._inputProps("cvc")}
               keyboardType="numeric"
-              containerStyle={[inputContainerStyle, { width: expiryInputWidth || EXPIRY_INPUT_WIDTH }]} />
-            { requiresCVC &&
-              <CCInput {...this._inputProps("cvc")}
-                keyboardType="numeric"
-                containerStyle={[inputContainerStyle, { width: cvcInputWidth || CVC_INPUT_WIDTH }]} /> }
-          </View>      
-          <View style={s.cardHolderNameContainer}>              
-            { requiresName &&
-              <CCInput {...this._inputProps("name")}
-                containerStyle={[inputContainerStyle, { width: nameInputWidth || NAME_INPUT_WIDTH }]} /> }
-          </View>
+              containerStyle={[inputContainerStyle, { width: cvcInputWidth || CVC_INPUT_WIDTH }]}
+              secureTextEntry={hideCVC} /> }
+               </View>      
+          <View style={s.cardHolderNameContainer}>
+          { requiresName &&
+            <CCInput {...this._inputProps("name")}
+            containerStyle={[inputContainerStyle, { width: nameInputWidth || NAME_INPUT_WIDTH }]} /> }
+            </View>
           { requiresPostalCode &&
             <CCInput {...this._inputProps("postalCode")}
               keyboardType="numeric"

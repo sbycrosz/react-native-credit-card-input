@@ -70,7 +70,7 @@ export default class CCInput extends Component {
     const { label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+            additionalInputProps, secureTextEntry } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
         activeOpacity={0.99}>
@@ -81,6 +81,7 @@ export default class CCInput extends Component {
             keyboardType={keyboardType}
             autoCapitalise="words"
             autoCorrect={false}
+            secureTextEntry={secureTextEntry}
             style={[
               s.baseInputStyle,
               inputStyle,
