@@ -110,10 +110,12 @@ export default class CardView extends Component {
     imageBack: require("../images/card-back.png"),
   };
 
+  hideCVC = cvc => Array.from(cvc).map(char => '•').join('');
+
   render() {
     const { focused,
-      brand, name, number, expiry, cvc, customIcons,
-      placeholder, imageFront, imageBack, scale, fontFamily } = this.props;
+      brand, name, number, expiry, cvc, customIcons, placeholder,
+      imageFront, imageBack, scale, fontFamily, hideCVC } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
     const isAmex = brand === "american-express";
@@ -146,20 +148,20 @@ export default class CardView extends Component {
                 { !name ? placeholder.name : name.toUpperCase() }
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
-                {placeholder.expiryLabel}
+              {placeholder.expiryLabel}
               </Text>
               <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
                 { !expiry ? placeholder.expiry : expiry }
               </Text>
               { isAmex &&
                   <Text style={[s.baseText, { fontFamily }, s.amexCVC, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                    { !cvc ? placeholder.cvc : cvc }
+                    { !cvc ? placeholder.cvc : ((hideCVC && this.hideCVC(cvc)) || cvc) }
                   </Text> }
           </ImageBackground>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
             source={imageBack}>
               <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                { !cvc ? placeholder.cvc : cvc }
+                { !cvc ? placeholder.cvc : ((hideCVC && this.hideCVC(cvc)) || cvc) }
               </Text>
           </ImageBackground>
         </FlipCard>

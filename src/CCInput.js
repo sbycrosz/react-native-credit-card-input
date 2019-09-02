@@ -13,6 +13,9 @@ const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
   },
+  containerAlignItems: {
+    alignItems: 'flex-start'
+  }
 });
 
 export default class CCInput extends Component {
@@ -70,17 +73,18 @@ export default class CCInput extends Component {
     const { label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+            additionalInputProps, secureTextEntry } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
         activeOpacity={0.99}>
-        <View style={[containerStyle]}>
+        <View style={[containerStyle, s.containerAlignItems]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
             {...additionalInputProps}
             keyboardType={keyboardType}
             autoCapitalise="words"
             autoCorrect={false}
+            secureTextEntry={secureTextEntry}
             style={[
               s.baseInputStyle,
               inputStyle,
