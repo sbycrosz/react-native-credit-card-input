@@ -155,7 +155,7 @@ export default class CardView extends Component {
               </Text>
               { isAmex &&
                   <Text style={[s.baseText, { fontFamily }, s.amexCVC, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                    { !cvc ? placeholder.cvc : ((hideCVC && this.hideCVC(cvc)) || cvc) }
+                    { !cvc ? placeholder.cvcAmex : ((hideCVC && this.hideCVC(cvc)) || cvc) }
                   </Text> }
           </ImageBackground>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
