@@ -13,9 +13,6 @@ const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
   },
-  containerAlignItems: {
-    alignItems: 'flex-start'
-  }
 });
 
 export default class CCInput extends Component {
@@ -39,6 +36,10 @@ export default class CCInput extends Component {
     onChange: PropTypes.func,
     onBecomeEmpty: PropTypes.func,
     onBecomeValid: PropTypes.func,
+    onSubmitEditing: PropTypes.func,
+    cancelScrollOnValidNumber: PropTypes.bool,
+    secureTextEntry: PropTypes.bool,
+    isLast: PropTypes.bool,
     additionalInputProps: PropTypes.shape(TextInput.propTypes),
   };
 
@@ -57,27 +58,28 @@ export default class CCInput extends Component {
   };
 
   componentWillReceiveProps = newProps => {
-    const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
+    const { status, value, onBecomeEmpty, onBecomeValid, field, cancelScrollOnValidNumber } = this.props;
     const { status: newStatus, value: newValue } = newProps;
 
     if (value !== "" && newValue === "") onBecomeEmpty(field);
-    if (status !== "valid" && newStatus === "valid") onBecomeValid(field);
+    if (status !== "valid" && newStatus === "valid" && !cancelScrollOnValidNumber) onBecomeValid(field);
   };
 
   focus = () => this.refs.input.focus();
 
   _onFocus = () => this.props.onFocus(this.props.field);
   _onChange = value => this.props.onChange(this.props.field, value);
+  _onSubmitEditing = value => this.props.onSubmitEditing(this.props.field, value);
 
   render() {
     const { label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
             validColor, invalidColor, placeholderColor,
-            additionalInputProps, secureTextEntry } = this.props;
+            additionalInputProps, secureTextEntry, isLast } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
         activeOpacity={0.99}>
-        <View style={[containerStyle, s.containerAlignItems]}>
+        <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
             {...additionalInputProps}
@@ -85,19 +87,21 @@ export default class CCInput extends Component {
             autoCapitalise="words"
             autoCorrect={false}
             secureTextEntry={secureTextEntry}
+            returnKeyType={isLast ? "done" : "next"}
             style={[
               s.baseInputStyle,
               inputStyle,
               ((validColor && status === "valid") ? { color: validColor } :
               (invalidColor && status === "invalid") ? { color: invalidColor } :
               {}),
-              additionalInputProps.style
+              additionalInputProps.style,
             ]}
             underlineColorAndroid={"transparent"}
             placeholderTextColor={placeholderColor}
             placeholder={placeholder}
             value={value}
             onFocus={this._onFocus}
+            onSubmitEditing={this._onSubmitEditing}
             onChangeText={this._onChange} />
         </View>
       </TouchableOpacity>
