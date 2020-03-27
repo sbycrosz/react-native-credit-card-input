@@ -14,6 +14,13 @@ import FlipCard from "react-native-flip-card";
 
 const BASE_SIZE = { width: 300, height: 190 };
 
+const BASE_FONT_SIZE = 21;
+const MEDIUM_FONT_SIZE = 16;
+const SMALL_FONT_SIZE = 9;
+
+const MEDIUM_FONT_RATIO = (1 / BASE_FONT_SIZE) * MEDIUM_FONT_SIZE;
+const SMALL_FONT_RATIO = (1 / BASE_FONT_SIZE) * SMALL_FONT_SIZE;
+
 const s = StyleSheet.create({
   cardContainer: {},
   cardFace: {},
@@ -37,38 +44,32 @@ const s = StyleSheet.create({
     color: "rgba(255, 255, 255, 1)",
   },
   number: {
-    fontSize: 21,
     position: "absolute",
     top: 95,
     left: 28,
   },
   name: {
-    fontSize: 16,
     position: "absolute",
     bottom: 20,
     left: 25,
     right: 100,
   },
   expiryLabel: {
-    fontSize: 9,
     position: "absolute",
     bottom: 40,
     left: 218,
   },
   expiry: {
-    fontSize: 16,
     position: "absolute",
     bottom: 20,
     left: 220,
   },
   amexCVC: {
-    fontSize: 16,
     position: "absolute",
     top: 73,
     right: 30,
   },
   cvc: {
-    fontSize: 16,
     position: "absolute",
     top: 80,
     right: 30,
@@ -88,6 +89,7 @@ export default class CardView extends Component {
     placeholder: PropTypes.object,
 
     scale: PropTypes.number,
+    fontSize: PropTypes.number,
     fontFamily: PropTypes.string,
     imageFront: PropTypes.number,
     imageBack: PropTypes.number,
@@ -110,10 +112,12 @@ export default class CardView extends Component {
     imageBack: require("../images/card-back.png"),
   };
 
+  hideCVC = cvc => Array.from(cvc).map((/* char */) => "•").join("");
+
   render() {
     const { focused,
-      brand, name, number, expiry, cvc, customIcons,
-      placeholder, imageFront, imageBack, scale, fontFamily } = this.props;
+      brand, name, number, expiry, cvc, customIcons, placeholder,
+      imageFront, imageBack, scale, fontSize, fontFamily, hideCVC } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
     const isAmex = brand === "american-express";
@@ -138,28 +142,56 @@ export default class CardView extends Component {
             source={imageFront}>
               <Image style={[s.icon]}
                 source={Icons[brand]} />
-              <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>
+              <Text style={[s.baseText, { fontFamily }, s.number, { fontSize }, !number && s.placeholder, focused === "number" && s.focused]}>
                 { !number ? placeholder.number : number }
               </Text>
-              <Text style={[s.baseText, { fontFamily }, s.name, !name && s.placeholder, focused === "name" && s.focused]}
+              <Text
+                style={[
+                  s.baseText,
+                  { fontFamily },
+                  s.name,
+                  { fontSize: fontSize * MEDIUM_FONT_RATIO },
+                  !name && s.placeholder, focused === "name" && s.focused,
+                ]}
                 numberOfLines={1}>
                 { !name ? placeholder.name : name.toUpperCase() }
               </Text>
-              <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
-                {placeholder.expiryLabel}
+              <Text
+                style={[
+                  s.baseText,
+                  { fontFamily },
+                  s.expiryLabel,
+                  { fontSize: fontSize * SMALL_FONT_RATIO },
+                  s.placeholder, focused === "expiry" && s.focused,
+                ]}>
+              {placeholder.expiryLabel}
               </Text>
-              <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
+              <Text
+                style={[
+                  s.baseText,
+                  { fontFamily },
+                  s.expiry,
+                  { fontSize: fontSize * MEDIUM_FONT_RATIO },
+                  !expiry && s.placeholder, focused === "expiry" && s.focused,
+                ]}>
                 { !expiry ? placeholder.expiry : expiry }
               </Text>
               { isAmex &&
-                  <Text style={[s.baseText, { fontFamily }, s.amexCVC, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                    { !cvc ? placeholder.cvc : cvc }
+                  <Text
+                    style={[
+                      s.baseText,
+                      { fontFamily },
+                      s.amexCVC,
+                      { fontSize: fontSize * MEDIUM_FONT_RATIO },
+                      !cvc && s.placeholder, focused === "cvc" && s.focused,
+                    ]}>
+                    { !cvc ? placeholder.cvcAmex : ((hideCVC && this.hideCVC(cvc)) || cvc) }
                   </Text> }
           </ImageBackground>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
             source={imageBack}>
-              <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                { !cvc ? placeholder.cvc : cvc }
+              <Text style={[s.baseText, s.cvc, { fontSize: fontSize * MEDIUM_FONT_RATIO }, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
+                { !cvc ? placeholder.cvc : ((hideCVC && this.hideCVC(cvc)) || cvc) }
               </Text>
           </ImageBackground>
         </FlipCard>
