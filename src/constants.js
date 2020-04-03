@@ -69,3 +69,9 @@ const HIPER_CARD_TYPE = {
 };
 
 export const CARDS_OVERRIDES = [MAESTRO_CARD_TYPE, VISA_CARD_TYPE, HIPER_CARD_TYPE];
+
+export const MAESTRO = "maestro";
+export const VALID = "valid";
+export const INCOMPLETE = "incomplete";
+export const INVALID = "invalid";
+export const MAESTR0_BASE_LENGTH = 12;
