@@ -68,7 +68,19 @@ const HIPER_CARD_TYPE = {
   }
 };
 
-export const CARDS_OVERRIDES = [MAESTRO_CARD_TYPE, VISA_CARD_TYPE, HIPER_CARD_TYPE];
+const CABAL_CARD_TYPE = {
+  niceType: "Cabal",
+  type: "cabal",
+  patterns: [627170, 589657, 603522, [604201, 604209], [210, 299], 302, 312, 322, 332, 342, 352, 362, 372, 382, 392, 400],
+  gaps: [4, 8, 12],
+  lengths: [16],
+  code: {
+    name: "CVC",
+    size: 3
+  }
+};
+
+export const CARDS_OVERRIDES = [MAESTRO_CARD_TYPE, VISA_CARD_TYPE, HIPER_CARD_TYPE, CABAL_CARD_TYPE];
 
 export const MAESTRO = "maestro";
 export const VALID = "valid";
