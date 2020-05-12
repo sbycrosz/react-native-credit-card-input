@@ -16,6 +16,11 @@ const s = StyleSheet.create({
 });
 
 export default class CCInput extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   static propTypes = {
     field: PropTypes.string.isRequired,
     label: PropTypes.string,
@@ -53,13 +58,11 @@ export default class CCInput extends Component {
     additionalInputProps: {},
   };
 
-  componentWillReceiveProps = newProps => {
-    const { status, value, onBecomeEmpty, onBecomeValid, field } = this.props;
-    const { status: newStatus, value: newValue } = newProps;
-
-    if (value !== "" && newValue === "") onBecomeEmpty(field);
-    if (status !== "valid" && newStatus === "valid") onBecomeValid(field);
-  };
+  componentDidUpdate(prevProps) {
+    const { status, value, onBecomeEmpty, onBecomeValid, field } = prevProps;
+    if (value !== "" && this.props.value === "") onBecomeEmpty(field);
+    if (status !== "valid" && this.props.status === "valid") onBecomeValid(field);
+  }
 
   focus = () => this.refs.input.focus();
 
