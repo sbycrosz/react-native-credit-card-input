@@ -6,7 +6,6 @@ import ReactNative, {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   TextInput,
   ViewPropTypes,
 } from "react-native";
@@ -33,17 +32,6 @@ const s = StyleSheet.create({
     height: 40,
   },
 });
-
-const CVC_INPUT_WIDTH = 70;
-const EXPIRY_INPUT_WIDTH = CVC_INPUT_WIDTH;
-const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
-const CARD_NUMBER_INPUT_WIDTH =
-  Dimensions.get("window").width -
-  EXPIRY_INPUT_WIDTH -
-  CARD_NUMBER_INPUT_WIDTH_OFFSET;
-const NAME_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
-const PREVIOUS_FIELD_OFFSET = 40;
-const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plugin-react/issues/106
 
 /* eslint react/prop-types: 0 */ export default class CreditCardInput extends Component {
   static propTypes = {
@@ -183,13 +171,6 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
       cardScale,
       cardFontFamily,
       cardBrandIcons,
-      horizontal,
-      customWidth: {
-        number: numberWidth,
-        expiry: expiryWidth,
-        cvc: cvcWidth,
-        name: nameWidth,
-      },
     } = this.props;
 
     return (
@@ -209,7 +190,6 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
         />
         <ScrollView
           ref="Form"
-          horizontal={horizontal}
           keyboardShouldPersistTaps="always"
           scrollEnabled={allowScroll}
           showsHorizontalScrollIndicator={false}
@@ -221,7 +201,6 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
             containerStyle={[
               s.inputContainer,
               inputContainerStyle,
-              { width: numberWidth || CARD_NUMBER_INPUT_WIDTH },
             ]}
           />
           <CCInput
@@ -230,7 +209,6 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
             containerStyle={[
               s.inputContainer,
               inputContainerStyle,
-              { width: expiryWidth || EXPIRY_INPUT_WIDTH },
             ]}
           />
           {requiresCVC && (
@@ -240,7 +218,6 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
               containerStyle={[
                 s.inputContainer,
                 inputContainerStyle,
-                { width: cvcWidth || CVC_INPUT_WIDTH },
               ]}
             />
           )}
@@ -250,7 +227,6 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
               containerStyle={[
                 s.inputContainer,
                 inputContainerStyle,
-                { width: nameWidth || NAME_INPUT_WIDTH },
               ]}
             />
           )}
@@ -261,7 +237,6 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
               containerStyle={[
                 s.inputContainer,
                 inputContainerStyle,
-                { width: POSTAL_CODE_INPUT_WIDTH },
               ]}
             />
           )}
