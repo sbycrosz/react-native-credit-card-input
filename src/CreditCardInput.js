@@ -32,7 +32,6 @@ const s = StyleSheet.create({
     height: 40,
   },
 });
-
 /* eslint react/prop-types: 0 */ export default class CreditCardInput extends Component {
   static propTypes = {
     ...InjectedProps,
@@ -98,7 +97,6 @@ const s = StyleSheet.create({
   _focus = (field) => {
     if (!field) return;
 
-    const scrollResponder = this.refs.Form.getScrollResponder();
     const nodeHandle = ReactNative.findNodeHandle(this.refs[field]);
 
     NativeModules.UIManager.measureLayoutRelativeToParent(
@@ -107,10 +105,6 @@ const s = StyleSheet.create({
         throw e;
       },
       (x) => {
-        scrollResponder.scrollTo({
-          x: Math.max(x - PREVIOUS_FIELD_OFFSET, 0),
-          animated: true,
-        });
         this.refs[field].focus();
       }
     );
