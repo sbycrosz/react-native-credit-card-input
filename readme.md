@@ -126,6 +126,7 @@ LiteCreditCardInput does not support `requiresName`, `requiresCVC`, and `require
 | Property | Type | Description |
 | --- | --- | --- |
 |focused | PropTypes.string | Determines the front face of the card|
+|clickable | PropTypes.bool | Determines if the card flips when it is touched|
 |brand | PropTypes.string | Brand of the credit card|
 |name | PropTypes.string | Cardholder's name (Use empty string if you need to hide the placeholder) |
 |number | PropTypes.string | Credit card number (you'll need to the formatting yourself) |

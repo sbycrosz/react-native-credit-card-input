@@ -79,6 +79,7 @@ const s = StyleSheet.create({
 export default class CardView extends Component {
   static propTypes = {
     focused: PropTypes.string,
+    clickable: PropTypes.bool,
 
     brand: PropTypes.string,
     name: PropTypes.string,
@@ -110,7 +111,7 @@ export default class CardView extends Component {
   };
 
   render() {
-    const { focused,
+    const { focused, clickable,
       brand, name, number, expiry, cvc, customIcons,
       placeholder, imageFront, imageBack, scale, fontFamily } = this.props;
 
@@ -131,7 +132,7 @@ export default class CardView extends Component {
           flipVertical={false}
           friction={10}
           perspective={2000}
-          clickable={false}
+          clickable={clickable || false}
           flip={shouldFlip}>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
             source={imageFront}>
