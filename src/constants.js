@@ -49,7 +49,7 @@ const VISA_CARD_TYPE = {
   type: "visa",
   patterns: [4, 4026, 417500, 4405, 4508, 4844, 4913, 4917],
   gaps: [4, 8, 12],
-  lengths: [16, 18, 19],
+  lengths: [16],
   code: {
     name: "CVV",
     size: 3
