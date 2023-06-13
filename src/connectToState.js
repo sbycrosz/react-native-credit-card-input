@@ -26,6 +26,7 @@ export default function connectToState(CreditCardInput) {
       onFocus: PropTypes.func,
       requiresName: PropTypes.bool,
       requiresCVC: PropTypes.bool,
+      requiresExpiryDate: PropTypes.bool,
       requiresPostalCode: PropTypes.bool,
       validatePostalCode: PropTypes.func,
     };
