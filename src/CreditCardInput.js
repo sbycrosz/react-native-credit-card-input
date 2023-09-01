@@ -149,7 +149,8 @@ export default class CreditCardInput extends Component {
 
     return (
       <View style={s.container}>
-        <CreditCard focused={focused}
+        <CreditCard
+          focused={focused}
           brand={type}
           scale={cardScale}
           fontFamily={cardFontFamily}
@@ -167,6 +168,7 @@ export default class CreditCardInput extends Component {
           showsHorizontalScrollIndicator={false}
           style={s.form}>
           <CCInput {...this._inputProps("number")}
+            value={this.props.number}
             keyboardType="numeric"
             containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
           {requireExpireDate && <CCInput {...this._inputProps("expiry")}
