@@ -30,6 +30,7 @@ const s = StyleSheet.create({
   },
   input: {
     height: 40,
+    width: "100%",
   },
 });
 
@@ -114,7 +115,7 @@ export default class CreditCardInput extends Component {
       });
   }
 
-  _inputProps = field => {
+  _inputProps = (field, lang) => {
     const {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
@@ -123,13 +124,13 @@ export default class CreditCardInput extends Component {
     } = this.props;
 
     return {
-      inputStyle: [s.input, inputStyle],
-      labelStyle: [s.inputLabel, labelStyle],
+      inputStyle: [s.input, inputStyle, { textAlign: lang == 'ar' ? 'right' : 'left' }],
+      labelStyle: [s.inputLabel, labelStyle, { textAlign: lang == 'ar' ? 'right' : 'left' }],
       validColor, invalidColor, placeholderColor,
       ref: field, field,
 
       label: labels[field],
-      placeholder: placeholders[field],
+      placeholder: placeholders[field, { textAlign: lang == 'ar' ? 'right' : 'left' }],
       value: values[field],
       status: status[field],
 
@@ -146,7 +147,6 @@ export default class CreditCardInput extends Component {
       allowScroll, requireExpireDate, requiresName, requiresCVC, requiresPostalCode,
       cardScale, cardFontFamily, cardBrandIcons,
     } = this.props;
-
     return (
       <View style={s.container}>
         <CreditCard
@@ -167,7 +167,7 @@ export default class CreditCardInput extends Component {
           scrollEnabled={allowScroll}
           showsHorizontalScrollIndicator={false}
           style={s.form}>
-          <CCInput {...this._inputProps("number")}
+          <CCInput {...this._inputProps("number", this.props.lang)}
             value={this.props.number}
             keyboardType="numeric"
             containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
