@@ -6,8 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  ViewPropTypes,
 } from "react-native";
+import { ViewPropTypes } from "deprecated-react-native-prop-types";
 
 const s = StyleSheet.create({
   baseInputStyle: {
