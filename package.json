@@ -64,6 +64,10 @@
     "@react-native/eslint-config": "^0.73.1",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^29.5.5",
+    "@types/lodash": "^4.17.6",
+    "@types/lodash.every": "^4.6.9",
+    "@types/lodash.pick": "^4.4.9",
+    "@types/lodash.values": "^4.3.9",
     "@types/react": "^18.2.44",
     "commitlint": "^17.0.2",
     "del-cli": "^5.1.0",
@@ -133,7 +137,8 @@
           "singleQuote": true,
           "tabWidth": 2,
           "trailingComma": "es5",
-          "useTabs": false
+          "useTabs": false,
+          "singleAttributePerLine": true
         }
       ]
     }
@@ -142,13 +147,6 @@
     "node_modules/",
     "lib/"
   ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
-  },
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
@@ -176,5 +174,13 @@
   "create-react-native-library": {
     "type": "library",
     "version": "0.38.1"
+  },
+  "dependencies": {
+    "card-validator": "^10.0.0",
+    "lodash.compact": "^3.0.1",
+    "lodash.every": "^4.6.0",
+    "lodash.pick": "^4.4.0",
+    "lodash.values": "^4.3.0",
+    "react-native-flip-card": "^3.5.7"
   }
 }

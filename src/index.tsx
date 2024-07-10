@@ -1,3 +1,8 @@
-export function multiply(a: number, b: number): Promise<number> {
-  return Promise.resolve(a * b);
-}
+import connectToState from './connectToState';
+import CCF from './CreditCardInput';
+import LiteCCF from './LiteCreditCardInput';
+import CV from './CardView';
+
+export const CreditCardInput = connectToState(CCF);
+export const LiteCreditCardInput = LiteCCF;
+export const CardView = CV;
