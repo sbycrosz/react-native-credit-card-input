@@ -9,6 +9,8 @@ export type CreditCardIssuer =
   | 'discover'
   | 'jcb';
 
+export type CreditCardFormField = 'number' | 'expiry' | 'cvc';
+
 export type CreditCardFormValues = {
   number: string;
   expiry: string;
@@ -16,7 +18,8 @@ export type CreditCardFormValues = {
   type?: CreditCardIssuer;
 };
 
-type ValidationState = 'incomplete' | 'invalid' | 'valid';
+export type ValidationState = 'incomplete' | 'invalid' | 'valid';
+
 export type CreditCardFormState = {
   number: ValidationState;
   expiry: ValidationState;
@@ -103,7 +106,7 @@ export const useCreditCardForm = (
   });
 
   const onChangeValue = useCallback(
-    (field: 'number' | 'expiry' | 'cvc', value: string) => {
+    (field: CreditCardFormField, value: string) => {
       const newValues = {
         ...values,
         [field]: value,

@@ -1,22 +1,29 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useState } from 'react';
-import { Switch, Text, View } from 'react-native';
+import { ScrollView, Switch, Text, View } from 'react-native';
 import {
+  CardView,
   CreditCardInput,
   LiteCreditCardInput,
+  type CreditCardFormData,
+  type ValidationState,
 } from 'react-native-credit-card-input';
-import type { CreditCardFormData } from '../../src/useCreditCardForm';
+
+const toStatusIcon = (status?: ValidationState) =>
+  status === 'valid' ? '✅' : status === 'invalid' ? '❌' : '❓';
 
 export default function Example() {
-  const [useLiteInput, setUseLiteInput] = useState(true);
+  const [useLiteInput, setUseLiteInput] = useState(false);
 
   const [formData, setFormData] = useState<CreditCardFormData>();
 
   return (
-    <View
+    <ScrollView
+      contentContainerStyle={{
+        maxWidth: 600,
+      }}
       style={{
         marginTop: 60,
-        maxWidth: 400,
       }}
     >
       <View
@@ -32,24 +39,17 @@ export default function Example() {
             marginTop: 20,
             marginBottom: 20,
           }}
-          onValueChange={setUseLiteInput}
+          onValueChange={(v) => {
+            setUseLiteInput(v);
+            setFormData(undefined);
+          }}
           value={useLiteInput}
         />
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: 600,
-            marginLeft: 10,
-          }}
-        >
-          Lite Input
-        </Text>
       </View>
-
       {useLiteInput ? (
         <LiteCreditCardInput
           autoFocus
-          style={{ backgroundColor: '#dfdfdf', marginVertical: 10 }}
+          style={{ backgroundColor: '#f0f0f0', marginVertical: 10 }}
           inputStyle={{ color: 'black' }}
           placeholderColor={'darkgray'}
           onChange={setFormData}
@@ -57,16 +57,9 @@ export default function Example() {
       ) : (
         <CreditCardInput
           autoFocus
-          labelStyle={{
-            fontSize: 16,
-            color: 'black',
-          }}
-          inputStyle={{
-            fontSize: 16,
-            color: 'black',
-          }}
-          validColor={'black'}
-          invalidColor={'red'}
+          style={{ backgroundColor: '#f0f0f0', marginVertical: 10 }}
+          labelStyle={{ color: 'black' }}
+          inputStyle={{ color: '#333' }}
           placeholderColor={'darkgray'}
           onChange={setFormData}
         />
@@ -83,39 +76,32 @@ export default function Example() {
         <Text style={{ fontFamily: 'courier' }}>
           {formData?.valid
             ? '✅ Possibly valid card'
-            : '❌ Invalid/incomplete card'}
+            : '❌ Invalid/Incomplete card'}
         </Text>
 
         <Text style={{ fontFamily: 'courier' }}>
-          {formData?.status.number === 'valid'
-            ? '✅'
-            : formData?.status.number === 'invalid'
-              ? '❌'
-              : '❓'}
+          {toStatusIcon(formData?.status.number)}
           {' Number\t: '}
           {formData?.values.number}
         </Text>
 
         <Text style={{ fontFamily: 'courier' }}>
-          {formData?.status.expiry === 'valid'
-            ? '✅'
-            : formData?.status.expiry === 'invalid'
-              ? '❌'
-              : '❓'}
+          {toStatusIcon(formData?.status.expiry)}
           {' Expiry\t: '}
           {formData?.values.expiry}
         </Text>
 
         <Text style={{ fontFamily: 'courier' }}>
-          {formData?.status.cvc === 'valid'
-            ? '✅'
-            : formData?.status.cvc === 'invalid'
-              ? '❌'
-              : '❓'}
+          {toStatusIcon(formData?.status.cvc)}
           {' Cvc   \t: '}
           {formData?.values.cvc}
         </Text>
+
+        <Text style={{ fontFamily: 'courier' }}>
+          {'ℹ️ Type\t: '}
+          {formData?.values.type}
+        </Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
