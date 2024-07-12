@@ -69,6 +69,7 @@
     "@types/lodash.pick": "^4.4.9",
     "@types/lodash.values": "^4.3.9",
     "@types/react": "^18.2.44",
+    "@types/react-native-flip-card": "^3.5.7",
     "commitlint": "^17.0.2",
     "del-cli": "^5.1.0",
     "eslint": "^8.51.0",

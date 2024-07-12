@@ -23,9 +23,11 @@ export default function Example() {
   return (
     <ScrollView
       contentContainerStyle={{
+        width: '100%',
         maxWidth: 600,
-      }}
-      style={{
+        marginHorizontal: 'auto',
+        backgroundColor: '#f0f0f0',
+        borderRadius: 10,
         marginTop: 60,
       }}
     >
@@ -56,13 +58,21 @@ export default function Example() {
         number={formData?.values.number}
         expiry={formData?.values.expiry}
         cvc={formData?.values.cvc}
-        style={{ alignSelf: 'center', marginTop: 15 }}
+        style={{
+          alignSelf: 'center',
+          marginTop: 15,
+        }}
       />
 
       {useLiteInput ? (
         <LiteCreditCardInput
           autoFocus
-          style={{ backgroundColor: '#f0f0f0', marginVertical: 15 }}
+          style={{
+            marginTop: 15,
+            borderColor: '#fff',
+            borderTopWidth: 1,
+            borderBottomWidth: 1,
+          }}
           inputStyle={{ color: 'black' }}
           placeholderColor={'darkgray'}
           onChange={setFormData}
@@ -71,7 +81,9 @@ export default function Example() {
       ) : (
         <CreditCardInput
           autoFocus
-          style={{ backgroundColor: '#f0f0f0', marginVertical: 15 }}
+          style={{
+            marginTop: 15,
+          }}
           labelStyle={{ color: 'black' }}
           inputStyle={{ color: '#333' }}
           placeholderColor={'darkgray'}
