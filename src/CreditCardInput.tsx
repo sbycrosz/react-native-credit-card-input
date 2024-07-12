@@ -10,6 +10,7 @@ import {
 import {
   useCreditCardForm,
   type CreditCardFormData,
+  type CreditCardFormField,
 } from './useCreditCardForm';
 
 interface Props {
@@ -29,6 +30,7 @@ interface Props {
     cvc: string;
   };
   onChange: (formData: CreditCardFormData) => void;
+  onFocusField?: (field: CreditCardFormField) => void;
 }
 
 const s = StyleSheet.create({
@@ -86,6 +88,7 @@ const CreditCardInput = (props: Props) => {
       cvc: 'CVC',
     },
     onChange = () => {},
+    onFocusField = () => {},
   } = props;
 
   const { values, onChangeValue } = useCreditCardForm(onChange);
@@ -108,6 +111,7 @@ const CreditCardInput = (props: Props) => {
           placeholder={placeholders.number}
           value={values.number}
           onChangeText={(v) => onChangeValue('number', v)}
+          onFocus={() => onFocusField('number')}
           autoCorrect={false}
           underlineColorAndroid={'transparent'}
         />
@@ -123,6 +127,7 @@ const CreditCardInput = (props: Props) => {
             placeholder={placeholders.expiry}
             value={values.expiry}
             onChangeText={(v) => onChangeValue('expiry', v)}
+            onFocus={() => onFocusField('expiry')}
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
           />
@@ -137,6 +142,7 @@ const CreditCardInput = (props: Props) => {
             placeholder={placeholders.cvc}
             value={values.cvc}
             onChangeText={(v) => onChangeValue('cvc', v)}
+            onFocus={() => onFocusField('cvc')}
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
           />

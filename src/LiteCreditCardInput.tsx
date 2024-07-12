@@ -13,6 +13,7 @@ import Icons from './Icons';
 import {
   useCreditCardForm,
   type CreditCardFormData,
+  type CreditCardFormField,
 } from './useCreditCardForm';
 
 interface Props {
@@ -20,7 +21,13 @@ interface Props {
   style?: ViewStyle;
   inputStyle?: TextStyle;
   placeholderColor: string;
-  onChange: (formData: CreditCardFormData) => void;
+  placeholders?: {
+    number: string;
+    expiry: string;
+    cvc: string;
+  };
+  onChange?: (formData: CreditCardFormData) => void;
+  onFocusField?: (field: CreditCardFormField) => void;
 }
 
 const s = StyleSheet.create({
@@ -75,11 +82,17 @@ const s = StyleSheet.create({
 
 const LiteCreditCardInput = (props: Props) => {
   const {
-    autoFocus,
+    autoFocus = false,
     style,
     inputStyle,
     placeholderColor,
+    placeholders = {
+      number: '1234 5678 1234 5678',
+      expiry: 'MM/YY',
+      cvc: 'CVC',
+    },
     onChange = () => {},
+    onFocusField = () => {},
   } = props;
 
   const _onChange = (formData: CreditCardFormData): void => {
@@ -127,9 +140,12 @@ const LiteCreditCardInput = (props: Props) => {
             keyboardType="numeric"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
-            placeholder="1234 5678 1234 5678"
+            placeholder={placeholders.number}
             value={values.number}
             onChangeText={(v) => onChangeValue('number', v)}
+            onFocus={() => onFocusField('number')}
+            autoCorrect={false}
+            underlineColorAndroid={'transparent'}
           />
         </View>
       </View>
@@ -170,9 +186,12 @@ const LiteCreditCardInput = (props: Props) => {
             keyboardType="numeric"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
-            placeholder="MM/YY"
+            placeholder={placeholders.expiry}
             value={values.expiry}
             onChangeText={(v) => onChangeValue('expiry', v)}
+            onFocus={() => onFocusField('expiry')}
+            autoCorrect={false}
+            underlineColorAndroid={'transparent'}
           />
         </View>
 
@@ -182,9 +201,12 @@ const LiteCreditCardInput = (props: Props) => {
             keyboardType="numeric"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
-            placeholder="CVC"
+            placeholder={placeholders.cvc}
             value={values.cvc}
             onChangeText={(v) => onChangeValue('cvc', v)}
+            onFocus={() => onFocusField('cvc')}
+            autoCorrect={false}
+            underlineColorAndroid={'transparent'}
           />
         </View>
       </View>

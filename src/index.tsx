@@ -1,4 +1,4 @@
-export { default as CardView } from './CardView';
+export { default as CreditCardView } from './CreditCardView';
 export { default as CreditCardInput } from './CreditCardInput';
 export { default as LiteCreditCardInput } from './LiteCreditCardInput';
 

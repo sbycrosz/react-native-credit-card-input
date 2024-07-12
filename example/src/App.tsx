@@ -2,10 +2,11 @@
 import { useState } from 'react';
 import { ScrollView, Switch, Text, View } from 'react-native';
 import {
-  CardView,
+  CreditCardView,
   CreditCardInput,
   LiteCreditCardInput,
   type CreditCardFormData,
+  type CreditCardFormField,
   type ValidationState,
 } from 'react-native-credit-card-input';
 
@@ -14,6 +15,8 @@ const toStatusIcon = (status?: ValidationState) =>
 
 export default function Example() {
   const [useLiteInput, setUseLiteInput] = useState(false);
+
+  const [focusedField, setFocusedField] = useState<CreditCardFormField>();
 
   const [formData, setFormData] = useState<CreditCardFormData>();
 
@@ -46,22 +49,34 @@ export default function Example() {
           value={useLiteInput}
         />
       </View>
+
+      <CreditCardView
+        focusedField={focusedField}
+        type={formData?.values.type}
+        number={formData?.values.number}
+        expiry={formData?.values.expiry}
+        cvc={formData?.values.cvc}
+        style={{ alignSelf: 'center', marginTop: 15 }}
+      />
+
       {useLiteInput ? (
         <LiteCreditCardInput
           autoFocus
-          style={{ backgroundColor: '#f0f0f0', marginVertical: 10 }}
+          style={{ backgroundColor: '#f0f0f0', marginVertical: 15 }}
           inputStyle={{ color: 'black' }}
           placeholderColor={'darkgray'}
           onChange={setFormData}
+          onFocusField={setFocusedField}
         />
       ) : (
         <CreditCardInput
           autoFocus
-          style={{ backgroundColor: '#f0f0f0', marginVertical: 10 }}
+          style={{ backgroundColor: '#f0f0f0', marginVertical: 15 }}
           labelStyle={{ color: 'black' }}
           inputStyle={{ color: '#333' }}
           placeholderColor={'darkgray'}
           onChange={setFormData}
+          onFocusField={setFocusedField}
         />
       )}
 
