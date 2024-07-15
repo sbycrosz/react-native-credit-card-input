@@ -64,10 +64,6 @@
     "@react-native/eslint-config": "^0.73.1",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^29.5.5",
-    "@types/lodash": "^4.17.6",
-    "@types/lodash.every": "^4.6.9",
-    "@types/lodash.pick": "^4.4.9",
-    "@types/lodash.values": "^4.3.9",
     "@types/react": "^18.2.44",
     "@types/react-native-flip-card": "^3.5.7",
     "commitlint": "^17.0.2",
@@ -178,10 +174,6 @@
   },
   "dependencies": {
     "card-validator": "^10.0.0",
-    "lodash.compact": "^3.0.1",
-    "lodash.every": "^4.6.0",
-    "lodash.pick": "^4.4.0",
-    "lodash.values": "^4.3.0",
     "react-native-flip-card": "^3.5.7"
   }
 }
