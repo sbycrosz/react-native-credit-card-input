@@ -18,7 +18,7 @@ interface Props {
   style?: ViewStyle;
   labelStyle?: TextStyle;
   inputStyle?: TextStyle;
-  placeholderColor: string;
+  placeholderColor?: string;
   labels?: {
     number: string;
     expiry: string;
@@ -59,7 +59,6 @@ const s = StyleSheet.create({
   input: {
     height: 40,
     fontSize: 16,
-    color: 'darkgray',
     borderBottomColor: 'darkgray',
     borderBottomWidth: 1,
     // @ts-expect-error outlineWidth is used to hide the text-input outline on react-native-web
@@ -68,7 +67,6 @@ const s = StyleSheet.create({
   inputLabel: {
     fontSize: 14,
     fontWeight: 600,
-    color: 'black',
   },
 });
 
@@ -78,7 +76,7 @@ const CreditCardInput = (props: Props) => {
     style,
     labelStyle,
     inputStyle,
-    placeholderColor,
+    placeholderColor = 'darkgray',
     labels = {
       number: 'CARD NUMBER',
       expiry: 'EXPIRY',

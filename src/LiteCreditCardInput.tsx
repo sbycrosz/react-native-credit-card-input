@@ -20,7 +20,7 @@ interface Props {
   autoFocus?: boolean;
   style?: ViewStyle;
   inputStyle?: TextStyle;
-  placeholderColor: string;
+  placeholderColor?: string;
   placeholders?: {
     number: string;
     expiry: string;
@@ -76,7 +76,6 @@ const s = StyleSheet.create({
   input: {
     height: 40,
     fontSize: 16,
-    color: 'black',
     // @ts-expect-error outlineWidth is used to hide the text-input outline on react-native-web
     outlineWidth: 0,
   },
@@ -87,7 +86,7 @@ const LiteCreditCardInput = (props: Props) => {
     autoFocus = false,
     style,
     inputStyle,
-    placeholderColor,
+    placeholderColor = 'darkgray',
     placeholders = {
       number: '1234 5678 1234 5678',
       expiry: 'MM/YY',
