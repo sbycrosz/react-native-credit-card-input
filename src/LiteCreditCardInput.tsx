@@ -28,6 +28,7 @@ interface Props {
   };
   onChange?: (formData: CreditCardFormData) => void;
   onFocusField?: (field: CreditCardFormField) => void;
+  testID?: string;
 }
 
 const s = StyleSheet.create({
@@ -94,6 +95,7 @@ const LiteCreditCardInput = (props: Props) => {
     },
     onChange = () => {},
     onFocusField = () => {},
+    testID,
   } = props;
 
   const _onChange = (formData: CreditCardFormData): void => {
@@ -133,7 +135,10 @@ const LiteCreditCardInput = (props: Props) => {
   }, [values.type]);
 
   return (
-    <View style={[s.container, style]}>
+    <View
+      style={[s.container, style]}
+      testID={testID}
+    >
       <View style={[s.leftPart, showRightPart ? s.hidden : s.expanded]}>
         <View style={[s.numberInput]}>
           <TextInput
@@ -147,6 +152,7 @@ const LiteCreditCardInput = (props: Props) => {
             onFocus={() => onFocusField('number')}
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
+            testID="CC_NUMBER"
           />
         </View>
       </View>
@@ -193,6 +199,7 @@ const LiteCreditCardInput = (props: Props) => {
             onFocus={() => onFocusField('expiry')}
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
+            testID="CC_EXPIRY"
           />
         </View>
 
@@ -208,6 +215,7 @@ const LiteCreditCardInput = (props: Props) => {
             onFocus={() => onFocusField('cvc')}
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
+            testID="CC_CVC"
           />
         </View>
       </View>

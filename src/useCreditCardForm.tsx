@@ -138,7 +138,6 @@ export const useCreditCardForm = (
           cardValidator.expirationDate(newFormattedValues.expiry)
         ),
         cvc: toStatus(cardValidator.cvv(newFormattedValues.cvc, cvcMaxLength)),
-        type: numberValidation.card?.type,
       };
 
       setValues(newFormattedValues);
