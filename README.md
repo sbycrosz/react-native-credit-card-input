@@ -1,6 +1,7 @@
 
 # React Native Credit Card Input - Finally updated in 2024!
-Easy (and good looking) credit-card input for your React Native Project 💳 💳 
+[Example on Expo Snack](https://snack.expo.io/@sbycrosz/react-native-credit-card-example) - Easy (and good looking) credit-card input for your React Native Project 💳 💳 
+
 
 <p align="center">
 <img src="https://github.com/sbycrosz/react-native-credit-card-input/blob/main/previews/ccinput.gif?raw=true" width=150/>
@@ -17,7 +18,7 @@ Code:
 
 # Features
 * Skeuomorphic credit-card 💳 
-* Lite version for smaller screens (or if skeuomorphic is not really your thing)
+* Lite version for smaller screens / compact layout
 * Credit-card input validations & formatting while you're typing
 * Form is fully navigatable using keypad
 * Works on both Android, iOS **and Web!**
@@ -33,9 +34,9 @@ then add these lines in your react-native codebase
 ```js
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
-<CreditCardInput />
+<CreditCardInput onChange={_onChange} />
 // or
-<LiteCreditCardInput />
+<LiteCreditCardInput onChange={_onChange} />
 
 // Note: You'll need to enable LayoutAnimation on android to see LiteCreditCardInput's animations
 // UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -64,6 +65,29 @@ _onChange => form => console.log(form);
 };
 
 ```
+
+# Example
+
+[Expo Snack](https://snack.expo.io/@sbycrosz/react-native-credit-card-example)
+
+Or run it locally 
+
+```bash
+yarn install
+
+yarn example ios
+# or
+yarn example android
+# or
+yarn example web
+```
+
+# Should I used this in my project?
+
+- Yes, if you need a quick credit card input component for your project or proof of concept.
+- Yes, if the current UI/component fit your use case
+- Otherwise, you're probably better off using [your favorite form library](https://react-hook-form.com/) and implementing the validation with the [card-validator](https://www.npmjs.com/package/card-validator) package!
+
 
 # Components
 
@@ -107,26 +131,3 @@ _onChange => form => console.log(form);
 | `fontFamily`      | `string`                                                  | Optional. Custom font family for the text.                      |
 | `imageFront`      | `ImageSourcePropType`                                     | Optional. Image source for the front of the credit card.        |
 | `imageBack`       | `ImageSourcePropType`                                     | Optional. Image source for the back of the credit card.         |
-
-# Example
-
-[Expo Snack](https://snack.expo.io/@sbycrosz/react-native-credit-card-example)
-
-Or run it locally 
-
-```bash
-yarn install
-
-yarn example ios
-# or
-yarn example android
-# or
-yarn example web
-```
-
-# Should I used this in my project?
-
-- Yes, if you need a quick credit card input component for your project or proof of concept.
-- Yes, if the current UI/component fit your use case
-- Otherwise, you're probably better off using [your favorite form library](https://react-hook-form.com/) and implementing the validation with the [card-validator](https://www.npmjs.com/package/card-validator) package!
-
