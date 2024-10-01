@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,7 +17,12 @@ interface Props {
   autoFocus?: boolean;
   style?: ViewStyle;
   labelStyle?: TextStyle;
-  inputStyle?: TextStyle;
+  numberInputStyle?: TextStyle;
+  expiryInputStyle?: TextStyle;
+  cvcInputStyle?: TextStyle;
+  numberInputRef?: RefObject<TextInput>;
+  expiryInputRef?: RefObject<TextInput>;
+  cvcInputRef?: RefObject<TextInput>;
   placeholderColor?: string;
   labels?: {
     number: string;
@@ -76,7 +81,12 @@ const CreditCardInput = (props: Props) => {
     autoFocus,
     style,
     labelStyle,
-    inputStyle,
+    numberInputStyle,
+    expiryInputStyle,
+    cvcInputStyle,
+    numberInputRef,
+    expiryInputRef,
+    cvcInputRef,
     placeholderColor = 'darkgray',
     labels = {
       number: 'CARD NUMBER',
@@ -98,7 +108,11 @@ const CreditCardInput = (props: Props) => {
   const numberInput = useRef<TextInput>(null);
 
   useEffect(() => {
-    if (autoFocus) numberInput.current?.focus();
+    if (autoFocus) {
+      (numberInputRef)
+        ? numberInputRef.current?.focus()
+        : numberInput.current?.focus();
+    }
   }, [autoFocus]);
 
   return (
@@ -109,9 +123,9 @@ const CreditCardInput = (props: Props) => {
       <View style={[s.numberInput]}>
         <Text style={[s.inputLabel, labelStyle]}>{labels.number}</Text>
         <TextInput
-          ref={numberInput}
+          ref={numberInputRef || numberInput}
           keyboardType="numeric"
-          style={[s.input, inputStyle]}
+          style={[s.input, numberInputStyle]}
           placeholderTextColor={placeholderColor}
           placeholder={placeholders.number}
           value={values.number}
@@ -127,8 +141,9 @@ const CreditCardInput = (props: Props) => {
         <View style={s.expiryInputContainer}>
           <Text style={[s.inputLabel, labelStyle]}>{labels.expiry}</Text>
           <TextInput
+            ref={expiryInputRef}
             keyboardType="numeric"
-            style={[s.input, inputStyle]}
+            style={[s.input, expiryInputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.expiry}
             value={values.expiry}
@@ -143,8 +158,9 @@ const CreditCardInput = (props: Props) => {
         <View style={s.cvcInputContainer}>
           <Text style={[s.inputLabel, labelStyle]}>{labels.cvc}</Text>
           <TextInput
+            ref={cvcInputRef}
             keyboardType="numeric"
-            style={[s.input, inputStyle]}
+            style={[s.input, cvcInputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.cvc}
             value={values.cvc}

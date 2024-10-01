@@ -96,7 +96,12 @@ yarn example web
 |--------------------|-------------------------------------------|---------------------------------------------------------------|
 | `autoFocus`        | `boolean`                                 | Optional. Specifies if the input should auto-focus.            |
 | `style`            | `ViewStyle`                               | Optional. Custom style for the component's container.          |
-| `inputStyle`       | `TextStyle`                               | Optional. Custom style for the input fields.                   |
+| `numberInputStyle` | `TextStyle`                               | Optional. Custom style for the card number input field.             |
+| `expiryInputStyle` | `TextStyle`                               | Optional. Custom style for the expiry input field.             |
+| `cvcInputStyle`    | `TextStyle`                               | Optional. Custom style for the CVC input field.                    |
+| `numberInputRef`   | `Ref<TextInput>`                          | Optional. Reference object for the card number input field.        |
+| `expiryInputRef`   | `Ref<TextInput>`                          | Optional. Reference object for the expiry input field.             |
+| `cvcInputRef`      | `Ref<TextInput>`                          | Optional. Reference object for the CVC input field.                |
 | `placeholderColor` | `string`                                  | Optional. Color for the placeholder text.                      |
 | `placeholders`     | `{ number: string; expiry: string; cvc: string; }` | Optional. Custom placeholders for the input fields.            |
 | `onChange`         | `(formData: CreditCardFormData) => void`  | Required. Callback function called when form data changes.     |
@@ -108,7 +113,12 @@ yarn example web
 | `autoFocus`        | `boolean`                                 | Optional. Specifies if the input should auto-focus.            |
 | `style`            | `ViewStyle`                               | Optional. Custom style for the component's container.          |
 | `labelStyle`       | `TextStyle`                               | Optional. Custom style for the labels.                         |
-| `inputStyle`       | `TextStyle`                               | Optional. Custom style for the input fields.                   |
+| `numberInputStyle` | `TextStyle`                               | Optional. Custom style for the card number input field.             |
+| `expiryInputStyle` | `TextStyle`                               | Optional. Custom style for the expiry input field.             |
+| `cvcInputStyle`    | `TextStyle`                               | Optional. Custom style for the CVC input field.                    |
+| `numberInputRef`   | `Ref<TextInput>`                          | Optional. Reference object for the card number input field.        |
+| `expiryInputRef`   | `Ref<TextInput>`                          | Optional. Reference object for the expiry input field.             |
+| `cvcInputRef`      | `Ref<TextInput>`                          | Optional. Reference object for the CVC input field.                |
 | `placeholderColor` | `string`                                  | Optional. Color for the placeholder text.                      |
 | `labels`           | `{ number: string; expiry: string; cvc: string; }` | Optional. Custom labels for the input fields.                  |
 | `placeholders`     | `{ number: string; expiry: string; cvc: string; }` | Optional. Custom placeholders for the input fields.            |
