@@ -106,6 +106,7 @@ interface Props {
   fontFamily?: string;
   imageFront?: ImageSourcePropType;
   imageBack?: ImageSourcePropType;
+  monthYearLabel?: string;
 }
 
 const CreditCardView = (props: Props) => {
@@ -130,6 +131,7 @@ const CreditCardView = (props: Props) => {
       web: 'monospace',
     }),
     style,
+    monthYearLabel,
   } = props;
 
   const isAmex = type === 'american-express';
@@ -195,7 +197,7 @@ const CreditCardView = (props: Props) => {
               focusedField === 'expiry' && s.focusedField,
             ]}
           >
-            MONTH/YEAR
+            {monthYearLabel || 'MONTH/YEAR'}
           </Text>
           <Text
             style={[
