@@ -36,6 +36,7 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint_fix": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "clean": "del-cli lib",
     "prepare": "bob build",
     "release": "release-it"
