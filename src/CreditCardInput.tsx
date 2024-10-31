@@ -69,6 +69,10 @@ const s = StyleSheet.create({
     fontSize: 14,
     fontWeight: 600,
   },
+  invalidInput: {
+    borderBottomColor: 'red',
+    borderBottomWidth: 1,
+  },
 });
 
 const CreditCardInput = (props: Props) => {
@@ -93,7 +97,11 @@ const CreditCardInput = (props: Props) => {
     testID,
   } = props;
 
-  const { values, onChangeValue } = useCreditCardForm(onChange);
+  const {
+    values,
+    errors: formErrors,
+    onChangeValue,
+  } = useCreditCardForm(onChange);
 
   const numberInput = useRef<TextInput>(null);
 
@@ -111,7 +119,11 @@ const CreditCardInput = (props: Props) => {
         <TextInput
           ref={numberInput}
           keyboardType="numeric"
-          style={[s.input, inputStyle]}
+          style={[
+            s.input,
+            inputStyle,
+            formErrors.number ? s.invalidInput : null, // Use formErrors
+          ]}
           placeholderTextColor={placeholderColor}
           placeholder={placeholders.number}
           value={values.number}
@@ -120,6 +132,8 @@ const CreditCardInput = (props: Props) => {
           autoCorrect={false}
           underlineColorAndroid={'transparent'}
           testID="CC_NUMBER"
+          textContentType="creditCardNumber" // Enable auto-suggestion on iOS
+          autoComplete="cc-number" // Enable auto-suggestion on Android
         />
       </View>
 
@@ -128,7 +142,11 @@ const CreditCardInput = (props: Props) => {
           <Text style={[s.inputLabel, labelStyle]}>{labels.expiry}</Text>
           <TextInput
             keyboardType="numeric"
-            style={[s.input, inputStyle]}
+            style={[
+              s.input,
+              inputStyle,
+              formErrors.expiry ? s.invalidInput : null, // Use formErrors
+            ]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.expiry}
             value={values.expiry}
@@ -144,7 +162,11 @@ const CreditCardInput = (props: Props) => {
           <Text style={[s.inputLabel, labelStyle]}>{labels.cvc}</Text>
           <TextInput
             keyboardType="numeric"
-            style={[s.input, inputStyle]}
+            style={[
+              s.input,
+              inputStyle,
+              formErrors.cvc ? s.invalidInput : null, // Use formErrors
+            ]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.cvc}
             value={values.cvc}
