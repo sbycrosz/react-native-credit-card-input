@@ -32,6 +32,12 @@ export type CreditCardFormData = {
   status: CreditCardFormState;
 };
 
+export type CreditCardFormErrors = {
+  number?: boolean;
+  expiry?: boolean;
+  cvc?: boolean;
+};
+
 // --- Utilities
 
 const toStatus = (validation: {
@@ -105,6 +111,8 @@ export const useCreditCardForm = (
     type: undefined,
   });
 
+  const [errors, setErrors] = useState<CreditCardFormErrors>({});
+
   const onChangeValue = useCallback(
     (field: CreditCardFormField, value: string) => {
       const newValues = {
@@ -140,6 +148,14 @@ export const useCreditCardForm = (
         cvc: toStatus(cardValidator.cvv(newFormattedValues.cvc, cvcMaxLength)),
       };
 
+      const newErrors = {
+        number: newFormState.number === 'invalid',
+        expiry: newFormState.expiry === 'invalid',
+        cvc: newFormState.cvc === 'invalid',
+      };
+
+      setErrors(newErrors);
+
       setValues(newFormattedValues);
       setFormState(newFormState);
 
@@ -158,6 +174,7 @@ export const useCreditCardForm = (
   return {
     values,
     status: formState,
+    errors,
     onChangeValue,
   };
 };
