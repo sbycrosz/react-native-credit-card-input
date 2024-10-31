@@ -83,6 +83,7 @@ export default function Example() {
         expiry={formData?.values.expiry}
         cvc={formData?.values.cvc}
         style={s.cardView}
+        monthYearLabel="Month/Year"
       />
 
       {useLiteInput ? (
