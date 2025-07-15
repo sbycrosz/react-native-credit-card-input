@@ -26,7 +26,7 @@ interface Props {
     expiry: string;
     cvc: string;
   };
-  onChange?: (formData: CreditCardFormData) => void;
+  onChange: (formData: CreditCardFormData) => void;
   onFocusField?: (field: CreditCardFormField) => void;
   testID?: string;
 }
@@ -93,7 +93,7 @@ const LiteCreditCardInput = (props: Props) => {
       expiry: 'MM/YY',
       cvc: 'CVC',
     },
-    onChange = () => {},
+    onChange,
     onFocusField = () => {},
     testID,
   } = props;

@@ -88,7 +88,7 @@ const CreditCardInput = (props: Props) => {
       expiry: 'MM/YY',
       cvc: 'CVC',
     },
-    onChange = () => {},
+    onChange,
     onFocusField = () => {},
     testID,
   } = props;
