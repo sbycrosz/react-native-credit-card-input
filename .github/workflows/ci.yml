@@ -1,9 +1,13 @@
 name: CI
+
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
+  pull_request_target:
     branches:
       - main
   merge_group:
@@ -36,7 +40,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run unit tests
-        run: yarn test --maxWorkers=2 --coverage
+        run: yarn test --maxWorkers=2 --coverage --ci
 
   build-library:
     runs-on: ubuntu-latest

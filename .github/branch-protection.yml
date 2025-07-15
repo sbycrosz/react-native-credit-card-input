@@ -1,0 +1,21 @@
+# Branch Protection Rules for main branch
+# This file documents the required status checks for pull requests
+
+required_status_checks:
+  strict: true
+  contexts:
+    - 'lint-and-typecheck'
+    - 'test-coverage'
+    - 'build'
+    - 'build-example'
+
+required_pull_request_reviews:
+  required_approving_review_count: 1
+  dismiss_stale_reviews: true
+  require_code_owner_reviews: false
+
+enforce_admins: false
+allow_force_pushes: false
+allow_deletions: false
+
+restrictions: null
