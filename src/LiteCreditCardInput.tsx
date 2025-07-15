@@ -1,10 +1,17 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type RefObject
+} from 'react';
 import {
   Image,
   LayoutAnimation,
+  Pressable,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
   View,
   type TextStyle,
   type ViewStyle,
@@ -19,7 +26,12 @@ import {
 interface Props {
   autoFocus?: boolean;
   style?: ViewStyle;
-  inputStyle?: TextStyle;
+  numberInputStyle?: TextStyle;
+  expiryInputStyle?: TextStyle;
+  cvcInputStyle?: TextStyle;
+  numberInputRef?: RefObject<TextInput>;
+  expiryInputRef?: RefObject<TextInput>;
+  cvcInputRef?: RefObject<TextInput>;
   placeholderColor?: string;
   placeholders?: {
     number: string;
@@ -86,7 +98,12 @@ const LiteCreditCardInput = (props: Props) => {
   const {
     autoFocus = false,
     style,
-    inputStyle,
+    numberInputStyle,
+    expiryInputStyle,
+    cvcInputStyle,
+    numberInputRef,
+    expiryInputRef,
+    cvcInputRef,
     placeholderColor = 'darkgray',
     placeholders = {
       number: '1234 5678 1234 5678',
@@ -100,13 +117,15 @@ const LiteCreditCardInput = (props: Props) => {
 
   const _onChange = (formData: CreditCardFormData): void => {
     // Focus next field when number/expiry field become valid
-    if (status.number !== 'valid' && formData.status.number === 'valid') {
-      toggleFormState();
-      expiryInput.current?.focus();
+    if (status.number !== 'valid' && formData.status.number === 'valid' &&
+      (formData.status.expiry === "incomplete" || formData.status.expiry === "invalid")) {
+        toggleFormState();
+        (expiryInputRef) ? expiryInputRef.current?.focus() : expiryInput.current?.focus();
     }
 
-    if (status.expiry !== 'valid' && formData.status.expiry === 'valid') {
-      cvcInput.current?.focus();
+    if (status.expiry !== 'valid' && formData.status.expiry === 'valid' &&
+      (formData.status.cvc === "incomplete" || formData.status.cvc === "invalid")) {
+        (cvcInputRef) ? cvcInputRef.current?.focus() : cvcInput.current?.focus();
     }
 
     onChange(formData);
@@ -126,7 +145,11 @@ const LiteCreditCardInput = (props: Props) => {
   const cvcInput = useRef<TextInput>(null);
 
   useEffect(() => {
-    if (autoFocus) numberInput.current?.focus();
+    if (autoFocus) {
+      (numberInputRef)
+        ? numberInputRef.current?.focus()
+        : numberInput.current?.focus();
+    }
   }, [autoFocus]);
 
   const cardIcon = useMemo(() => {
@@ -142,9 +165,9 @@ const LiteCreditCardInput = (props: Props) => {
       <View style={[s.leftPart, showRightPart ? s.hidden : s.expanded]}>
         <View style={[s.numberInput]}>
           <TextInput
-            ref={numberInput}
+            ref={numberInputRef || numberInput}
             keyboardType="numeric"
-            style={[s.input, inputStyle]}
+            style={[s.input, numberInputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.number}
             value={values.number}
@@ -157,21 +180,25 @@ const LiteCreditCardInput = (props: Props) => {
         </View>
       </View>
 
-      <TouchableOpacity
-        activeOpacity={0.8}
+      <Pressable
+        style={({ pressed }) => [
+          { opacity: pressed ? 0.8 : 1}
+        ]}
         onPress={toggleFormState}
       >
         <Image
           style={s.icon}
           source={{ uri: cardIcon }}
         />
-      </TouchableOpacity>
+      </Pressable>
 
       <View style={[s.rightPart, showRightPart ? s.expanded : s.hidden]}>
-        <TouchableOpacity
-          activeOpacity={0.8}
+        <Pressable
+          style={({ pressed }) => [
+            s.last4,
+            { opacity: pressed ? 0.8 : 1}
+          ]}
           onPress={toggleFormState}
-          style={s.last4}
         >
           <View pointerEvents={'none'}>
             <TextInput
@@ -185,13 +212,13 @@ const LiteCreditCardInput = (props: Props) => {
               readOnly
             />
           </View>
-        </TouchableOpacity>
+        </Pressable>
 
         <View style={s.expiryInput}>
           <TextInput
-            ref={expiryInput}
+            ref={expiryInputRef || expiryInput}
             keyboardType="numeric"
-            style={[s.input, inputStyle]}
+            style={[s.input, expiryInputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.expiry}
             value={values.expiry}
@@ -205,9 +232,9 @@ const LiteCreditCardInput = (props: Props) => {
 
         <View style={s.cvcInput}>
           <TextInput
-            ref={cvcInput}
+            ref={cvcInputRef || cvcInput}
             keyboardType="numeric"
-            style={[s.input, inputStyle]}
+            style={[s.input, cvcInputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.cvc}
             value={values.cvc}
