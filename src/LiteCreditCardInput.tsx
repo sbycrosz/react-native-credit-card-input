@@ -144,6 +144,7 @@ const LiteCreditCardInput = (props: Props) => {
           <TextInput
             ref={numberInput}
             keyboardType="numeric"
+            autoComplete="cc-number"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.number}
@@ -191,6 +192,7 @@ const LiteCreditCardInput = (props: Props) => {
           <TextInput
             ref={expiryInput}
             keyboardType="numeric"
+            autoComplete="cc-exp"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.expiry}
@@ -207,6 +209,7 @@ const LiteCreditCardInput = (props: Props) => {
           <TextInput
             ref={cvcInput}
             keyboardType="numeric"
+            autoComplete="cc-csc"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.cvc}
