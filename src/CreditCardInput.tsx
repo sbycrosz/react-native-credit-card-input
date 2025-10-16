@@ -111,6 +111,7 @@ const CreditCardInput = (props: Props) => {
         <TextInput
           ref={numberInput}
           keyboardType="numeric"
+          autoComplete="cc-number"
           style={[s.input, inputStyle]}
           placeholderTextColor={placeholderColor}
           placeholder={placeholders.number}
@@ -128,6 +129,7 @@ const CreditCardInput = (props: Props) => {
           <Text style={[s.inputLabel, labelStyle]}>{labels.expiry}</Text>
           <TextInput
             keyboardType="numeric"
+            autoComplete="cc-exp"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.expiry}
@@ -144,6 +146,7 @@ const CreditCardInput = (props: Props) => {
           <Text style={[s.inputLabel, labelStyle]}>{labels.cvc}</Text>
           <TextInput
             keyboardType="numeric"
+            autoComplete="cc-csc"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.cvc}
