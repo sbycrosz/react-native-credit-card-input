@@ -1,0 +1,15 @@
+{
+  "pou": "1.0",
+  "work": "https://github.com/sbycrosz/react-native-credit-card-input",
+  "record": {
+    "path": "PROOF_OF_USAGE.md",
+    "branch": "main",
+    "format": "markdown"
+  },
+  "transports": [
+    {
+      "type": "pull_request"
+    }
+  ],
+  "basis": "licence"
+}
